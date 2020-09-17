@@ -1,0 +1,21 @@
+Name: Threshold pushing
+Author: R.Saarsoo
+Description:
+  Start with a good warm up (10 minutes Zone 1, then 5 minutes Zone 2,
+  5 minutes Zone 3 followed by 5 minutes easy spinning).
+  Then straight in at Threshold Pushing powers for 12 mins.
+  Have 10 mins easy soft pedalling and repeat - warm down 15 minutes.
+  This session is designed to increase your FTP from below.
+  Working predominately aerobic metabolism.
+  In time your body will become more comfortable at these powers
+  and your FTP will increase.
+
+Warmup: 20:00 45%..75%
+
+Rest: 5:00 52%
+Interval: 12:00 100% 90rpm
+Rest: 10:00 52%
+Interval: 12:00 100% 90rpm
+Rest: 10:00 52%
+
+Cooldown: 10:00 65%..45%
