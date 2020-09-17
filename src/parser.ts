@@ -30,8 +30,9 @@ const parseParams = (type: RuleType, text: string): Param[] => {
   switch (type) {
     case RuleType.Name:
     case RuleType.Author:
-    case RuleType.Description:
+    case RuleType.Description: {
       return [{ type: ParamType.Text, value: text }];
+    }
     case RuleType.Warmup:
     case RuleType.Rest:
     case RuleType.Interval:
@@ -40,7 +41,7 @@ const parseParams = (type: RuleType, text: string): Param[] => {
   }
 };
 
-export const parseRule = (line: string): Rule | undefined => {
+const parseRule = (line: string): Rule | undefined => {
   const matches = line.match(/^(\w+):(.*)$/);
   if (!matches) {
     return undefined;
@@ -54,4 +55,22 @@ export const parseRule = (line: string): Rule | undefined => {
     type,
     params: parseParams(type, matches[2].trim()),
   };
+};
+
+export const parseFile = (file: string): Rule[] => {
+  const rules: Rule[] = [];
+
+  file.split("\n").forEach((line) => {
+    const rule = parseRule(line);
+    if (rule) {
+      rules.push(rule);
+      return;
+    }
+    const lastRule = rules[rules.length - 1];
+    if (lastRule && lastRule.type === RuleType.Description) {
+      lastRule.params.push({ type: ParamType.Text, value: line.trim() });
+    }
+  });
+
+  return rules;
 };
