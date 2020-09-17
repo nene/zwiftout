@@ -13,7 +13,7 @@ const parseDefinition = (line: string): Def | undefined => {
   return {
     type: matches[1],
     text: matches[2],
-  }
+  };
 };
 
 const isDefined = <T>(x: T | undefined): x is T => Boolean(x);
@@ -24,7 +24,8 @@ console.log(`Parsing: ${filename}`);
 
 const file = fs.readFileSync(filename, "utf8");
 
-file.split(/\n/)
+file
+  .split(/\n/)
   .map(parseDefinition)
   .filter(isDefined)
   .forEach((def) => console.log(def.type));
