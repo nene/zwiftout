@@ -9,7 +9,7 @@ const toSeconds = (str: string): number => {
   return seconds + minutes * 60 + (hours || 0) * 60 * 60;
 };
 
-const parseValueParam = (text: string): Param => {
+const tokenizeValueParam = (text: string): Param => {
   if (/^[0-9:]+$/.test(text)) {
     return { type: ParamType.Duration, value: toSeconds(text) };
   }
@@ -26,7 +26,7 @@ const parseValueParam = (text: string): Param => {
   throw new Error(`Unrecognized parameter "${text}"`);
 };
 
-const parseParams = (type: RuleType, text: string): Param[] => {
+const tokenizeParams = (type: RuleType, text: string): Param[] => {
   switch (type) {
     case RuleType.Name:
     case RuleType.Author:
@@ -37,11 +37,11 @@ const parseParams = (type: RuleType, text: string): Param[] => {
     case RuleType.Rest:
     case RuleType.Interval:
     case RuleType.Cooldown:
-      return text.split(" ").map(parseValueParam);
+      return text.split(" ").map(tokenizeValueParam);
   }
 };
 
-const parseRule = (line: string): Rule | undefined => {
+const tokenizeRule = (line: string): Rule | undefined => {
   const matches = line.match(/^(\w+):(.*)$/);
   if (!matches) {
     return undefined;
@@ -53,15 +53,15 @@ const parseRule = (line: string): Rule | undefined => {
 
   return {
     type,
-    params: parseParams(type, matches[2].trim()),
+    params: tokenizeParams(type, matches[2].trim()),
   };
 };
 
-export const parseFile = (file: string): Rule[] => {
+export const tokenizeFile = (file: string): Rule[] => {
   const rules: Rule[] = [];
 
   file.split("\n").forEach((line) => {
-    const rule = parseRule(line);
+    const rule = tokenizeRule(line);
     if (rule) {
       rules.push(rule);
       return;
