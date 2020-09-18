@@ -7,12 +7,9 @@ export type Workout = {
   intervals: Interval[];
 };
 
-export type IntervalData = {
+export type Interval = {
+  type: IntervalLabelTokenValue;
   duration: number;
   power: { from: number; to: number };
   cadence?: number;
-};
-
-export type Interval = IntervalData & {
-  type: IntervalLabelTokenValue;
 };

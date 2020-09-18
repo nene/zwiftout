@@ -1,11 +1,7 @@
-import { Interval, IntervalData, Workout } from "./ast";
+import { Interval, Workout } from "./ast";
 import { isIntervalLabelTokenValue, Token } from "./tokenizer";
 
-type Header = {
-  name?: string;
-  author?: string;
-  description?: string;
-};
+type Header = Partial<Omit<Workout, "intervals">>;
 
 const extractText = (tokens: Token[]): [string, Token[]] => {
   let text;
@@ -48,6 +44,8 @@ const parseHeader = (tokens: Token[]): [Header, Token[]] => {
 
   return [header, tokens];
 };
+
+type IntervalData = Omit<Interval, "type">;
 
 const parseIntervalParams = (tokens: Token[]): [IntervalData, Token[]] => {
   const data: Partial<IntervalData> = {};
