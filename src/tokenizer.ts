@@ -97,7 +97,7 @@ const tokenizeRule = (line: string): Token[] => {
   return [labelToken, ...params];
 };
 
-export const tokenizeFile = (file: string): Token[] => {
+export const tokenize = (file: string): Token[] => {
   const tokens: Token[] = [];
 
   file.split("\n").map((line) => {
