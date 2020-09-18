@@ -1,4 +1,41 @@
-import { Param, ParamType, RuleType, Rule } from "./ast";
+export enum RuleType {
+  Name = "Name",
+  Author = "Author",
+  Description = "Description",
+  Warmup = "Warmup",
+  Rest = "Rest",
+  Interval = "Interval",
+  Cooldown = "Cooldown",
+}
+
+export type Rule = {
+  type: RuleType;
+  params: Param[];
+};
+
+export enum ParamType {
+  Text = "Text",
+  Power = "Power",
+  PowerRange = "PowerRange",
+  Cadence = "Cadence",
+  Duration = "Duration",
+}
+
+export type TextParam = { type: ParamType.Text; value: string };
+export type PowerParam = { type: ParamType.Power; value: number };
+export type PowerRangeParam = {
+  type: ParamType.PowerRange;
+  value: [number, number];
+};
+export type CadenceParam = { type: ParamType.Cadence; value: number };
+export type DurationParam = { type: ParamType.Duration; value: number };
+
+export type Param =
+  | TextParam
+  | PowerParam
+  | PowerRangeParam
+  | CadenceParam
+  | DurationParam;
 
 const toInteger = (str: string): number => {
   return parseInt(str.replace(/[^0-9]/, ""), 10);
@@ -58,19 +95,19 @@ const tokenizeRule = (line: string): Rule | undefined => {
 };
 
 export const tokenizeFile = (file: string): Rule[] => {
-  const rules: Rule[] = [];
+  const tokens: Rule[] = [];
 
   file.split("\n").forEach((line) => {
     const rule = tokenizeRule(line);
     if (rule) {
-      rules.push(rule);
+      tokens.push(rule);
       return;
     }
-    const lastRule = rules[rules.length - 1];
-    if (lastRule && lastRule.type === RuleType.Description) {
-      lastRule.params.push({ type: ParamType.Text, value: line.trim() });
+    const lastToken = tokens[tokens.length - 1];
+    if (lastToken && lastToken.type === RuleType.Description) {
+      lastToken.params.push({ type: ParamType.Text, value: line.trim() });
     }
   });
 
-  return rules;
+  return tokens;
 };
