@@ -1,3 +1,5 @@
+import { IntervalLabelTokenValue } from "./tokenizer";
+
 export type Workout = {
   name: string;
   author: string;
@@ -5,9 +7,12 @@ export type Workout = {
   intervals: Interval[];
 };
 
-export type Interval = {
-  type: "Warmup" | "Cooldown" | "Interval" | "Rest";
+export type IntervalData = {
   duration: number;
   power: { from: number; to: number };
   cadence?: number;
+};
+
+export type Interval = IntervalData & {
+  type: IntervalLabelTokenValue;
 };

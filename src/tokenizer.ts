@@ -1,12 +1,25 @@
-export enum LabelTokenValue {
-  Name = "Name",
-  Author = "Author",
-  Description = "Description",
-  Warmup = "Warmup",
-  Rest = "Rest",
-  Interval = "Interval",
-  Cooldown = "Cooldown",
-}
+export type HeaderLabelTokenValue = "Name" | "Author" | "Description";
+export type IntervalLabelTokenValue =
+  | "Warmup"
+  | "Rest"
+  | "Interval"
+  | "Cooldown";
+export type LabelTokenValue = HeaderLabelTokenValue | IntervalLabelTokenValue;
+
+export const isHeaderLabelTokenValue = (
+  value: string
+): value is HeaderLabelTokenValue => {
+  return ["Name", "Author", "Description"].includes(value);
+};
+export const isIntervalLabelTokenValue = (
+  value: string
+): value is IntervalLabelTokenValue => {
+  return ["Warmup", "Rest", "Interval", "Cooldown"].includes(value);
+};
+export const isLabelTokenValue = (value: string): value is LabelTokenValue => {
+  return isHeaderLabelTokenValue(value) || isIntervalLabelTokenValue(value);
+};
+
 export type LabelToken = {
   type: "label";
   value: LabelTokenValue;
@@ -53,15 +66,15 @@ const tokenizeValueParam = (text: string): Token => {
 
 const tokenizeParams = (type: LabelTokenValue, text: string): Token[] => {
   switch (type) {
-    case LabelTokenValue.Name:
-    case LabelTokenValue.Author:
-    case LabelTokenValue.Description: {
+    case "Name":
+    case "Author":
+    case "Description": {
       return [{ type: "text", value: text }];
     }
-    case LabelTokenValue.Warmup:
-    case LabelTokenValue.Rest:
-    case LabelTokenValue.Interval:
-    case LabelTokenValue.Cooldown:
+    case "Warmup":
+    case "Rest":
+    case "Interval":
+    case "Cooldown":
       return text.split(" ").map(tokenizeValueParam);
   }
 };
@@ -71,7 +84,7 @@ const tokenizeRule = (line: string): Token[] => {
   if (!matches) {
     return [{ type: "text", value: line.trim() }];
   }
-  if (!Object.keys(LabelTokenValue).includes(matches[1])) {
+  if (!isLabelTokenValue(matches[1])) {
     return [{ type: "text", value: line.trim() }];
   }
 
