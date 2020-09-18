@@ -17,7 +17,7 @@ const extractText = (tokens: Token[]): [string, Token[]] => {
     }
     tokens.shift();
   }
-  return [text || "", tokens];
+  return [text ? text.trim() : "", tokens];
 };
 
 const parseHeader = (tokens: Token[]): [Header, Token[]] => {
