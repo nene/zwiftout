@@ -1,4 +1,4 @@
-enum LabelTokenValue {
+export enum LabelTokenValue {
   Name = "Name",
   Author = "Author",
   Description = "Description",
@@ -7,23 +7,23 @@ enum LabelTokenValue {
   Interval = "Interval",
   Cooldown = "Cooldown",
 }
-type LabelToken = {
+export type LabelToken = {
   type: "label";
   value: LabelTokenValue;
 };
-type TextToken = {
+export type TextToken = {
   type: "text";
   value: string;
 };
-type NumberToken = {
+export type NumberToken = {
   type: "power" | "cadence" | "duration";
   value: number;
 };
-type PowerRangeToken = {
+export type PowerRangeToken = {
   type: "power-range";
   value: [number, number];
 };
-type Token = LabelToken | TextToken | NumberToken | PowerRangeToken;
+export type Token = LabelToken | TextToken | NumberToken | PowerRangeToken;
 
 const toInteger = (str: string): number => {
   return parseInt(str.replace(/[^0-9]/, ""), 10);
