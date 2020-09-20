@@ -1,5 +1,5 @@
 import { pipe, sum } from "ramda";
-import { Interval } from "./ast";
+import { Interval } from "../ast";
 import { average } from "./average";
 import { intervalsToIntensities } from "./intervalsToIntensities";
 

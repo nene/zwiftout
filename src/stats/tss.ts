@@ -1,4 +1,4 @@
-import { Interval } from "./ast";
+import { Interval } from "../ast";
 
 // Training Stress Score formula from Training and Racing with a Power Meter:
 //

@@ -1,5 +1,5 @@
 import { chain } from "ramda";
-import { Interval } from "./ast";
+import { Interval } from "../ast";
 
 // Converts interval to array of intensity values for each second
 const intervalToIntensities = ({ duration, intensity }: Interval): number[] => {

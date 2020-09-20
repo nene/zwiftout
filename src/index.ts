@@ -1,36 +1,21 @@
 import * as fs from "fs";
-import { averageIntensity } from "./averageIntensity";
 import { generateZwo } from "./generateZwo";
-import { normalizedIntensity } from "./normalizedIntensity";
 import { parse } from "./parser";
+import { stats } from "./stats";
 import { tokenize } from "./tokenizer";
-import { totalDuration } from "./totalDuration";
-import { tss } from "./tss";
-import { tss2 } from "./tss2";
 
-const filename = process.argv[2];
+const opts = { stats: false, filename: "" };
+if (process.argv[2] === "--stats") {
+  opts.stats = true;
+  opts.filename = process.argv[3];
+} else {
+  opts.filename = process.argv[2];
+}
 
-console.log(`Parsing: ${filename}`);
+const workout = parse(tokenize(fs.readFileSync(opts.filename, "utf8")));
 
-const file = fs.readFileSync(filename, "utf8");
-
-const workout = parse(tokenize(file));
-const { intervals } = workout;
-
-const duration = totalDuration(intervals);
-const avgIntensity = averageIntensity(intervals);
-const normIntensity = normalizedIntensity(intervals);
-
-console.log(intervals);
-
-console.log(`
-Total duration: ${(duration / 60).toFixed()} minutes
-
-Average intensity: ${(avgIntensity * 100).toFixed()}%
-Normalized intensity: ${(normIntensity * 100).toFixed()}%
-
-TSS #1: ${tss(intervals).toFixed()}
-TSS #2: ${tss2(duration, normIntensity).toFixed()}
-`);
-
-console.log(generateZwo(workout));
+if (opts.stats) {
+  console.log(stats(workout));
+} else {
+  console.log(generateZwo(workout));
+}
