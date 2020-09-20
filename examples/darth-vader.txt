@@ -1,0 +1,29 @@
+Name: Darth Vader
+Author: HumanPowerPerformance.com
+Description:
+  Sign up for coaching with HumanPowerPerformance.com and get custom workouts and training plans
+
+Warmup: 5:00 55%
+
+Rest: 3:00 82%
+Interval: 00:20 130%
+Rest: 3:00 82%
+Interval: 00:20 130%
+Rest: 3:00 82%
+Interval: 00:20 130%
+Rest: 3:00 82%
+Interval: 00:20 130%
+Rest: 3:00 82%
+Interval: 00:20 130%
+Rest: 3:00 82%
+Interval: 00:20 130%
+Rest: 3:00 82%
+Interval: 00:20 130%
+Rest: 3:00 82%
+Interval: 00:20 130%
+Rest: 3:00 82%
+Interval: 00:20 130%
+Rest: 3:00 82%
+Interval: 00:20 130%
+
+Cooldown: 5:00 55%

@@ -5,6 +5,7 @@
   "scripts": {
     "lint:ts": "tsc --noEmit",
     "test": "ts-node src/index.ts examples/threshold-pushing.txt",
+    "test:2": "ts-node src/index.ts examples/darth-vader.txt",
     "format:js": "prettier --write src/"
   },
   "devDependencies": {
