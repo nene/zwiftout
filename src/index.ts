@@ -13,31 +13,20 @@ console.log(`Parsing: ${filename}`);
 
 const file = fs.readFileSync(filename, "utf8");
 
-const workout = parse(tokenize(file));
+const { intervals } = parse(tokenize(file));
 
-console.log(workout.intervals);
+const duration = totalDuration(intervals);
+const avgIntensity = averageIntensity(intervals);
+const normIntensity = normalizedIntensity(intervals);
 
-console.log();
-console.log("Total TSS: " + tss(workout.intervals).toFixed());
+console.log(intervals);
 
-console.log();
-console.log(
-  `Total duration: ${(totalDuration(workout.intervals) / 60).toFixed()} minutes`
-);
+console.log(`
+Total duration: ${(duration / 60).toFixed()} minutes
 
-console.log();
-console.log(
-  `Average intensity: ${(averageIntensity(workout.intervals) * 100).toFixed()}%`
-);
-console.log(
-  `Normalized intensity: ${(
-    normalizedIntensity(workout.intervals) * 100
-  ).toFixed()}%`
-);
+Average intensity: ${(avgIntensity * 100).toFixed()}%
+Normalized intensity: ${(normIntensity * 100).toFixed()}%
 
-console.log(
-  `TSS: ${tss2(
-    totalDuration(workout.intervals),
-    normalizedIntensity(workout.intervals)
-  )}`
-);
+TSS #1: ${tss(intervals).toFixed()}
+TSS #2: ${tss2(duration, normIntensity).toFixed()}
+`);
