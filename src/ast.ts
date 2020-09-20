@@ -10,6 +10,6 @@ export type Workout = {
 export type Interval = {
   type: IntervalLabelTokenValue;
   duration: number;
-  power: { from: number; to: number };
+  intensity: { from: number; to: number };
   cadence?: number;
 };

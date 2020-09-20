@@ -58,11 +58,11 @@ const parseIntervalParams = (tokens: Token[]): [IntervalData, Token[]] => {
     } else if (token.type === "cadence") {
       data.cadence = token.value;
       tokens.shift();
-    } else if (token.type === "power") {
-      data.power = { from: token.value, to: token.value };
+    } else if (token.type === "intensity") {
+      data.intensity = { from: token.value, to: token.value };
       tokens.shift();
-    } else if (token.type === "power-range") {
-      data.power = { from: token.value[0], to: token.value[1] };
+    } else if (token.type === "intensity-range") {
+      data.intensity = { from: token.value[0], to: token.value[1] };
       tokens.shift();
     } else {
       break;
@@ -72,7 +72,7 @@ const parseIntervalParams = (tokens: Token[]): [IntervalData, Token[]] => {
   if (!("duration" in data)) {
     throw new Error("Duration not specified");
   }
-  if (!("power" in data)) {
+  if (!("intensity" in data)) {
     throw new Error("Power not specified");
   }
 
@@ -85,11 +85,13 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
   while (tokens[0]) {
     const token = tokens.shift() as Token;
     if (token.type === "label" && isIntervalLabelTokenValue(token.value)) {
-      const [{ duration, power, cadence }, rest] = parseIntervalParams(tokens);
+      const [{ duration, intensity, cadence }, rest] = parseIntervalParams(
+        tokens
+      );
       intervals.push({
         type: token.value,
         duration,
-        power,
+        intensity,
         cadence,
       });
       tokens = rest;

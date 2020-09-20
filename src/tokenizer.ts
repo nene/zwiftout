@@ -29,14 +29,14 @@ export type TextToken = {
   value: string;
 };
 export type NumberToken = {
-  type: "power" | "cadence" | "duration";
+  type: "intensity" | "cadence" | "duration";
   value: number;
 };
-export type PowerRangeToken = {
-  type: "power-range";
+export type IntensityRangeToken = {
+  type: "intensity-range";
   value: [number, number];
 };
-export type Token = LabelToken | TextToken | NumberToken | PowerRangeToken;
+export type Token = LabelToken | TextToken | NumberToken | IntensityRangeToken;
 
 const toInteger = (str: string): number => {
   return parseInt(str.replace(/[^0-9]/, ""), 10);
@@ -47,6 +47,8 @@ const toSeconds = (str: string): number => {
   return seconds + minutes * 60 + (hours || 0) * 60 * 60;
 };
 
+const toFraction = (percentage: number): number => percentage / 100;
+
 const tokenizeValueParam = (text: string): Token => {
   if (/^[0-9:]+$/.test(text)) {
     return { type: "duration", value: toSeconds(text) };
@@ -55,11 +57,11 @@ const tokenizeValueParam = (text: string): Token => {
     return { type: "cadence", value: toInteger(text) };
   }
   if (/^[0-9]+%..[0-9]+%$/.test(text)) {
-    const [from, to] = text.split("..").map(toInteger);
-    return { type: "power-range", value: [from, to] };
+    const [from, to] = text.split("..").map(toInteger).map(toFraction);
+    return { type: "intensity-range", value: [from, to] };
   }
   if (/^[0-9]+%$/.test(text)) {
-    return { type: "power", value: toInteger(text) };
+    return { type: "intensity", value: toFraction(toInteger(text)) };
   }
   throw new Error(`Unrecognized parameter "${text}"`);
 };
