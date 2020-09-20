@@ -1,4 +1,6 @@
 import * as fs from "fs";
+import { averageIntensity } from "./average-intensity";
+import { normalizedIntensity } from "./normalized-intensity";
 import { parse } from "./parser";
 import { tokenize } from "./tokenizer";
 import { tss } from "./tss";
@@ -23,3 +25,7 @@ const duration =
   workout.intervals.map(({ duration }) => duration).reduce((a, b) => a + b, 0) /
   60;
 console.log(`Total duration: ${duration} minutes`);
+
+console.log();
+console.log(`Average intensity: ${averageIntensity(workout.intervals)}`);
+console.log(`Normalized intensity: ${normalizedIntensity(workout.intervals)}`);
