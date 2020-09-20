@@ -1,16 +1,6 @@
-import { chain, pipe, sum } from "ramda";
+import { pipe, sum } from "ramda";
 import { Interval } from "./ast";
-
-// Converts interval to array of intensity values for each second
-const intervalToIntensities = ({ duration, intensity }: Interval): number[] => {
-  const seconds = [];
-  const { from, to } = intensity;
-  for (let i = 0; i < duration; i++) {
-    // Intensity in a single second
-    seconds.push(from + (to - from) * (i / duration));
-  }
-  return seconds;
-};
+import { intervalsToIntensities } from "./intervalsToIntensities";
 
 // Starting at the beginning of the data, calculate 30-second rolling average
 const windowSize = 30;
@@ -37,7 +27,7 @@ const average = (arr: number[]) => sum(arr) / arr.length;
 
 export const normalizedIntensity = (intervals: Interval[]): number => {
   return pipe(
-    chain(intervalToIntensities),
+    intervalsToIntensities,
     rollingAverages,
     (averages) => averages.map(fourthPower),
     average,
