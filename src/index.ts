@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import { averageIntensity } from "./averageIntensity";
+import { generateZwo } from "./generateZwo";
 import { normalizedIntensity } from "./normalizedIntensity";
 import { parse } from "./parser";
 import { tokenize } from "./tokenizer";
@@ -13,7 +14,8 @@ console.log(`Parsing: ${filename}`);
 
 const file = fs.readFileSync(filename, "utf8");
 
-const { intervals } = parse(tokenize(file));
+const workout = parse(tokenize(file));
+const { intervals } = workout;
 
 const duration = totalDuration(intervals);
 const avgIntensity = averageIntensity(intervals);
@@ -30,3 +32,5 @@ Normalized intensity: ${(normIntensity * 100).toFixed()}%
 TSS #1: ${tss(intervals).toFixed()}
 TSS #2: ${tss2(duration, normIntensity).toFixed()}
 `);
+
+console.log(generateZwo(workout));
