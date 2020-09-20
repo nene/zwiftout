@@ -3,6 +3,7 @@ import { averageIntensity } from "./average-intensity";
 import { normalizedIntensity } from "./normalized-intensity";
 import { parse } from "./parser";
 import { tokenize } from "./tokenizer";
+import { totalDuration } from "./totalDuration";
 import { tss } from "./tss";
 
 const filename = process.argv[2];
@@ -15,17 +16,20 @@ const workout = parse(tokenize(file));
 
 console.log(workout.intervals);
 
-workout.intervals.forEach((interval, i) => {
-  console.log(`#${i} TSS: ${tss([interval])}`);
-});
-
-console.log("Total TSS: " + tss(workout.intervals));
-
-const duration =
-  workout.intervals.map(({ duration }) => duration).reduce((a, b) => a + b, 0) /
-  60;
-console.log(`Total duration: ${duration} minutes`);
+console.log();
+console.log("Total TSS: " + tss(workout.intervals).toFixed());
 
 console.log();
-console.log(`Average intensity: ${averageIntensity(workout.intervals)}`);
-console.log(`Normalized intensity: ${normalizedIntensity(workout.intervals)}`);
+console.log(
+  `Total duration: ${(totalDuration(workout.intervals) / 60).toFixed()} minutes`
+);
+
+console.log();
+console.log(
+  `Average intensity: ${(averageIntensity(workout.intervals) * 100).toFixed()}%`
+);
+console.log(
+  `Normalized intensity: ${(
+    normalizedIntensity(workout.intervals) * 100
+  ).toFixed()}%`
+);
