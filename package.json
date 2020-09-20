@@ -9,11 +9,13 @@
     "format:js": "prettier --write src/"
   },
   "dependencies": {
-    "ramda": "^0.27.1"
+    "ramda": "^0.27.1",
+    "xml": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "^14.10.3",
     "@types/ramda": "types/npm-ramda#dist",
+    "@types/xml": "^1.0.5",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
