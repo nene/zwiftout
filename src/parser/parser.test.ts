@@ -125,6 +125,18 @@ Cooldown: 5:30 70%..45%
   const parseInterval = (interval: string) =>
     parse(`Name: My Workout\n${interval}`).intervals[0];
 
+  it("requires duration and power parameters to be specified", () => {
+    expect(() =>
+      parseInterval("Interval: 50%")
+    ).toThrowErrorMatchingInlineSnapshot(`"Duration not specified"`);
+    expect(() =>
+      parseInterval("Interval: 30:00")
+    ).toThrowErrorMatchingInlineSnapshot(`"Power not specified"`);
+    expect(() =>
+      parseInterval("Interval: 10rpm")
+    ).toThrowErrorMatchingInlineSnapshot(`"Duration not specified"`);
+  });
+
   it("parses correct duration formats", () => {
     expect(parseInterval("Interval: 0:10 50%").duration).toEqual(10);
     expect(parseInterval("Interval: 00:10 50%").duration).toEqual(10);
