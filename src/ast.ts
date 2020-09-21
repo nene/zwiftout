@@ -1,4 +1,4 @@
-import { IntervalLabelTokenValue } from "./tokenizer";
+import { IntervalLabelTokenValue } from "./parser/tokenizer";
 
 export type Workout = {
   name: string;

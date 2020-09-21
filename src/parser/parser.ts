@@ -1,4 +1,4 @@
-import { Interval, Workout } from "./ast";
+import { Interval, Workout } from "../ast";
 import { isIntervalLabelTokenValue, Token } from "./tokenizer";
 
 type Header = Partial<Omit<Workout, "intervals">>;
@@ -105,7 +105,7 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
   return intervals;
 };
 
-export const parse = (tokens: Token[]): Workout => {
+export const parseTokens = (tokens: Token[]): Workout => {
   const [header, intervalTokens] = parseHeader(tokens);
   return {
     name: header.name || "",

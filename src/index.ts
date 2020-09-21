@@ -2,7 +2,6 @@ import * as fs from "fs";
 import { generateZwo } from "./generateZwo";
 import { parse } from "./parser";
 import { stats } from "./stats";
-import { tokenize } from "./tokenizer";
 
 const opts = { stats: false, filename: "" };
 if (process.argv[2] === "--stats") {
@@ -12,7 +11,7 @@ if (process.argv[2] === "--stats") {
   opts.filename = process.argv[2];
 }
 
-const workout = parse(tokenize(fs.readFileSync(opts.filename, "utf8")));
+const workout = parse(fs.readFileSync(opts.filename, "utf8"));
 
 if (opts.stats) {
   console.log(stats(workout));
