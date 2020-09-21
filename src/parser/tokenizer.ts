@@ -1,21 +1,13 @@
 import { ParseError } from "./ParseError";
 
 export type HeaderLabelTokenValue = "Name" | "Author" | "Description";
-export type IntervalLabelTokenValue =
-  | "Warmup"
-  | "Rest"
-  | "Interval"
-  | "Cooldown";
+export type IntervalLabelTokenValue = "Warmup" | "Rest" | "Interval" | "Cooldown";
 export type LabelTokenValue = HeaderLabelTokenValue | IntervalLabelTokenValue;
 
-export const isHeaderLabelTokenValue = (
-  value: string
-): value is HeaderLabelTokenValue => {
+export const isHeaderLabelTokenValue = (value: string): value is HeaderLabelTokenValue => {
   return ["Name", "Author", "Description"].includes(value);
 };
-export const isIntervalLabelTokenValue = (
-  value: string
-): value is IntervalLabelTokenValue => {
+export const isIntervalLabelTokenValue = (value: string): value is IntervalLabelTokenValue => {
   return ["Warmup", "Rest", "Interval", "Cooldown"].includes(value);
 };
 export const isLabelTokenValue = (value: string): value is LabelTokenValue => {
@@ -78,11 +70,7 @@ const tokenizeValueParam = (text: string, loc: SourceLocation): Token => {
   throw new ParseError(`Unrecognized interval parameter "${text}"`, loc);
 };
 
-const tokenizeParams = (
-  type: LabelTokenValue,
-  text: string,
-  loc: SourceLocation
-): Token[] => {
+const tokenizeParams = (type: LabelTokenValue, text: string, loc: SourceLocation): Token[] => {
   switch (type) {
     case "Name":
     case "Author":

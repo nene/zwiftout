@@ -51,10 +51,7 @@ const parseHeader = (tokens: Token[]): [Header, Token[]] => {
 
 type IntervalData = Omit<Interval, "type">;
 
-const parseIntervalParams = (
-  tokens: Token[],
-  loc: SourceLocation
-): [IntervalData, Token[]] => {
+const parseIntervalParams = (tokens: Token[], loc: SourceLocation): [IntervalData, Token[]] => {
   const data: Partial<IntervalData> = {};
 
   while (tokens[0]) {
@@ -92,10 +89,7 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
   while (tokens[0]) {
     const token = tokens.shift() as Token;
     if (token.type === "label" && isIntervalLabelTokenValue(token.value)) {
-      const [{ duration, intensity, cadence }, rest] = parseIntervalParams(
-        tokens,
-        token.loc
-      );
+      const [{ duration, intensity, cadence }, rest] = parseIntervalParams(tokens, token.loc);
       intervals.push({
         type: token.value,
         duration,
@@ -106,10 +100,7 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
     } else if (token.type === "text" && token.value === "") {
       // Ignore empty lines
     } else {
-      throw new ParseError(
-        `Unexpected token [${token.type} ${token.value}]`,
-        token.loc
-      );
+      throw new ParseError(`Unexpected token [${token.type} ${token.value}]`, token.loc);
     }
   }
 
@@ -120,10 +111,7 @@ export const parseTokens = (tokens: Token[]): Workout => {
   const [header, intervalTokens] = parseHeader(tokens);
 
   if (header.name === undefined) {
-    throw new ParseError(
-      "Workout is missing a name. Use `Name:` to declare one.",
-      { row: 0, col: 0 }
-    );
+    throw new ParseError("Workout is missing a name. Use `Name:` to declare one.", { row: 0, col: 0 });
   }
 
   return {

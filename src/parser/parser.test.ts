@@ -122,23 +122,16 @@ Cooldown: 5:30 70%..45%
     `);
   });
 
-  const parseInterval = (interval: string) =>
-    parse(`Name: My Workout\n${interval}`).intervals[0];
+  const parseInterval = (interval: string) => parse(`Name: My Workout\n${interval}`).intervals[0];
 
   it("requires duration and power parameters to be specified", () => {
-    expect(() =>
-      parseInterval("Interval: 50%")
-    ).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseInterval("Interval: 50%")).toThrowErrorMatchingInlineSnapshot(
       `"Duration not specified at line 2 char 1"`
     );
-    expect(() =>
-      parseInterval("Interval: 30:00")
-    ).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseInterval("Interval: 30:00")).toThrowErrorMatchingInlineSnapshot(
       `"Power not specified at line 2 char 1"`
     );
-    expect(() =>
-      parseInterval("Interval: 10rpm")
-    ).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseInterval("Interval: 10rpm")).toThrowErrorMatchingInlineSnapshot(
       `"Duration not specified at line 2 char 1"`
     );
   });
@@ -180,8 +173,7 @@ Cooldown: 5:30 70%..45%
   });
 
   it("allows whitespace between interval parameters", () => {
-    expect(parseInterval("Interval:  50%  00:10  100rpm"))
-      .toMatchInlineSnapshot(`
+    expect(parseInterval("Interval:  50%  00:10  100rpm")).toMatchInlineSnapshot(`
       Object {
         "cadence": 100,
         "duration": 10,
@@ -192,8 +184,7 @@ Cooldown: 5:30 70%..45%
         "type": "Interval",
       }
     `);
-    expect(parseInterval("Interval: \t 50% \t 00:10 \t\t 100rpm \t"))
-      .toMatchInlineSnapshot(`
+    expect(parseInterval("Interval: \t 50% \t 00:10 \t\t 100rpm \t")).toMatchInlineSnapshot(`
       Object {
         "cadence": 100,
         "duration": 10,
@@ -218,50 +209,34 @@ Cooldown: 5:30 70%..45%
   });
 
   it("throws error for incorrect duration formats", () => {
-    expect(() =>
-      parseInterval("Interval: 10 50%")
-    ).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseInterval("Interval: 10 50%")).toThrowErrorMatchingInlineSnapshot(
       `"Unrecognized interval parameter \\"10\\" at line 2 char 11"`
     );
-    expect(() =>
-      parseInterval("Interval: :10 50%")
-    ).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseInterval("Interval: :10 50%")).toThrowErrorMatchingInlineSnapshot(
       `"Unrecognized interval parameter \\":10\\" at line 2 char 11"`
     );
-    expect(() =>
-      parseInterval("Interval: 0:100 50%")
-    ).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseInterval("Interval: 0:100 50%")).toThrowErrorMatchingInlineSnapshot(
       `"Unrecognized interval parameter \\"0:100\\" at line 2 char 11"`
     );
-    expect(() =>
-      parseInterval("Interval: 00:00:00:10 50%")
-    ).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseInterval("Interval: 00:00:00:10 50%")).toThrowErrorMatchingInlineSnapshot(
       `"Unrecognized interval parameter \\"00:00:00:10\\" at line 2 char 11"`
     );
   });
 
   it("throws error for unexpected interval parameter", () => {
-    expect(() =>
-      parseInterval("Interval: 10:00 50% foobar")
-    ).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseInterval("Interval: 10:00 50% foobar")).toThrowErrorMatchingInlineSnapshot(
       `"Unrecognized interval parameter \\"foobar\\" at line 2 char 21"`
     );
-    expect(() =>
-      parseInterval("Interval: 10:00 50% 123blah")
-    ).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseInterval("Interval: 10:00 50% 123blah")).toThrowErrorMatchingInlineSnapshot(
       `"Unrecognized interval parameter \\"123blah\\" at line 2 char 21"`
     );
-    expect(() =>
-      parseInterval("Interval: 10:00 50% ^*&")
-    ).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseInterval("Interval: 10:00 50% ^*&")).toThrowErrorMatchingInlineSnapshot(
       `"Unrecognized interval parameter \\"^*&\\" at line 2 char 21"`
     );
   });
 
   it("throws error for unexpected type of interval", () => {
-    expect(() =>
-      parseInterval("Interval: 30:00 5% \n CustomInterval: 15:00 10%")
-    ).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseInterval("Interval: 30:00 5% \n CustomInterval: 15:00 10%")).toThrowErrorMatchingInlineSnapshot(
       `"Unexpected token [text CustomInterval: 15:00 10%] at line 3 char 1"`
     );
   });

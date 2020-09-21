@@ -21,11 +21,7 @@ const generateRangeInterval = (
   };
 };
 
-const generateSteadyStateInterval = ({
-  duration,
-  intensity,
-  cadence,
-}: Interval): xml.XmlObject => {
+const generateSteadyStateInterval = ({ duration, intensity, cadence }: Interval): xml.XmlObject => {
   return {
     SteadyState: [
       {
@@ -50,12 +46,7 @@ const generateInterval = (interval: Interval): xml.XmlObject => {
   }
 };
 
-export const generateZwo = ({
-  name,
-  author,
-  description,
-  intervals,
-}: Workout): string => {
+export const generateZwo = ({ name, author, description, intervals }: Workout): string => {
   return xml(
     {
       workout_file: [
