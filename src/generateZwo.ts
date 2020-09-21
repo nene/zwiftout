@@ -5,7 +5,7 @@ import { Interval, Workout } from "./ast";
 
 const generateRangeInterval = (
   tagName: "Warmup" | "Cooldown",
-  { duration, intensity, cadence }: Interval
+  { duration, intensity, cadence }: Interval,
 ): xml.XmlObject => {
   return {
     [tagName]: [
@@ -57,6 +57,6 @@ export const generateZwo = ({ name, author, description, intervals }: Workout): 
         ...intervals.map(generateInterval),
       ],
     },
-    { indent: "  " }
+    { indent: "  " },
   );
 };

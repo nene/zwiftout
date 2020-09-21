@@ -30,6 +30,6 @@ export const normalizedIntensity = (intervals: Interval[]): number => {
     rollingAverages,
     (averages) => averages.map(fourthPower),
     average,
-    fourthRoot
+    fourthRoot,
   )(intervals);
 };
