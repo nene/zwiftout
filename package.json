@@ -5,9 +5,10 @@
   "scripts": {
     "lint:ts": "tsc --noEmit",
     "lint:js": "eslint src/**/* .eslintrc.js",
-    "test": "ts-node src/index.ts examples/threshold-pushing.txt",
+    "test": "jest",
+    "test:1": "ts-node src/index.ts examples/threshold-pushing.txt",
     "test:2": "ts-node src/index.ts examples/darth-vader.txt",
-    "test:stats": "ts-node src/index.ts --stats examples/threshold-pushing.txt",
+    "test:stats:1": "ts-node src/index.ts --stats examples/threshold-pushing.txt",
     "test:stats:2": "ts-node src/index.ts --stats examples/darth-vader.txt",
     "format:js": "prettier --write src/"
   },
@@ -16,6 +17,7 @@
     "xml": "^1.0.1"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.14",
     "@types/node": "^14.10.3",
     "@types/ramda": "types/npm-ramda#dist",
     "@types/xml": "^1.0.5",
@@ -24,8 +26,10 @@
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^4.3.0",
+    "jest": "^26.4.2",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
+    "ts-jest": "^26.4.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
   },
