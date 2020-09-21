@@ -24,7 +24,8 @@ describe("Parser", () => {
 
   it("parses workout header with all fields", () => {
     expect(
-      parse(`Name: My Workout
+      parse(`
+Name: My Workout
 Author: John Doe
 Description:
   It's a great workout.

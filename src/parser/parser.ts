@@ -21,7 +21,10 @@ const parseHeader = (tokens: Token[]): [Header, Token[]] => {
 
   while (tokens[0]) {
     const token = tokens[0];
-    if (token.type === "label" && token.value === "Name") {
+    if (token.type === "text" && token.value === "") {
+      // Ignore empty lines before header
+      tokens.shift();
+    } else if (token.type === "label" && token.value === "Name") {
       tokens.shift();
       const [name, rest] = extractText(tokens);
       header.name = name;
