@@ -1,3 +1,5 @@
+import { ParseError } from "./ParseError";
+
 export type HeaderLabelTokenValue = "Name" | "Author" | "Description";
 export type IntervalLabelTokenValue =
   | "Warmup"
@@ -73,7 +75,7 @@ const tokenizeValueParam = (text: string, loc: SourceLocation): Token => {
   if (/^[0-9]+%$/.test(text)) {
     return { type: "intensity", value: toFraction(toInteger(text)), loc };
   }
-  throw new Error(`Unrecognized interval parameter "${text}"`);
+  throw new ParseError(`Unrecognized interval parameter "${text}"`, loc);
 };
 
 const tokenizeParams = (

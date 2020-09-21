@@ -1,5 +1,6 @@
 import { Interval, Workout } from "../ast";
-import { isIntervalLabelTokenValue, Token } from "./tokenizer";
+import { ParseError } from "./ParseError";
+import { isIntervalLabelTokenValue, SourceLocation, Token } from "./tokenizer";
 
 type Header = Partial<Omit<Workout, "intervals">>;
 
@@ -50,7 +51,10 @@ const parseHeader = (tokens: Token[]): [Header, Token[]] => {
 
 type IntervalData = Omit<Interval, "type">;
 
-const parseIntervalParams = (tokens: Token[]): [IntervalData, Token[]] => {
+const parseIntervalParams = (
+  tokens: Token[],
+  loc: SourceLocation
+): [IntervalData, Token[]] => {
   const data: Partial<IntervalData> = {};
 
   while (tokens[0]) {
@@ -73,10 +77,10 @@ const parseIntervalParams = (tokens: Token[]): [IntervalData, Token[]] => {
   }
 
   if (!("duration" in data)) {
-    throw new Error("Duration not specified");
+    throw new ParseError("Duration not specified", loc);
   }
   if (!("intensity" in data)) {
-    throw new Error("Power not specified");
+    throw new ParseError("Power not specified", loc);
   }
 
   return [data as IntervalData, tokens];
@@ -89,7 +93,8 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
     const token = tokens.shift() as Token;
     if (token.type === "label" && isIntervalLabelTokenValue(token.value)) {
       const [{ duration, intensity, cadence }, rest] = parseIntervalParams(
-        tokens
+        tokens,
+        token.loc
       );
       intervals.push({
         type: token.value,
@@ -101,7 +106,10 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
     } else if (token.type === "text" && token.value === "") {
       // Ignore empty lines
     } else {
-      throw new Error(`Unexpected token [${token.type} ${token.value}]`);
+      throw new ParseError(
+        `Unexpected token [${token.type} ${token.value}]`,
+        token.loc
+      );
     }
   }
 
@@ -112,7 +120,10 @@ export const parseTokens = (tokens: Token[]): Workout => {
   const [header, intervalTokens] = parseHeader(tokens);
 
   if (header.name === undefined) {
-    throw new Error("Workout is missing a name. Use `Name:` to declare one.");
+    throw new ParseError(
+      "Workout is missing a name. Use `Name:` to declare one.",
+      { row: 0, col: 0 }
+    );
   }
 
   return {

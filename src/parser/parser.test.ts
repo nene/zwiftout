@@ -3,11 +3,11 @@ import { parse } from ".";
 describe("Parser", () => {
   it("throws error for empty file", () => {
     expect(() => parse("")).toThrowErrorMatchingInlineSnapshot(
-      `"Workout is missing a name. Use \`Name:\` to declare one."`
+      `"Workout is missing a name. Use \`Name:\` to declare one. at line 1 char 1"`
     );
 
     expect(() => parse("  \n  \n \t")).toThrowErrorMatchingInlineSnapshot(
-      `"Workout is missing a name. Use \`Name:\` to declare one."`
+      `"Workout is missing a name. Use \`Name:\` to declare one. at line 1 char 1"`
     );
   });
 
@@ -128,13 +128,19 @@ Cooldown: 5:30 70%..45%
   it("requires duration and power parameters to be specified", () => {
     expect(() =>
       parseInterval("Interval: 50%")
-    ).toThrowErrorMatchingInlineSnapshot(`"Duration not specified"`);
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Duration not specified at line 2 char 1"`
+    );
     expect(() =>
       parseInterval("Interval: 30:00")
-    ).toThrowErrorMatchingInlineSnapshot(`"Power not specified"`);
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Power not specified at line 2 char 1"`
+    );
     expect(() =>
       parseInterval("Interval: 10rpm")
-    ).toThrowErrorMatchingInlineSnapshot(`"Duration not specified"`);
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Duration not specified at line 2 char 1"`
+    );
   });
 
   it("allows any order for interval parameters", () => {
@@ -215,22 +221,22 @@ Cooldown: 5:30 70%..45%
     expect(() =>
       parseInterval("Interval: 10 50%")
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unrecognized interval parameter \\"10\\""`
+      `"Unrecognized interval parameter \\"10\\" at line 2 char 11"`
     );
     expect(() =>
       parseInterval("Interval: :10 50%")
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unrecognized interval parameter \\":10\\""`
+      `"Unrecognized interval parameter \\":10\\" at line 2 char 11"`
     );
     expect(() =>
       parseInterval("Interval: 0:100 50%")
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unrecognized interval parameter \\"0:100\\""`
+      `"Unrecognized interval parameter \\"0:100\\" at line 2 char 11"`
     );
     expect(() =>
       parseInterval("Interval: 00:00:00:10 50%")
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unrecognized interval parameter \\"00:00:00:10\\""`
+      `"Unrecognized interval parameter \\"00:00:00:10\\" at line 2 char 11"`
     );
   });
 
@@ -238,17 +244,17 @@ Cooldown: 5:30 70%..45%
     expect(() =>
       parseInterval("Interval: 10:00 50% foobar")
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unrecognized interval parameter \\"foobar\\""`
+      `"Unrecognized interval parameter \\"foobar\\" at line 2 char 21"`
     );
     expect(() =>
       parseInterval("Interval: 10:00 50% 123blah")
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unrecognized interval parameter \\"123blah\\""`
+      `"Unrecognized interval parameter \\"123blah\\" at line 2 char 21"`
     );
     expect(() =>
       parseInterval("Interval: 10:00 50% ^*&")
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unrecognized interval parameter \\"^*&\\""`
+      `"Unrecognized interval parameter \\"^*&\\" at line 2 char 21"`
     );
   });
 
@@ -256,7 +262,7 @@ Cooldown: 5:30 70%..45%
     expect(() =>
       parseInterval("Interval: 30:00 5% \n CustomInterval: 15:00 10%")
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unexpected token [text CustomInterval: 15:00 10%]"`
+      `"Unexpected token [text CustomInterval: 15:00 10%] at line 3 char 1"`
     );
   });
 });
