@@ -16,7 +16,7 @@ const rangeTss = (duration: number, from: number, to: number): number => {
   let score = 0;
   const step = 1;
   for (let i = 0; i < duration; i += step) {
-    let intensity = from + (to - from) * (i / duration);
+    const intensity = from + (to - from) * (i / duration);
     score += steadyTss(step, intensity);
   }
   return score;
