@@ -148,6 +148,42 @@ Cooldown: 5:30 70%..45%
     expect(parseInterval("Interval: 10:00:00 50%").duration).toEqual(36000);
   });
 
+  it("allows any order for interval parameters", () => {
+    expect(parseInterval("Interval: 50% 00:10")).toMatchInlineSnapshot(`
+      Object {
+        "cadence": undefined,
+        "duration": 10,
+        "intensity": Object {
+          "from": 0.5,
+          "to": 0.5,
+        },
+        "type": "Interval",
+      }
+    `);
+    expect(parseInterval("Interval: 50% 100rpm 00:10")).toMatchInlineSnapshot(`
+      Object {
+        "cadence": 100,
+        "duration": 10,
+        "intensity": Object {
+          "from": 0.5,
+          "to": 0.5,
+        },
+        "type": "Interval",
+      }
+    `);
+    expect(parseInterval("Interval: 100rpm 00:10 50%")).toMatchInlineSnapshot(`
+      Object {
+        "cadence": 100,
+        "duration": 10,
+        "intensity": Object {
+          "from": 0.5,
+          "to": 0.5,
+        },
+        "type": "Interval",
+      }
+    `);
+  });
+
   it("throws error for incorrect duration formats", () => {
     expect(() =>
       parseInterval("Interval: 10 50%")
@@ -168,6 +204,32 @@ Cooldown: 5:30 70%..45%
       parseInterval("Interval: 00:00:00:10 50%")
     ).toThrowErrorMatchingInlineSnapshot(
       `"Unrecognized interval parameter \\"00:00:00:10\\""`
+    );
+  });
+
+  it("throws error for unexpected interval parameter", () => {
+    expect(() =>
+      parseInterval("Interval: 10:00 50% foobar")
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unrecognized interval parameter \\"foobar\\""`
+    );
+    expect(() =>
+      parseInterval("Interval: 10:00 50% 123blah")
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unrecognized interval parameter \\"123blah\\""`
+    );
+    expect(() =>
+      parseInterval("Interval: 10:00 50% ^*&")
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unrecognized interval parameter \\"^*&\\""`
+    );
+  });
+
+  it("throws error for unexpected type of interval", () => {
+    expect(() =>
+      parseInterval("Interval: 30:00 5% \n CustomInterval: 15:00 10%")
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unexpected token [text CustomInterval: 15:00 10%]"`
     );
   });
 });
