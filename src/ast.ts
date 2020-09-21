@@ -12,4 +12,10 @@ export type Interval = {
   duration: number;
   intensity: { from: number; to: number };
   cadence?: number;
+  comments: Comment[];
+};
+
+export type Comment = {
+  offset: number;
+  text: string;
 };

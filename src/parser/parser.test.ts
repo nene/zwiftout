@@ -61,6 +61,7 @@ Rest: 5:00 45%
       Array [
         Object {
           "cadence": undefined,
+          "comments": Array [],
           "duration": 300,
           "intensity": Object {
             "from": 0.5,
@@ -70,6 +71,7 @@ Rest: 5:00 45%
         },
         Object {
           "cadence": 90,
+          "comments": Array [],
           "duration": 600,
           "intensity": Object {
             "from": 0.8,
@@ -79,6 +81,7 @@ Rest: 5:00 45%
         },
         Object {
           "cadence": undefined,
+          "comments": Array [],
           "duration": 300,
           "intensity": Object {
             "from": 0.45,
@@ -102,6 +105,7 @@ Cooldown: 5:30 70%..45%
       Array [
         Object {
           "cadence": 100,
+          "comments": Array [],
           "duration": 330,
           "intensity": Object {
             "from": 0.5,
@@ -111,6 +115,7 @@ Cooldown: 5:30 70%..45%
         },
         Object {
           "cadence": undefined,
+          "comments": Array [],
           "duration": 330,
           "intensity": Object {
             "from": 0.7,
@@ -140,6 +145,7 @@ Cooldown: 5:30 70%..45%
     expect(parseInterval("Interval: 50% 00:10")).toMatchInlineSnapshot(`
       Object {
         "cadence": undefined,
+        "comments": Array [],
         "duration": 10,
         "intensity": Object {
           "from": 0.5,
@@ -151,6 +157,7 @@ Cooldown: 5:30 70%..45%
     expect(parseInterval("Interval: 50% 100rpm 00:10")).toMatchInlineSnapshot(`
       Object {
         "cadence": 100,
+        "comments": Array [],
         "duration": 10,
         "intensity": Object {
           "from": 0.5,
@@ -162,6 +169,7 @@ Cooldown: 5:30 70%..45%
     expect(parseInterval("Interval: 100rpm 00:10 50%")).toMatchInlineSnapshot(`
       Object {
         "cadence": 100,
+        "comments": Array [],
         "duration": 10,
         "intensity": Object {
           "from": 0.5,
@@ -176,6 +184,7 @@ Cooldown: 5:30 70%..45%
     expect(parseInterval("Interval:  50%  00:10  100rpm")).toMatchInlineSnapshot(`
       Object {
         "cadence": 100,
+        "comments": Array [],
         "duration": 10,
         "intensity": Object {
           "from": 0.5,
@@ -187,6 +196,7 @@ Cooldown: 5:30 70%..45%
     expect(parseInterval("Interval: \t 50% \t 00:10 \t\t 100rpm \t")).toMatchInlineSnapshot(`
       Object {
         "cadence": 100,
+        "comments": Array [],
         "duration": 10,
         "intensity": Object {
           "from": 0.5,

@@ -95,6 +95,7 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
         duration,
         intensity,
         cadence,
+        comments: [],
       });
       tokens = rest;
     } else if (token.type === "text" && token.value === "") {
