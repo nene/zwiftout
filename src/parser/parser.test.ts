@@ -137,17 +137,6 @@ Cooldown: 5:30 70%..45%
     ).toThrowErrorMatchingInlineSnapshot(`"Duration not specified"`);
   });
 
-  it("parses correct duration formats", () => {
-    expect(parseInterval("Interval: 0:10 50%").duration).toEqual(10);
-    expect(parseInterval("Interval: 00:10 50%").duration).toEqual(10);
-    expect(parseInterval("Interval: 0:00:10 50%").duration).toEqual(10);
-    expect(parseInterval("Interval: 0:02:05 50%").duration).toEqual(125);
-    expect(parseInterval("Interval: 1:00:00 50%").duration).toEqual(3600);
-    expect(parseInterval("Interval: 1:00:0 50%").duration).toEqual(3600);
-    expect(parseInterval("Interval: 1:0:0 50%").duration).toEqual(3600);
-    expect(parseInterval("Interval: 10:00:00 50%").duration).toEqual(36000);
-  });
-
   it("allows any order for interval parameters", () => {
     expect(parseInterval("Interval: 50% 00:10")).toMatchInlineSnapshot(`
       Object {
@@ -182,6 +171,44 @@ Cooldown: 5:30 70%..45%
         "type": "Interval",
       }
     `);
+  });
+
+  it("allows whitespace between interval parameters", () => {
+    expect(parseInterval("Interval:  50%  00:10  100rpm"))
+      .toMatchInlineSnapshot(`
+      Object {
+        "cadence": 100,
+        "duration": 10,
+        "intensity": Object {
+          "from": 0.5,
+          "to": 0.5,
+        },
+        "type": "Interval",
+      }
+    `);
+    expect(parseInterval("Interval: \t 50% \t 00:10 \t\t 100rpm \t"))
+      .toMatchInlineSnapshot(`
+      Object {
+        "cadence": 100,
+        "duration": 10,
+        "intensity": Object {
+          "from": 0.5,
+          "to": 0.5,
+        },
+        "type": "Interval",
+      }
+    `);
+  });
+
+  it("parses correct duration formats", () => {
+    expect(parseInterval("Interval: 0:10 50%").duration).toEqual(10);
+    expect(parseInterval("Interval: 00:10 50%").duration).toEqual(10);
+    expect(parseInterval("Interval: 0:00:10 50%").duration).toEqual(10);
+    expect(parseInterval("Interval: 0:02:05 50%").duration).toEqual(125);
+    expect(parseInterval("Interval: 1:00:00 50%").duration).toEqual(3600);
+    expect(parseInterval("Interval: 1:00:0 50%").duration).toEqual(3600);
+    expect(parseInterval("Interval: 1:0:0 50%").duration).toEqual(3600);
+    expect(parseInterval("Interval: 10:00:00 50%").duration).toEqual(36000);
   });
 
   it("throws error for incorrect duration formats", () => {

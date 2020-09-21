@@ -77,7 +77,7 @@ const tokenizeParams = (type: LabelTokenValue, text: string): Token[] => {
     case "Rest":
     case "Interval":
     case "Cooldown":
-      return text.split(" ").map(tokenizeValueParam);
+      return text.split(/\s+/).map(tokenizeValueParam);
   }
 };
 
