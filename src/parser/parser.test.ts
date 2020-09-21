@@ -45,4 +45,80 @@ Description:
       }
     `);
   });
+
+  it("parses basic intervals", () => {
+    expect(
+      parse(`
+Name: My Workout
+
+Rest: 5:00 50%
+
+Interval: 10:00 80% 90rpm
+
+Rest: 5:00 45%
+`).intervals
+    ).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "cadence": undefined,
+          "duration": 300,
+          "intensity": Object {
+            "from": 0.5,
+            "to": 0.5,
+          },
+          "type": "Rest",
+        },
+        Object {
+          "cadence": 90,
+          "duration": 600,
+          "intensity": Object {
+            "from": 0.8,
+            "to": 0.8,
+          },
+          "type": "Interval",
+        },
+        Object {
+          "cadence": undefined,
+          "duration": 300,
+          "intensity": Object {
+            "from": 0.45,
+            "to": 0.45,
+          },
+          "type": "Rest",
+        },
+      ]
+    `);
+  });
+
+  it("parses power-range intervals", () => {
+    expect(
+      parse(`
+Name: My Workout
+
+Warmup: 5:30 50%..80% 100rpm
+Cooldown: 5:30 70%..45%
+`).intervals
+    ).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "cadence": 100,
+          "duration": 330,
+          "intensity": Object {
+            "from": 0.5,
+            "to": 0.8,
+          },
+          "type": "Warmup",
+        },
+        Object {
+          "cadence": undefined,
+          "duration": 330,
+          "intensity": Object {
+            "from": 0.7,
+            "to": 0.45,
+          },
+          "type": "Cooldown",
+        },
+      ]
+    `);
+  });
 });
