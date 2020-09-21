@@ -50,7 +50,7 @@ const toSeconds = (str: string): number => {
 const toFraction = (percentage: number): number => percentage / 100;
 
 const tokenizeValueParam = (text: string): Token => {
-  if (/^[0-9:]+$/.test(text)) {
+  if (/^([0-9]{1,2}:)?[0-9]{1,2}:[0-9]{1,2}$/.test(text)) {
     return { type: "duration", value: toSeconds(text) };
   }
   if (/^[0-9]+rpm$/.test(text)) {
@@ -63,7 +63,7 @@ const tokenizeValueParam = (text: string): Token => {
   if (/^[0-9]+%$/.test(text)) {
     return { type: "intensity", value: toFraction(toInteger(text)) };
   }
-  throw new Error(`Unrecognized parameter "${text}"`);
+  throw new Error(`Unrecognized interval parameter "${text}"`);
 };
 
 const tokenizeParams = (type: LabelTokenValue, text: string): Token[] => {

@@ -121,4 +121,41 @@ Cooldown: 5:30 70%..45%
       ]
     `);
   });
+
+  const parseInterval = (interval: string) =>
+    parse(`Name: My Workout\n${interval}`).intervals[0];
+
+  it("parses correct duration formats", () => {
+    expect(parseInterval("Interval: 0:10 50%").duration).toEqual(10);
+    expect(parseInterval("Interval: 00:10 50%").duration).toEqual(10);
+    expect(parseInterval("Interval: 0:00:10 50%").duration).toEqual(10);
+    expect(parseInterval("Interval: 0:02:05 50%").duration).toEqual(125);
+    expect(parseInterval("Interval: 1:00:00 50%").duration).toEqual(3600);
+    expect(parseInterval("Interval: 1:00:0 50%").duration).toEqual(3600);
+    expect(parseInterval("Interval: 1:0:0 50%").duration).toEqual(3600);
+    expect(parseInterval("Interval: 10:00:00 50%").duration).toEqual(36000);
+  });
+
+  it("throws error for incorrect duration formats", () => {
+    expect(() =>
+      parseInterval("Interval: 10 50%")
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unrecognized interval parameter \\"10\\""`
+    );
+    expect(() =>
+      parseInterval("Interval: :10 50%")
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unrecognized interval parameter \\":10\\""`
+    );
+    expect(() =>
+      parseInterval("Interval: 0:100 50%")
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unrecognized interval parameter \\"0:100\\""`
+    );
+    expect(() =>
+      parseInterval("Interval: 00:00:00:10 50%")
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unrecognized interval parameter \\"00:00:00:10\\""`
+    );
+  });
 });
