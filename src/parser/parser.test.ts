@@ -1,14 +1,13 @@
 import { parse } from ".";
 
 describe("Parser", () => {
-  it("parses empty workout file", () => {
-    expect(parse("")).toMatchInlineSnapshot(`
-      Object {
-        "author": "",
-        "description": "",
-        "intervals": Array [],
-        "name": "",
-      }
-    `);
+  it("throws error for empty file", () => {
+    expect(() => parse("")).toThrowErrorMatchingInlineSnapshot(
+      `"Workout is missing a name. Use \`Name:\` to declare one."`
+    );
+
+    expect(() => parse("  \n  \n \t")).toThrowErrorMatchingInlineSnapshot(
+      `"Workout is missing a name. Use \`Name:\` to declare one."`
+    );
   });
 });
