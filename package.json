@@ -4,6 +4,7 @@
   "license": "GPL-3.0-or-later",
   "scripts": {
     "lint:ts": "tsc --noEmit",
+    "lint:js": "eslint src/**/* .eslintrc.js",
     "test": "ts-node src/index.ts examples/threshold-pushing.txt",
     "test:2": "ts-node src/index.ts examples/darth-vader.txt",
     "test:stats": "ts-node src/index.ts --stats examples/threshold-pushing.txt",
@@ -18,6 +19,10 @@
     "@types/node": "^14.10.3",
     "@types/ramda": "types/npm-ramda#dist",
     "@types/xml": "^1.0.5",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "eslint": "^7.9.0",
+    "eslint-config-prettier": "^6.11.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
