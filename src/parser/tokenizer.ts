@@ -117,22 +117,14 @@ const tokenizeComment = (line: string, row: number): Token[] | undefined => {
   ];
 };
 
-const tokenizeRule = (line: string, row: number): Token[] => {
-  const commentTokens = tokenizeComment(line, row);
-  if (commentTokens) {
-    return commentTokens;
+const tokenizeLabelToken = (line: string, row: number): Token[] | undefined => {
+  const [, label, separator, paramString] = line.match(/^(\w+)(:\s*)(.*?)\s*$/) || [];
+  if (!label) {
+    return undefined;
   }
-
-  const matches = line.match(/^(\w+)(:\s*)(.*?)\s*$/);
-  if (!matches) {
-    return [{ type: "text", value: line.trim(), loc: { row, col: 0 } }];
+  if (!isLabelTokenValue(label)) {
+    throw new ParseError(`Unknown label "${label}:"`, { row, col: 0 });
   }
-  if (!isLabelTokenValue(matches[1])) {
-    return [{ type: "text", value: line.trim(), loc: { row, col: 0 } }];
-  }
-
-  const [, label, separator, paramString] = matches;
-
   const labelToken: LabelToken = {
     type: "label",
     value: label as LabelTokenValue,
@@ -142,8 +134,14 @@ const tokenizeRule = (line: string, row: number): Token[] => {
     row,
     col: label.length + separator.length,
   });
-
   return [labelToken, ...params];
+};
+
+const tokenizeRule = (line: string, row: number): Token[] => {
+  return (
+    tokenizeLabelToken(line, row) ||
+    tokenizeComment(line, row) || [{ type: "text", value: line.trim(), loc: { row, col: 0 } }]
+  );
 };
 
 export const tokenize = (file: string): Token[] => {

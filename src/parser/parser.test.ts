@@ -46,6 +46,15 @@ Description:
     `);
   });
 
+  it("throws error for unknown labels", () => {
+    expect(() =>
+      parse(`
+Name: Strange workout
+Level: Advanced 
+`),
+    ).toThrowErrorMatchingInlineSnapshot(`"Unknown label \\"Level:\\" at line 3 char 1"`);
+  });
+
   it("parses basic intervals", () => {
     expect(
       parse(`
