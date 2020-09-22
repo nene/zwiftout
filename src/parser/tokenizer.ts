@@ -150,11 +150,12 @@ const tokenizeLabeledLine = (line: string, row: number): Token[] | undefined => 
   throw new ParseError(`Unknown label "${label}:"`, { row, col: 0 });
 };
 
+const tokenizeText = (line: string, row: number): TextToken[] => {
+  return [{ type: "text", value: line.trim(), loc: { row, col: 0 } }];
+};
+
 const tokenizeRule = (line: string, row: number): Token[] => {
-  return (
-    tokenizeLabeledLine(line, row) ||
-    tokenizeComment(line, row) || [{ type: "text", value: line.trim(), loc: { row, col: 0 } }]
-  );
+  return tokenizeLabeledLine(line, row) || tokenizeComment(line, row) || tokenizeText(line, row);
 };
 
 export const tokenize = (file: string): Token[] => {
