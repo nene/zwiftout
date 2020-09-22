@@ -1,11 +1,17 @@
 import * as xml from "xml";
-import { Interval, Workout } from "./ast";
+import { Interval, Workout, Comment } from "./ast";
 
 // Zwift Workout XML generator
 
+const generateTextEvents = (comments: Comment[]): xml.XmlObject[] => {
+  return comments.map(({ offset, text }) => ({
+    textevent: [{ _attr: { timeoffset: offset, message: text } }],
+  }));
+};
+
 const generateRangeInterval = (
   tagName: "Warmup" | "Cooldown",
-  { duration, intensity, cadence }: Interval,
+  { duration, intensity, cadence, comments }: Interval,
 ): xml.XmlObject => {
   return {
     [tagName]: [
@@ -17,11 +23,12 @@ const generateRangeInterval = (
           ...(cadence ? { Cadence: cadence } : {}),
         },
       },
+      ...generateTextEvents(comments),
     ],
   };
 };
 
-const generateSteadyStateInterval = ({ duration, intensity, cadence }: Interval): xml.XmlObject => {
+const generateSteadyStateInterval = ({ duration, intensity, cadence, comments }: Interval): xml.XmlObject => {
   return {
     SteadyState: [
       {
@@ -31,6 +38,7 @@ const generateSteadyStateInterval = ({ duration, intensity, cadence }: Interval)
           ...(cadence ? { Cadence: cadence } : {}),
         },
       },
+      ...generateTextEvents(comments),
     ],
   };
 };
