@@ -1,4 +1,5 @@
 import { Interval } from "../ast";
+import { Seconds } from "../types";
 
 // Training Stress Score formula from Training and Racing with a Power Meter:
 //
@@ -8,15 +9,15 @@ import { Interval } from "../ast";
 // W - power in watts
 // IF - intensity factor (power / FTP)
 
-const steadyTss = (duration: number, intensity: number): number => {
-  return ((duration * intensity * intensity) / 3600) * 100;
+const steadyTss = (duration: Seconds, intensity: number): number => {
+  return ((duration.value * intensity * intensity) / 3600) * 100;
 };
 
-const rangeTss = (duration: number, from: number, to: number): number => {
+const rangeTss = (duration: Seconds, from: number, to: number): number => {
   let score = 0;
-  const step = 1;
-  for (let i = 0; i < duration; i += step) {
-    const intensity = from + (to - from) * (i / duration);
+  const step = new Seconds(1);
+  for (let i = 0; i < duration.value; i += step.value) {
+    const intensity = from + (to - from) * (i / duration.value);
     score += steadyTss(step, intensity);
   }
   return score;

@@ -12,7 +12,7 @@ export const stats = ({ intervals }: Workout): string => {
   const normIntensity = normalizedIntensity(intervals);
 
   return `
-Total duration: ${(duration / 60).toFixed()} minutes
+Total duration: ${(duration.value / 60).toFixed()} minutes
 
 Average intensity: ${(avgIntensity * 100).toFixed()}%
 Normalized intensity: ${(normIntensity * 100).toFixed()}%

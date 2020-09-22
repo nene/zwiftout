@@ -4,7 +4,7 @@ import { average } from "./average";
 import { intervalsToIntensities } from "./intervalsToIntensities";
 
 // Starting at the beginning of the data, calculate 30-second rolling average
-const windowSize = 30;
+const windowSize = 30; // equals to nr of seconds, but also to nr of entries in intensities array
 const rollingAverages = (intensities: number[]): number[] => {
   if (intensities.length < windowSize) {
     throw new Error(`Workout must be at least ${windowSize} seconds long`);

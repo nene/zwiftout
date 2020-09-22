@@ -17,7 +17,7 @@ const generateRangeInterval = (
     [tagName]: [
       {
         _attr: {
-          Duration: duration,
+          Duration: duration.value,
           PowerLow: intensity.from,
           PowerHigh: intensity.from,
           ...(cadence ? { Cadence: cadence } : {}),
@@ -33,7 +33,7 @@ const generateSteadyStateInterval = ({ duration, intensity, cadence, comments }:
     SteadyState: [
       {
         _attr: {
-          Duration: duration,
+          Duration: duration.value,
           Power: intensity.from,
           ...(cadence ? { Cadence: cadence } : {}),
         },
