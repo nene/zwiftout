@@ -250,4 +250,82 @@ Cooldown: 5:30 70%..45%
       `"Unexpected token [text CustomInterval: 15:00 10%] at line 3 char 1"`,
     );
   });
+
+  it("parses intervals with comments", () => {
+    expect(
+      parse(`
+Name: My Workout
+Interval: 10:00 90%
+  # 0:00 Find your rythm.
+  # 1:00 Try to settle in for the effort
+
+  # 5:00 Half way through
+
+  # 9:00 Almost there
+  # 9:30 Final push. YOU GOT IT!
+
+Rest: 5:00 50%
+  # 0:00 Great effort!
+  # 0:30 Cool down well after all of this.
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "",
+        "description": "",
+        "intervals": Array [
+          Object {
+            "cadence": undefined,
+            "comments": Array [
+              Object {
+                "offset": 0,
+                "text": "Find your rythm.",
+              },
+              Object {
+                "offset": 60,
+                "text": "Try to settle in for the effort",
+              },
+              Object {
+                "offset": 300,
+                "text": "Half way through",
+              },
+              Object {
+                "offset": 540,
+                "text": "Almost there",
+              },
+              Object {
+                "offset": 570,
+                "text": "Final push. YOU GOT IT!",
+              },
+            ],
+            "duration": 600,
+            "intensity": Object {
+              "from": 0.9,
+              "to": 0.9,
+            },
+            "type": "Interval",
+          },
+          Object {
+            "cadence": undefined,
+            "comments": Array [
+              Object {
+                "offset": 0,
+                "text": "Great effort!",
+              },
+              Object {
+                "offset": 30,
+                "text": "Cool down well after all of this.",
+              },
+            ],
+            "duration": 300,
+            "intensity": Object {
+              "from": 0.5,
+              "to": 0.5,
+            },
+            "type": "Rest",
+          },
+        ],
+        "name": "My Workout",
+      }
+    `);
+  });
 });

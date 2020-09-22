@@ -40,7 +40,12 @@ export type IntensityRangeToken = {
   value: [number, number];
   loc: SourceLocation;
 };
-export type Token = LabelToken | TextToken | NumberToken | IntensityRangeToken;
+export type CommentStartToken = {
+  type: "comment-start";
+  value?: undefined;
+  loc: SourceLocation;
+};
+export type Token = LabelToken | TextToken | NumberToken | IntensityRangeToken | CommentStartToken;
 
 const toInteger = (str: string): number => {
   return parseInt(str.replace(/[^0-9]/, ""), 10);
@@ -53,8 +58,10 @@ const toSeconds = (str: string): number => {
 
 const toFraction = (percentage: number): number => percentage / 100;
 
+const DURATION_REGEX = /^([0-9]{1,2}:)?[0-9]{1,2}:[0-9]{1,2}$/;
+
 const tokenizeValueParam = (text: string, loc: SourceLocation): Token => {
-  if (/^([0-9]{1,2}:)?[0-9]{1,2}:[0-9]{1,2}$/.test(text)) {
+  if (DURATION_REGEX.test(text)) {
     return { type: "duration", value: toSeconds(text), loc };
   }
   if (/^[0-9]+rpm$/.test(text)) {
@@ -70,7 +77,17 @@ const tokenizeValueParam = (text: string, loc: SourceLocation): Token => {
   throw new ParseError(`Unrecognized interval parameter "${text}"`, loc);
 };
 
-const tokenizeParams = (type: LabelTokenValue, text: string, loc: SourceLocation): Token[] => {
+const tokenizeParams = (text: string, loc: SourceLocation): Token[] => {
+  return text.split(/\s+/).map((rawParam) => {
+    return tokenizeValueParam(rawParam, {
+      row: loc.row,
+      // Not fully accurate, but should do for start
+      col: loc.col + text.indexOf(rawParam),
+    });
+  });
+};
+
+const tokenizeLabelTokenParams = (type: LabelTokenValue, text: string, loc: SourceLocation): Token[] => {
   switch (type) {
     case "Name":
     case "Author":
@@ -81,17 +98,31 @@ const tokenizeParams = (type: LabelTokenValue, text: string, loc: SourceLocation
     case "Rest":
     case "Interval":
     case "Cooldown":
-      return text.split(/\s+/).map((rawParam) => {
-        return tokenizeValueParam(rawParam, {
-          row: loc.row,
-          // Not fully accurate, but should do for start
-          col: loc.col + text.indexOf(rawParam),
-        });
-      });
+      return tokenizeParams(text, loc);
   }
 };
 
+const tokenizeComment = (line: string, row: number): Token[] | undefined => {
+  const [, commentHead, offset, commentText] = line.match(/^(\s*#\s*)([0-9:]+)(.*?)$/) || [];
+  if (!commentHead) {
+    return undefined;
+  }
+  if (!DURATION_REGEX.test(offset)) {
+    throw new ParseError("Invalid comment offset", { row, col: commentHead.length });
+  }
+  return [
+    { type: "comment-start", loc: { row, col: line.indexOf("#") } },
+    { type: "duration", value: toSeconds(offset), loc: { row, col: commentHead.length } },
+    { type: "text", value: commentText.trim(), loc: { row, col: commentHead.length + offset.length } },
+  ];
+};
+
 const tokenizeRule = (line: string, row: number): Token[] => {
+  const commentTokens = tokenizeComment(line, row);
+  if (commentTokens) {
+    return commentTokens;
+  }
+
   const matches = line.match(/^(\w+)(:\s*)(.*?)\s*$/);
   if (!matches) {
     return [{ type: "text", value: line.trim(), loc: { row, col: 0 } }];
@@ -107,7 +138,7 @@ const tokenizeRule = (line: string, row: number): Token[] => {
     value: label as LabelTokenValue,
     loc: { row, col: 0 },
   };
-  const params = tokenizeParams(labelToken.value, paramString, {
+  const params = tokenizeLabelTokenParams(labelToken.value, paramString, {
     row,
     col: label.length + separator.length,
   });

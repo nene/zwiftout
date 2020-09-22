@@ -1,8 +1,12 @@
-import { Interval, Workout } from "../ast";
+import { Interval, Workout, Comment } from "../ast";
 import { ParseError } from "./ParseError";
 import { isIntervalLabelTokenValue, SourceLocation, Token } from "./tokenizer";
 
 type Header = Partial<Omit<Workout, "intervals">>;
+
+const tokenToString = (token: Token | undefined): string => {
+  return token ? `[${token.type} ${token.value}]` : "EOF";
+};
 
 const extractText = (tokens: Token[]): [string, Token[]] => {
   let text;
@@ -49,6 +53,35 @@ const parseHeader = (tokens: Token[]): [Header, Token[]] => {
   return [header, tokens];
 };
 
+const parseIntervalComments = (tokens: Token[]): [Comment[], Token[]] => {
+  const comments: Comment[] = [];
+  while (tokens[0]) {
+    const [start, offset, text, ...rest] = tokens;
+    if (start.type === "comment-start") {
+      if (!offset || offset.type !== "duration") {
+        throw new ParseError(
+          `Expected [comment offset] instead got ${tokenToString(offset)}`,
+          offset?.loc || start.loc,
+        );
+      }
+      if (!text || text.type !== "text") {
+        throw new ParseError(`Expected [comment text] instead got ${tokenToString(text)}`, text?.loc || offset.loc);
+      }
+      comments.push({
+        offset: offset.value,
+        text: text.value,
+      });
+      tokens = rest;
+    } else if (start.type === "text" && start.value === "") {
+      // skip empty lines
+      tokens.shift();
+    } else {
+      break;
+    }
+  }
+  return [comments, tokens];
+};
+
 type IntervalData = Omit<Interval, "type">;
 
 const parseIntervalParams = (tokens: Token[], loc: SourceLocation): [IntervalData, Token[]] => {
@@ -80,7 +113,10 @@ const parseIntervalParams = (tokens: Token[], loc: SourceLocation): [IntervalDat
     throw new ParseError("Power not specified", loc);
   }
 
-  return [data as IntervalData, tokens];
+  const [comments, rest] = parseIntervalComments(tokens);
+  data.comments = comments;
+
+  return [data as IntervalData, rest];
 };
 
 const parseIntervals = (tokens: Token[]): Interval[] => {
@@ -89,19 +125,19 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
   while (tokens[0]) {
     const token = tokens.shift() as Token;
     if (token.type === "label" && isIntervalLabelTokenValue(token.value)) {
-      const [{ duration, intensity, cadence }, rest] = parseIntervalParams(tokens, token.loc);
+      const [{ duration, intensity, cadence, comments }, rest] = parseIntervalParams(tokens, token.loc);
       intervals.push({
         type: token.value,
         duration,
         intensity,
         cadence,
-        comments: [],
+        comments,
       });
       tokens = rest;
     } else if (token.type === "text" && token.value === "") {
       // Ignore empty lines
     } else {
-      throw new ParseError(`Unexpected token [${token.type} ${token.value}]`, token.loc);
+      throw new ParseError(`Unexpected token ${tokenToString(token)}`, token.loc);
     }
   }
 
