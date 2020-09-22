@@ -103,40 +103,48 @@ const tokenizeComment = (line: string, row: number): Token[] | undefined => {
   ];
 };
 
-const tokenizeLabelToken = (line: string, row: number): Token[] | undefined => {
+const tokenizeHeader = (label: HeaderType, separator: string, paramString: string, row: number): Token[] => {
+  const token: HeaderToken = {
+    type: "header",
+    value: label,
+    loc: { row, col: 0 },
+  };
+  const param: TextToken = {
+    type: "text",
+    value: paramString,
+    loc: {
+      row,
+      col: label.length + separator.length,
+    },
+  };
+  return [token, param];
+};
+
+const tokenizeInterval = (label: IntervalType, separator: string, paramString: string, row: number): Token[] => {
+  const token: IntervalToken = {
+    type: "interval",
+    value: label,
+    loc: { row, col: 0 },
+  };
+  const params = tokenizeParams(paramString, {
+    row,
+    col: label.length + separator.length,
+  });
+  return [token, ...params];
+};
+
+const tokenizeLabeledLine = (line: string, row: number): Token[] | undefined => {
   const [, label, separator, paramString] = line.match(/^(\w+)(:\s*)(.*?)\s*$/) || [];
   if (!label) {
     return undefined;
   }
 
   if (isHeaderType(label)) {
-    const token: HeaderToken = {
-      type: "header",
-      value: label,
-      loc: { row, col: 0 },
-    };
-    const param: TextToken = {
-      type: "text",
-      value: paramString,
-      loc: {
-        row,
-        col: label.length + separator.length,
-      },
-    };
-    return [token, param];
+    return tokenizeHeader(label, separator, paramString, row);
   }
 
   if (isIntervalType(label)) {
-    const token: IntervalToken = {
-      type: "interval",
-      value: label,
-      loc: { row, col: 0 },
-    };
-    const params = tokenizeParams(paramString, {
-      row,
-      col: label.length + separator.length,
-    });
-    return [token, ...params];
+    return tokenizeInterval(label, separator, paramString, row);
   }
 
   throw new ParseError(`Unknown label "${label}:"`, { row, col: 0 });
@@ -144,7 +152,7 @@ const tokenizeLabelToken = (line: string, row: number): Token[] | undefined => {
 
 const tokenizeRule = (line: string, row: number): Token[] => {
   return (
-    tokenizeLabelToken(line, row) ||
+    tokenizeLabeledLine(line, row) ||
     tokenizeComment(line, row) || [{ type: "text", value: line.trim(), loc: { row, col: 0 } }]
   );
 };
