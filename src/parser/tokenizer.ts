@@ -150,19 +150,38 @@ const tokenizeLabeledLine = (line: string, row: number): Token[] | undefined => 
   throw new ParseError(`Unknown label "${label}:"`, { row, col: 0 });
 };
 
-const tokenizeText = (line: string, row: number): TextToken[] => {
+const tokenizeText = (line: string, row: number, afterDescription: boolean): TextToken[] => {
+  if (!afterDescription && line.trim() === "") {
+    // Ignore empty lines in most cases.
+    // They're only significant inside description.
+    return [];
+  }
   return [{ type: "text", value: line.trim(), loc: { row, col: 0 } }];
 };
 
-const tokenizeRule = (line: string, row: number): Token[] => {
-  return tokenizeLabeledLine(line, row) || tokenizeComment(line, row) || tokenizeText(line, row);
+const tokenizeRule = (line: string, row: number, afterDescription: boolean): Token[] => {
+  return tokenizeLabeledLine(line, row) || tokenizeComment(line, row) || tokenizeText(line, row, afterDescription);
+};
+
+// True when last token is "Description:" (optionally followed by any number of text tokens)
+const isAfterDescription = (tokens: Token[]): boolean => {
+  for (let i = tokens.length - 1; i >= 0; i--) {
+    const token = tokens[i];
+    if (token.type === "text") {
+      // skip
+    }
+    if (token.type === "header" && token.value === "Description") {
+      return true;
+    }
+  }
+  return false;
 };
 
 export const tokenize = (file: string): Token[] => {
   const tokens: Token[] = [];
 
   file.split("\n").map((line, row) => {
-    tokens.push(...tokenizeRule(line, row));
+    tokens.push(...tokenizeRule(line, row, isAfterDescription(tokens)));
   });
 
   return tokens;

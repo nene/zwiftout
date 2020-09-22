@@ -27,10 +27,7 @@ const parseHeader = (tokens: Token[]): [Header, Token[]] => {
 
   while (tokens[0]) {
     const token = tokens[0];
-    if (token.type === "text" && token.value === "") {
-      // Ignore empty lines before header
-      tokens.shift();
-    } else if (token.type === "header" && token.value === "Name") {
+    if (token.type === "header" && token.value === "Name") {
       tokens.shift();
       const [name, rest] = extractText(tokens);
       header.name = name;
@@ -73,9 +70,6 @@ const parseIntervalComments = (tokens: Token[]): [Comment[], Token[]] => {
         text: text.value,
       });
       tokens = rest;
-    } else if (start.type === "text" && start.value === "") {
-      // skip empty lines
-      tokens.shift();
     } else {
       break;
     }
@@ -135,8 +129,6 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
         comments,
       });
       tokens = rest;
-    } else if (token.type === "text" && token.value === "") {
-      // Ignore empty lines
     } else {
       throw new ParseError(`Unexpected token ${tokenToString(token)}`, token.loc);
     }
