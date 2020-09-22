@@ -1,7 +1,7 @@
 import { Interval, Workout, Comment } from "../ast";
 import { Seconds } from "../types";
 import { ParseError } from "./ParseError";
-import { isIntervalLabelTokenValue, SourceLocation, Token } from "./tokenizer";
+import { SourceLocation, Token } from "./tokenizer";
 
 type Header = Partial<Omit<Workout, "intervals">>;
 
@@ -30,17 +30,17 @@ const parseHeader = (tokens: Token[]): [Header, Token[]] => {
     if (token.type === "text" && token.value === "") {
       // Ignore empty lines before header
       tokens.shift();
-    } else if (token.type === "label" && token.value === "Name") {
+    } else if (token.type === "header" && token.value === "Name") {
       tokens.shift();
       const [name, rest] = extractText(tokens);
       header.name = name;
       tokens = rest;
-    } else if (token.type === "label" && token.value === "Author") {
+    } else if (token.type === "header" && token.value === "Author") {
       tokens.shift();
       const [author, rest] = extractText(tokens);
       header.author = author;
       tokens = rest;
-    } else if (token.type === "label" && token.value === "Description") {
+    } else if (token.type === "header" && token.value === "Description") {
       tokens.shift();
       const [description, rest] = extractText(tokens);
       header.description = description;
@@ -125,7 +125,7 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
 
   while (tokens[0]) {
     const token = tokens.shift() as Token;
-    if (token.type === "label" && isIntervalLabelTokenValue(token.value)) {
+    if (token.type === "interval") {
       const [{ duration, intensity, cadence, comments }, rest] = parseIntervalParams(tokens, token.loc);
       intervals.push({
         type: token.value,

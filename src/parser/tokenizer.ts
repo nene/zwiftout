@@ -1,17 +1,13 @@
 import { ParseError } from "./ParseError";
 
-export type HeaderLabelTokenValue = "Name" | "Author" | "Description";
-export type IntervalLabelTokenValue = "Warmup" | "Rest" | "Interval" | "Cooldown";
-export type LabelTokenValue = HeaderLabelTokenValue | IntervalLabelTokenValue;
+export type HeaderType = "Name" | "Author" | "Description";
+export type IntervalType = "Warmup" | "Rest" | "Interval" | "Cooldown";
 
-export const isHeaderLabelTokenValue = (value: string): value is HeaderLabelTokenValue => {
+const isHeaderType = (value: string): value is HeaderType => {
   return ["Name", "Author", "Description"].includes(value);
 };
-export const isIntervalLabelTokenValue = (value: string): value is IntervalLabelTokenValue => {
+const isIntervalType = (value: string): value is IntervalType => {
   return ["Warmup", "Rest", "Interval", "Cooldown"].includes(value);
-};
-export const isLabelTokenValue = (value: string): value is LabelTokenValue => {
-  return isHeaderLabelTokenValue(value) || isIntervalLabelTokenValue(value);
 };
 
 // 0-based row and column indexes. First line is 0th.
@@ -20,9 +16,14 @@ export type SourceLocation = {
   col: number;
 };
 
-export type LabelToken = {
-  type: "label";
-  value: LabelTokenValue;
+export type HeaderToken = {
+  type: "header";
+  value: HeaderType;
+  loc: SourceLocation;
+};
+export type IntervalToken = {
+  type: "interval";
+  value: IntervalType;
   loc: SourceLocation;
 };
 export type TextToken = {
@@ -45,7 +46,7 @@ export type CommentStartToken = {
   value?: undefined;
   loc: SourceLocation;
 };
-export type Token = LabelToken | TextToken | NumberToken | IntensityRangeToken | CommentStartToken;
+export type Token = HeaderToken | IntervalToken | TextToken | NumberToken | IntensityRangeToken | CommentStartToken;
 
 const toInteger = (str: string): number => {
   return parseInt(str.replace(/[^0-9]/, ""), 10);
@@ -87,21 +88,6 @@ const tokenizeParams = (text: string, loc: SourceLocation): Token[] => {
   });
 };
 
-const tokenizeLabelTokenParams = (type: LabelTokenValue, text: string, loc: SourceLocation): Token[] => {
-  switch (type) {
-    case "Name":
-    case "Author":
-    case "Description": {
-      return [{ type: "text", value: text, loc }];
-    }
-    case "Warmup":
-    case "Rest":
-    case "Interval":
-    case "Cooldown":
-      return tokenizeParams(text, loc);
-  }
-};
-
 const tokenizeComment = (line: string, row: number): Token[] | undefined => {
   const [, commentHead, offset, commentText] = line.match(/^(\s*#\s*)([0-9:]+)(.*?)$/) || [];
   if (!commentHead) {
@@ -122,19 +108,38 @@ const tokenizeLabelToken = (line: string, row: number): Token[] | undefined => {
   if (!label) {
     return undefined;
   }
-  if (!isLabelTokenValue(label)) {
-    throw new ParseError(`Unknown label "${label}:"`, { row, col: 0 });
+
+  if (isHeaderType(label)) {
+    const token: HeaderToken = {
+      type: "header",
+      value: label,
+      loc: { row, col: 0 },
+    };
+    const param: TextToken = {
+      type: "text",
+      value: paramString,
+      loc: {
+        row,
+        col: label.length + separator.length,
+      },
+    };
+    return [token, param];
   }
-  const labelToken: LabelToken = {
-    type: "label",
-    value: label as LabelTokenValue,
-    loc: { row, col: 0 },
-  };
-  const params = tokenizeLabelTokenParams(labelToken.value, paramString, {
-    row,
-    col: label.length + separator.length,
-  });
-  return [labelToken, ...params];
+
+  if (isIntervalType(label)) {
+    const token: IntervalToken = {
+      type: "interval",
+      value: label,
+      loc: { row, col: 0 },
+    };
+    const params = tokenizeParams(paramString, {
+      row,
+      col: label.length + separator.length,
+    });
+    return [token, ...params];
+  }
+
+  throw new ParseError(`Unknown label "${label}:"`, { row, col: 0 });
 };
 
 const tokenizeRule = (line: string, row: number): Token[] => {
