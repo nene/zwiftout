@@ -1,0 +1,47 @@
+Name: Halvfems
+Description:
+  Named after the number 90 in Danish, this workout is focused sweet spot training, centered around 90% of FTP.
+  This pairs with Devedeset (90 in Croatian) and Novanta (90 in Italian) to make up the sweet spot trifecta in this plan.
+  The workouts are alphabetically ordered from easiest to hardest, so enjoy the middle of these three challenging workouts today...
+
+Warmup: 7:00 25%..75%
+Interval: 00:30 95rpm 95%
+Rest: 00:30 85rpm 50%
+
+Interval: 00:30 105rpm 105%
+Rest: 00:30 85rpm 50%
+
+Interval: 00:30 115rpm 115%
+Rest: 00:30 85rpm 50%
+
+Rest: 2:00 85rpm 50%
+
+Interval: 12:00 90rpm 90%
+
+Rest: 4:00 85rpm 55%
+
+Interval: 1:00 60rpm 90%
+Interval: 1:00 90rpm 90%
+Interval: 1:00 60rpm 90%
+Interval: 1:00 90rpm 90%
+Interval: 1:00 60rpm 90%
+Interval: 1:00 90rpm 90%
+Interval: 1:00 60rpm 90%
+Interval: 1:00 90rpm 90%
+Interval: 1:00 60rpm 90%
+Interval: 1:00 90rpm 90%
+Interval: 1:00 60rpm 90%
+Interval: 1:00 90rpm 90%
+
+Rest: 4:00 85rpm 55%
+
+Interval: 2:00 100rpm 90%
+Interval: 1:00 65rpm 90%
+Interval: 2:00 100rpm 90%
+Interval: 1:00 65rpm 90%
+Interval: 2:00 100rpm 90%
+Interval: 1:00 65rpm 90%
+Interval: 2:00 100rpm 90%
+Interval: 1:00 65rpm 90%
+
+Cooldown: 6:00 55%..25%
