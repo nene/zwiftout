@@ -2,6 +2,7 @@ import { equals } from "ramda";
 import { Interval, Comment } from "./ast";
 
 export type RepeatedInterval = {
+  type: "repeat";
   times: number;
   intervals: Interval[];
   comments: Comment[];
@@ -44,6 +45,7 @@ export const detectRepeats = (intervals: Interval[]): (Interval | RepeatedInterv
     const repeats = countRepetitions(reference, intervals, i);
     if (repeats > 1) {
       processed.push({
+        type: "repeat",
         times: repeats,
         intervals: reference,
         comments: [],

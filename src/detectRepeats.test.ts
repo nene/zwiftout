@@ -30,6 +30,7 @@ describe("detectRepeats()", () => {
     ];
     expect(detectRepeats(intervals)).toEqual([
       {
+        type: "repeat",
         times: 4,
         intervals: [
           { type: "Interval", duration: new Seconds(120), intensity: { from: 1, to: 1 }, comments: [] },
@@ -59,6 +60,7 @@ describe("detectRepeats()", () => {
       { type: "Warmup", duration: new Seconds(60), intensity: { from: 0.5, to: 1 }, comments: [] },
       { type: "Rest", duration: new Seconds(120), intensity: { from: 0.2, to: 0.2 }, comments: [] },
       {
+        type: "repeat",
         times: 4,
         intervals: [
           { type: "Interval", duration: new Seconds(60), intensity: { from: 1, to: 1 }, comments: [] },
