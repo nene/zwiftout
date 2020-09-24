@@ -73,6 +73,63 @@ describe("detectRepeats()", () => {
     ]);
   });
 
+  it("detects multiple repetitions", () => {
+    const intervals: Interval[] = [
+      { type: "Interval", duration: new Seconds(60), intensity: { from: 1, to: 1 }, comments: [] },
+      { type: "Rest", duration: new Seconds(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+      { type: "Interval", duration: new Seconds(60), intensity: { from: 1, to: 1 }, comments: [] },
+      { type: "Rest", duration: new Seconds(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+      { type: "Interval", duration: new Seconds(100), intensity: { from: 1, to: 1 }, comments: [] },
+      { type: "Rest", duration: new Seconds(100), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+      { type: "Interval", duration: new Seconds(100), intensity: { from: 1, to: 1 }, comments: [] },
+      { type: "Rest", duration: new Seconds(100), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+    ];
+    expect(detectRepeats(intervals)).toEqual([
+      {
+        type: "repeat",
+        times: 2,
+        intervals: [
+          { type: "Interval", duration: new Seconds(60), intensity: { from: 1, to: 1 }, comments: [] },
+          { type: "Rest", duration: new Seconds(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+        ],
+        comments: [],
+      },
+      {
+        type: "repeat",
+        times: 2,
+        intervals: [
+          { type: "Interval", duration: new Seconds(100), intensity: { from: 1, to: 1 }, comments: [] },
+          { type: "Rest", duration: new Seconds(100), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+        ],
+        comments: [],
+      },
+    ]);
+  });
+
+  it("takes cadence differences into account", () => {
+    const intervals: Interval[] = [
+      { type: "Interval", duration: new Seconds(120), intensity: { from: 1, to: 1 }, comments: [] },
+      { type: "Rest", duration: new Seconds(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+      { type: "Interval", duration: new Seconds(120), intensity: { from: 1, to: 1 }, cadence: 100, comments: [] },
+      { type: "Rest", duration: new Seconds(60), intensity: { from: 0.5, to: 0.5 }, cadence: 80, comments: [] },
+      { type: "Interval", duration: new Seconds(120), intensity: { from: 1, to: 1 }, cadence: 100, comments: [] },
+      { type: "Rest", duration: new Seconds(60), intensity: { from: 0.5, to: 0.5 }, cadence: 80, comments: [] },
+    ];
+    expect(detectRepeats(intervals)).toEqual([
+      { type: "Interval", duration: new Seconds(120), intensity: { from: 1, to: 1 }, comments: [] },
+      { type: "Rest", duration: new Seconds(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+      {
+        type: "repeat",
+        times: 2,
+        intervals: [
+          { type: "Interval", duration: new Seconds(120), intensity: { from: 1, to: 1 }, cadence: 100, comments: [] },
+          { type: "Rest", duration: new Seconds(60), intensity: { from: 0.5, to: 0.5 }, cadence: 80, comments: [] },
+        ],
+        comments: [],
+      },
+    ]);
+  });
+
   it("does not consider warmup/cooldown-range intervals to be repeatable", () => {
     const intervals: Interval[] = [
       { type: "Warmup", duration: new Seconds(60), intensity: { from: 0.1, to: 1 }, comments: [] },
