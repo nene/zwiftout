@@ -35,6 +35,7 @@ describe("detectRepeats()", () => {
           { type: "Interval", duration: new Seconds(120), intensity: { from: 1, to: 1 }, comments: [] },
           { type: "Rest", duration: new Seconds(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
         ],
+        comments: [],
       },
     ]);
   });
@@ -63,6 +64,7 @@ describe("detectRepeats()", () => {
           { type: "Interval", duration: new Seconds(60), intensity: { from: 1, to: 1 }, comments: [] },
           { type: "Rest", duration: new Seconds(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
         ],
+        comments: [],
       },
       { type: "Rest", duration: new Seconds(120), intensity: { from: 0.2, to: 0.2 }, comments: [] },
       { type: "Cooldown", duration: new Seconds(60), intensity: { from: 1, to: 0.5 }, comments: [] },
