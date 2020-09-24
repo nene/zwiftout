@@ -164,16 +164,13 @@ const tokenizeRule = (line: string, row: number, afterDescription: boolean): Tok
 };
 
 // True when last token is "Description:" (optionally followed by any number of text tokens)
-const isAfterDescription = (tokens: Token[]): boolean => {
+const isInsideDescription = (tokens: Token[]): boolean => {
   for (let i = tokens.length - 1; i >= 0; i--) {
     const token = tokens[i];
     if (token.type === "text") {
-      // skip
-    } else if (token.type === "header" && token.value === "Description") {
-      return true;
-    } else {
-      return false;
+      continue;
     }
+    return token.type === "header" && token.value === "Description";
   }
   return false;
 };
@@ -182,7 +179,7 @@ export const tokenize = (file: string): Token[] => {
   const tokens: Token[] = [];
 
   file.split("\n").map((line, row) => {
-    tokens.push(...tokenizeRule(line, row, isAfterDescription(tokens)));
+    tokens.push(...tokenizeRule(line, row, isInsideDescription(tokens)));
   });
 
   return tokens;
