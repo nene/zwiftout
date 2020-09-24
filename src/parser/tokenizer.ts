@@ -169,9 +169,10 @@ const isAfterDescription = (tokens: Token[]): boolean => {
     const token = tokens[i];
     if (token.type === "text") {
       // skip
-    }
-    if (token.type === "header" && token.value === "Description") {
+    } else if (token.type === "header" && token.value === "Description") {
       return true;
+    } else {
+      return false;
     }
   }
   return false;

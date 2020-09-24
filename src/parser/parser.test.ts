@@ -108,6 +108,73 @@ Rest: 5:00 45%
     `);
   });
 
+  it("parses intervals after multi-line description", () => {
+    expect(
+      parse(`
+Name: My Workout
+Author: John Doe
+Description:
+  It's a great workout.
+
+  Do it when you dare,
+  it'll cause lots of pain.
+
+Interval: 5:00 50%
+
+Interval: 10:00 100%
+
+Interval: 5:00 50%
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "John Doe",
+        "description": "It's a great workout.
+
+      Do it when you dare,
+      it'll cause lots of pain.",
+        "intervals": Array [
+          Object {
+            "cadence": undefined,
+            "comments": Array [],
+            "duration": Seconds {
+              "value": 300,
+            },
+            "intensity": Object {
+              "from": 0.5,
+              "to": 0.5,
+            },
+            "type": "Interval",
+          },
+          Object {
+            "cadence": undefined,
+            "comments": Array [],
+            "duration": Seconds {
+              "value": 600,
+            },
+            "intensity": Object {
+              "from": 1,
+              "to": 1,
+            },
+            "type": "Interval",
+          },
+          Object {
+            "cadence": undefined,
+            "comments": Array [],
+            "duration": Seconds {
+              "value": 300,
+            },
+            "intensity": Object {
+              "from": 0.5,
+              "to": 0.5,
+            },
+            "type": "Interval",
+          },
+        ],
+        "name": "My Workout",
+      }
+    `);
+  });
+
   it("parses power-range intervals", () => {
     expect(
       parse(`
