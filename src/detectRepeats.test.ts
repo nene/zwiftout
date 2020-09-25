@@ -1,6 +1,6 @@
 import { Interval } from "./ast";
 import { detectRepeats } from "./detectRepeats";
-import { Seconds } from "./types";
+import { Seconds } from "./Seconds";
 
 describe("detectRepeats()", () => {
   it("does nothing with empty array", () => {

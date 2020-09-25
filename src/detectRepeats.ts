@@ -1,6 +1,6 @@
 import { eqProps, flatten, zip } from "ramda";
 import { Interval, Comment } from "./ast";
-import { Seconds } from "./types";
+import { Seconds } from "./Seconds";
 
 export type RepeatedInterval = {
   type: "repeat";

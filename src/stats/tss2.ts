@@ -1,4 +1,4 @@
-import { Seconds } from "../types";
+import { Seconds } from "../Seconds";
 
 // Training Stress Score formula from Training and Racing with a Power Meter:
 //

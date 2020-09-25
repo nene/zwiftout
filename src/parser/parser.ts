@@ -1,5 +1,5 @@
 import { Interval, Workout, Comment } from "../ast";
-import { Seconds } from "../types";
+import { Seconds } from "../Seconds";
 import { ParseError } from "./ParseError";
 import { SourceLocation, Token } from "./tokenizer";
 

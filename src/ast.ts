@@ -1,5 +1,5 @@
 import { IntervalType } from "./parser/tokenizer";
-import { Seconds } from "./types";
+import { Seconds } from "./Seconds";
 
 export type Workout = {
   name: string;
