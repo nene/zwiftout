@@ -34,7 +34,7 @@ const countRepetitions = (reference: Interval[], intervals: Interval[], startInd
 
 const offsetComments = (interval: Interval, baseOffset: Seconds): Comment[] => {
   return interval.comments.map(({ offset, ...rest }) => ({
-    offset: new Seconds(baseOffset.value + offset.value),
+    offset: baseOffset.add(offset),
     ...rest,
   }));
 };
@@ -44,7 +44,7 @@ const collectComments = (intervals: Interval[]): Comment[] => {
   return flatten(
     intervals.map((interval) => {
       const comments = offsetComments(interval, previousIntervalsDuration);
-      previousIntervalsDuration = new Seconds(previousIntervalsDuration.value + interval.duration.value);
+      previousIntervalsDuration = previousIntervalsDuration.add(interval.duration);
       return comments;
     }),
   );
