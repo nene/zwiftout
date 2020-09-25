@@ -1,6 +1,7 @@
 import { eqProps, flatten, zip } from "ramda";
 import { Interval, Comment } from "./ast";
 import { Duration } from "./Duration";
+import { IntensityRange } from "./Intensity";
 
 export type RepeatedInterval = {
   type: "repeat";
@@ -54,7 +55,7 @@ const stripComments = (intervals: Interval[]): Interval[] => {
   return intervals.map(({ comments, ...rest }) => ({ comments: [], ...rest }));
 };
 
-const isRangeInterval = (interval: Interval): boolean => interval.intensity.from !== interval.intensity.to;
+const isRangeInterval = (interval: Interval): boolean => interval.intensity instanceof IntensityRange;
 
 export const detectRepeats = (intervals: Interval[]): (Interval | RepeatedInterval)[] => {
   if (intervals.length < windowSize) {

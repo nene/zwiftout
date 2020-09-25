@@ -1,6 +1,7 @@
 import { Interval } from "./ast";
 import { detectRepeats } from "./detectRepeats";
 import { Duration } from "./Duration";
+import { Intensity, IntensityRange } from "./Intensity";
 
 describe("detectRepeats()", () => {
   it("does nothing with empty array", () => {
@@ -9,32 +10,32 @@ describe("detectRepeats()", () => {
 
   it("does nothing when no interval repeats", () => {
     const intervals: Interval[] = [
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Interval", duration: new Duration(60), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Interval", duration: new Duration(30), intensity: { from: 1.2, to: 1.2 }, comments: [] },
-      { type: "Cooldown", duration: new Duration(60), intensity: { from: 1, to: 0.5 }, comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
+      { type: "Interval", duration: new Duration(60), intensity: new Intensity(1), comments: [] },
+      { type: "Interval", duration: new Duration(30), intensity: new Intensity(1.2), comments: [] },
+      { type: "Cooldown", duration: new Duration(60), intensity: new Intensity(1), comments: [] },
     ];
     expect(detectRepeats(intervals)).toEqual(intervals);
   });
 
   it("detects whole workout consisting of repetitions", () => {
     const intervals: Interval[] = [
-      { type: "Interval", duration: new Duration(120), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Interval", duration: new Duration(120), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Interval", duration: new Duration(120), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Interval", duration: new Duration(120), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+      { type: "Interval", duration: new Duration(120), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
+      { type: "Interval", duration: new Duration(120), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
+      { type: "Interval", duration: new Duration(120), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
+      { type: "Interval", duration: new Duration(120), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
     ];
     expect(detectRepeats(intervals)).toEqual([
       {
         type: "repeat",
         times: 4,
         intervals: [
-          { type: "Interval", duration: new Duration(120), intensity: { from: 1, to: 1 }, comments: [] },
-          { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+          { type: "Interval", duration: new Duration(120), intensity: new Intensity(1), comments: [] },
+          { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
         ],
         comments: [],
       },
@@ -43,54 +44,54 @@ describe("detectRepeats()", () => {
 
   it("detects repetitions in the middle of workout", () => {
     const intervals: Interval[] = [
-      { type: "Warmup", duration: new Duration(60), intensity: { from: 0.5, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(120), intensity: { from: 0.2, to: 0.2 }, comments: [] },
-      { type: "Interval", duration: new Duration(60), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Interval", duration: new Duration(60), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Interval", duration: new Duration(60), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Interval", duration: new Duration(60), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Rest", duration: new Duration(120), intensity: { from: 0.2, to: 0.2 }, comments: [] },
-      { type: "Cooldown", duration: new Duration(60), intensity: { from: 1, to: 0.5 }, comments: [] },
+      { type: "Warmup", duration: new Duration(60), intensity: new IntensityRange(0.5, 1), comments: [] },
+      { type: "Rest", duration: new Duration(120), intensity: new Intensity(0.2), comments: [] },
+      { type: "Interval", duration: new Duration(60), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
+      { type: "Interval", duration: new Duration(60), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
+      { type: "Interval", duration: new Duration(60), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
+      { type: "Interval", duration: new Duration(60), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
+      { type: "Rest", duration: new Duration(120), intensity: new Intensity(0.2), comments: [] },
+      { type: "Cooldown", duration: new Duration(60), intensity: new IntensityRange(1, 0.5), comments: [] },
     ];
     expect(detectRepeats(intervals)).toEqual([
-      { type: "Warmup", duration: new Duration(60), intensity: { from: 0.5, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(120), intensity: { from: 0.2, to: 0.2 }, comments: [] },
+      { type: "Warmup", duration: new Duration(60), intensity: new IntensityRange(0.5, 1), comments: [] },
+      { type: "Rest", duration: new Duration(120), intensity: new Intensity(0.2), comments: [] },
       {
         type: "repeat",
         times: 4,
         intervals: [
-          { type: "Interval", duration: new Duration(60), intensity: { from: 1, to: 1 }, comments: [] },
-          { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+          { type: "Interval", duration: new Duration(60), intensity: new Intensity(1), comments: [] },
+          { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
         ],
         comments: [],
       },
-      { type: "Rest", duration: new Duration(120), intensity: { from: 0.2, to: 0.2 }, comments: [] },
-      { type: "Cooldown", duration: new Duration(60), intensity: { from: 1, to: 0.5 }, comments: [] },
+      { type: "Rest", duration: new Duration(120), intensity: new Intensity(0.2), comments: [] },
+      { type: "Cooldown", duration: new Duration(60), intensity: new IntensityRange(1, 0.5), comments: [] },
     ]);
   });
 
   it("detects multiple repetitions", () => {
     const intervals: Interval[] = [
-      { type: "Interval", duration: new Duration(60), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Interval", duration: new Duration(60), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Interval", duration: new Duration(100), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(100), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Interval", duration: new Duration(100), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(100), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+      { type: "Interval", duration: new Duration(60), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
+      { type: "Interval", duration: new Duration(60), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
+      { type: "Interval", duration: new Duration(100), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(100), intensity: new Intensity(0.5), comments: [] },
+      { type: "Interval", duration: new Duration(100), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(100), intensity: new Intensity(0.5), comments: [] },
     ];
     expect(detectRepeats(intervals)).toEqual([
       {
         type: "repeat",
         times: 2,
         intervals: [
-          { type: "Interval", duration: new Duration(60), intensity: { from: 1, to: 1 }, comments: [] },
-          { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+          { type: "Interval", duration: new Duration(60), intensity: new Intensity(1), comments: [] },
+          { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
         ],
         comments: [],
       },
@@ -98,8 +99,8 @@ describe("detectRepeats()", () => {
         type: "repeat",
         times: 2,
         intervals: [
-          { type: "Interval", duration: new Duration(100), intensity: { from: 1, to: 1 }, comments: [] },
-          { type: "Rest", duration: new Duration(100), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+          { type: "Interval", duration: new Duration(100), intensity: new Intensity(1), comments: [] },
+          { type: "Rest", duration: new Duration(100), intensity: new Intensity(0.5), comments: [] },
         ],
         comments: [],
       },
@@ -108,22 +109,22 @@ describe("detectRepeats()", () => {
 
   it("takes cadence differences into account", () => {
     const intervals: Interval[] = [
-      { type: "Interval", duration: new Duration(120), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
-      { type: "Interval", duration: new Duration(120), intensity: { from: 1, to: 1 }, cadence: 100, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, cadence: 80, comments: [] },
-      { type: "Interval", duration: new Duration(120), intensity: { from: 1, to: 1 }, cadence: 100, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, cadence: 80, comments: [] },
+      { type: "Interval", duration: new Duration(120), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
+      { type: "Interval", duration: new Duration(120), intensity: new Intensity(1), cadence: 100, comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), cadence: 80, comments: [] },
+      { type: "Interval", duration: new Duration(120), intensity: new Intensity(1), cadence: 100, comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), cadence: 80, comments: [] },
     ];
     expect(detectRepeats(intervals)).toEqual([
-      { type: "Interval", duration: new Duration(120), intensity: { from: 1, to: 1 }, comments: [] },
-      { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+      { type: "Interval", duration: new Duration(120), intensity: new Intensity(1), comments: [] },
+      { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), comments: [] },
       {
         type: "repeat",
         times: 2,
         intervals: [
-          { type: "Interval", duration: new Duration(120), intensity: { from: 1, to: 1 }, cadence: 100, comments: [] },
-          { type: "Rest", duration: new Duration(60), intensity: { from: 0.5, to: 0.5 }, cadence: 80, comments: [] },
+          { type: "Interval", duration: new Duration(120), intensity: new Intensity(1), cadence: 100, comments: [] },
+          { type: "Rest", duration: new Duration(60), intensity: new Intensity(0.5), cadence: 80, comments: [] },
         ],
         comments: [],
       },
@@ -132,14 +133,14 @@ describe("detectRepeats()", () => {
 
   it("does not consider warmup/cooldown-range intervals to be repeatable", () => {
     const intervals: Interval[] = [
-      { type: "Warmup", duration: new Duration(60), intensity: { from: 0.1, to: 1 }, comments: [] },
-      { type: "Cooldown", duration: new Duration(120), intensity: { from: 1, to: 0.5 }, comments: [] },
-      { type: "Warmup", duration: new Duration(60), intensity: { from: 0.1, to: 1 }, comments: [] },
-      { type: "Cooldown", duration: new Duration(120), intensity: { from: 1, to: 0.5 }, comments: [] },
-      { type: "Warmup", duration: new Duration(60), intensity: { from: 0.1, to: 1 }, comments: [] },
-      { type: "Cooldown", duration: new Duration(120), intensity: { from: 1, to: 0.5 }, comments: [] },
-      { type: "Warmup", duration: new Duration(60), intensity: { from: 0.1, to: 1 }, comments: [] },
-      { type: "Cooldown", duration: new Duration(120), intensity: { from: 1, to: 0.5 }, comments: [] },
+      { type: "Warmup", duration: new Duration(60), intensity: new IntensityRange(0.1, 1), comments: [] },
+      { type: "Cooldown", duration: new Duration(120), intensity: new IntensityRange(1, 0.5), comments: [] },
+      { type: "Warmup", duration: new Duration(60), intensity: new IntensityRange(0.1, 1), comments: [] },
+      { type: "Cooldown", duration: new Duration(120), intensity: new IntensityRange(1, 0.5), comments: [] },
+      { type: "Warmup", duration: new Duration(60), intensity: new IntensityRange(0.1, 1), comments: [] },
+      { type: "Cooldown", duration: new Duration(120), intensity: new IntensityRange(1, 0.5), comments: [] },
+      { type: "Warmup", duration: new Duration(60), intensity: new IntensityRange(0.1, 1), comments: [] },
+      { type: "Cooldown", duration: new Duration(120), intensity: new IntensityRange(1, 0.5), comments: [] },
     ];
     expect(detectRepeats(intervals)).toEqual(intervals);
   });
@@ -149,7 +150,7 @@ describe("detectRepeats()", () => {
       {
         type: "Interval",
         duration: new Duration(100),
-        intensity: { from: 1, to: 1 },
+        intensity: new Intensity(1),
         comments: [
           { offset: new Duration(0), text: "Let's start" },
           { offset: new Duration(20), text: "Stay strong!" },
@@ -159,7 +160,7 @@ describe("detectRepeats()", () => {
       {
         type: "Rest",
         duration: new Duration(100),
-        intensity: { from: 0.5, to: 0.5 },
+        intensity: new Intensity(0.5),
         comments: [
           { offset: new Duration(0), text: "Huh... have a rest" },
           { offset: new Duration(80), text: "Ready for next?" },
@@ -168,7 +169,7 @@ describe("detectRepeats()", () => {
       {
         type: "Interval",
         duration: new Duration(100),
-        intensity: { from: 1, to: 1 },
+        intensity: new Intensity(1),
         comments: [
           { offset: new Duration(0), text: "Bring it on again!" },
           { offset: new Duration(50), text: "Half way" },
@@ -178,7 +179,7 @@ describe("detectRepeats()", () => {
       {
         type: "Rest",
         duration: new Duration(100),
-        intensity: { from: 0.5, to: 0.5 },
+        intensity: new Intensity(0.5),
         comments: [
           { offset: new Duration(30), text: "Wow... you did it!" },
           { offset: new Duration(40), text: "Nice job." },
@@ -191,8 +192,8 @@ describe("detectRepeats()", () => {
         type: "repeat",
         times: 2,
         intervals: [
-          { type: "Interval", duration: new Duration(100), intensity: { from: 1, to: 1 }, comments: [] },
-          { type: "Rest", duration: new Duration(100), intensity: { from: 0.5, to: 0.5 }, comments: [] },
+          { type: "Interval", duration: new Duration(100), intensity: new Intensity(1), comments: [] },
+          { type: "Rest", duration: new Duration(100), intensity: new Intensity(0.5), comments: [] },
         ],
         comments: [
           { offset: new Duration(0), text: "Let's start" },

@@ -14,8 +14,8 @@ export const stats = ({ intervals }: Workout): string => {
   return `
 Total duration: ${(duration.seconds / 60).toFixed()} minutes
 
-Average intensity: ${(avgIntensity * 100).toFixed()}%
-Normalized intensity: ${(normIntensity * 100).toFixed()}%
+Average intensity: ${(avgIntensity.value * 100).toFixed()}%
+Normalized intensity: ${(normIntensity.value * 100).toFixed()}%
 
 TSS #1: ${tss(intervals).toFixed()}
 TSS #2: ${tss2(duration, normIntensity).toFixed()}

@@ -1,5 +1,6 @@
 import { pipe, sum } from "ramda";
 import { Interval } from "../ast";
+import { Intensity } from "../Intensity";
 import { average } from "./average";
 import { intervalsToIntensities } from "./intervalsToIntensities";
 
@@ -24,12 +25,14 @@ const fourthPower = (x: number) => Math.pow(x, 4);
 
 const fourthRoot = (x: number) => Math.pow(x, 1 / 4);
 
-export const normalizedIntensity = (intervals: Interval[]): number => {
-  return pipe(
-    intervalsToIntensities,
-    rollingAverages,
-    (averages) => averages.map(fourthPower),
-    average,
-    fourthRoot,
-  )(intervals);
+export const normalizedIntensity = (intervals: Interval[]): Intensity => {
+  return new Intensity(
+    pipe(
+      intervalsToIntensities,
+      rollingAverages,
+      (averages) => averages.map(fourthPower),
+      average,
+      fourthRoot,
+    )(intervals),
+  );
 };

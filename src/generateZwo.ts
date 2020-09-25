@@ -19,8 +19,8 @@ const generateRangeInterval = (
       {
         _attr: {
           Duration: duration.seconds,
-          PowerLow: intensity.from,
-          PowerHigh: intensity.to,
+          PowerLow: intensity.start,
+          PowerHigh: intensity.end,
           ...(cadence ? { Cadence: cadence } : {}),
         },
       },
@@ -35,7 +35,7 @@ const generateSteadyStateInterval = ({ duration, intensity, cadence, comments }:
       {
         _attr: {
           Duration: duration.seconds,
-          Power: intensity.from,
+          Power: intensity.value,
           ...(cadence ? { Cadence: cadence } : {}),
         },
       },
@@ -53,11 +53,11 @@ const generateRepeatInterval = (repInterval: RepeatedInterval): xml.XmlObject =>
           Repeat: repInterval.times,
 
           OnDuration: on.duration.seconds,
-          OnPower: on.intensity.from,
+          OnPower: on.intensity.start,
           ...(on.cadence ? { Cadence: on.cadence } : {}),
 
           OffDuration: off.duration.seconds,
-          OffPower: off.intensity.from,
+          OffPower: off.intensity.end,
           ...(off.cadence ? { CadenceResting: off.cadence } : {}),
         },
       },
@@ -72,9 +72,9 @@ const generateInterval = (interval: Interval | RepeatedInterval): xml.XmlObject 
   }
 
   const { intensity } = interval;
-  if (intensity.from < intensity.to) {
+  if (intensity.start < intensity.end) {
     return generateRangeInterval("Warmup", interval);
-  } else if (intensity.from > intensity.to) {
+  } else if (intensity.start > intensity.end) {
     return generateRangeInterval("Cooldown", interval);
   } else {
     return generateSteadyStateInterval(interval);

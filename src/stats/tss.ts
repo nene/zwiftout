@@ -24,10 +24,10 @@ const rangeTss = (duration: Duration, from: number, to: number): number => {
 };
 
 const intervalTss = ({ duration, intensity }: Interval): number => {
-  if (intensity.from === intensity.to) {
-    return steadyTss(duration, intensity.from);
+  if (intensity.start === intensity.end) {
+    return steadyTss(duration, intensity.value);
   } else {
-    return rangeTss(duration, intensity.from, intensity.to);
+    return rangeTss(duration, intensity.start, intensity.end);
   }
 };
 
