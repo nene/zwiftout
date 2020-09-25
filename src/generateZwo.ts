@@ -1,5 +1,6 @@
 import * as xml from "xml";
 import { Interval, Workout, Comment } from "./ast";
+import { detectRepeats, RepeatedInterval } from "./detectRepeats";
 
 // Zwift Workout XML generator
 
@@ -43,7 +44,33 @@ const generateSteadyStateInterval = ({ duration, intensity, cadence, comments }:
   };
 };
 
-const generateInterval = (interval: Interval): xml.XmlObject => {
+const generateRepeatInterval = (repInterval: RepeatedInterval): xml.XmlObject => {
+  const [on, off] = repInterval.intervals;
+  return {
+    IntervalsT: [
+      {
+        _attr: {
+          Repeat: repInterval.times,
+
+          OnDuration: on.duration.value,
+          OnPower: on.intensity.from,
+          ...(on.cadence ? { Cadence: on.cadence } : {}),
+
+          OffDuration: off.duration.value,
+          OffPower: off.intensity.from,
+          ...(off.cadence ? { CadenceResting: off.cadence } : {}),
+        },
+      },
+      ...generateTextEvents(repInterval.comments),
+    ],
+  };
+};
+
+const generateInterval = (interval: Interval | RepeatedInterval): xml.XmlObject => {
+  if (interval.type === "repeat") {
+    return generateRepeatInterval(interval);
+  }
+
   const { intensity } = interval;
   if (intensity.from < intensity.to) {
     return generateRangeInterval("Warmup", interval);
@@ -62,7 +89,7 @@ export const generateZwo = ({ name, author, description, intervals }: Workout): 
         { author: author },
         { description: description },
         { sportType: "bike" },
-        ...intervals.map(generateInterval),
+        ...detectRepeats(intervals).map(generateInterval),
       ],
     },
     { indent: "  " },

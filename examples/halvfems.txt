@@ -21,17 +21,29 @@ Interval: 12:00 90rpm 90%
 Rest: 4:00 85rpm 55%
 
 Interval: 1:00 60rpm 90%
+  # 00:00 Start off at slow cadence
 Interval: 1:00 90rpm 90%
+  # 00:00 Now bump that cadence up
 Interval: 1:00 60rpm 90%
+  # 00:00 Back to 60 RPM
 Interval: 1:00 90rpm 90%
+  # 00:00 Back to normal cadence
 Interval: 1:00 60rpm 90%
+  # 00:00 Grinding...
 Interval: 1:00 90rpm 90%
+  # 00:00 Back to normal cadence
 Interval: 1:00 60rpm 90%
+  # 00:00 And grind at 60 RPM again
 Interval: 1:00 90rpm 90%
+  # 00:00 Back to 90 RPM
 Interval: 1:00 60rpm 90%
+  # 00:00 Lower it again to 60 RPM
 Interval: 1:00 90rpm 90%
+  # 00:00 Increase the cadence to 90 RPM
 Interval: 1:00 60rpm 90%
+  # 00:00 Last grinding minute
 Interval: 1:00 90rpm 90%
+  # 00:00 Last minute... be strong!
 
 Rest: 4:00 85rpm 55%
 
