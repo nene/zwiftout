@@ -1,5 +1,5 @@
 import { Interval } from "../ast";
-import { Seconds } from "../Seconds";
+import { Duration } from "../Duration";
 
-export const totalDuration = (intervals: Interval[]): Seconds =>
-  intervals.reduce((total, interval) => total.add(interval.duration), new Seconds(0));
+export const totalDuration = (intervals: Interval[]): Duration =>
+  intervals.reduce((total, interval) => total.add(interval.duration), new Duration(0));

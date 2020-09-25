@@ -1,5 +1,5 @@
 import { Interval, Workout, Comment } from "../ast";
-import { Seconds } from "../Seconds";
+import { Duration } from "../Duration";
 import { ParseError } from "./ParseError";
 import { SourceLocation, Token } from "./tokenizer";
 
@@ -66,7 +66,7 @@ const parseIntervalComments = (tokens: Token[]): [Comment[], Token[]] => {
         throw new ParseError(`Expected [comment text] instead got ${tokenToString(text)}`, text?.loc || offset.loc);
       }
       comments.push({
-        offset: new Seconds(offset.value),
+        offset: new Duration(offset.value),
         text: text.value,
       });
       tokens = rest;
@@ -85,7 +85,7 @@ const parseIntervalParams = (tokens: Token[], loc: SourceLocation): [IntervalDat
   while (tokens[0]) {
     const token = tokens[0];
     if (token.type === "duration") {
-      data.duration = new Seconds(token.value);
+      data.duration = new Duration(token.value);
       tokens.shift();
     } else if (token.type === "cadence") {
       data.cadence = token.value;

@@ -1,4 +1,4 @@
-import { Seconds } from "../Seconds";
+import { Duration } from "../Duration";
 
 // Training Stress Score formula from Training and Racing with a Power Meter:
 //
@@ -13,6 +13,6 @@ import { Seconds } from "../Seconds";
 // TSS = (s * (FTP * IF) * IF) / (FTP * 3600) * 100
 // TSS = (s * IF * IF) / 3600 * 100
 
-export const tss2 = (duration: Seconds, intensity: number): number => {
+export const tss2 = (duration: Duration, intensity: number): number => {
   return ((duration.value * intensity * intensity) / 3600) * 100;
 };

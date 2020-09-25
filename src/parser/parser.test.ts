@@ -71,7 +71,7 @@ Rest: 5:00 45%
         Object {
           "cadence": undefined,
           "comments": Array [],
-          "duration": Seconds {
+          "duration": Duration {
             "value": 300,
           },
           "intensity": Object {
@@ -83,7 +83,7 @@ Rest: 5:00 45%
         Object {
           "cadence": 90,
           "comments": Array [],
-          "duration": Seconds {
+          "duration": Duration {
             "value": 600,
           },
           "intensity": Object {
@@ -95,7 +95,7 @@ Rest: 5:00 45%
         Object {
           "cadence": undefined,
           "comments": Array [],
-          "duration": Seconds {
+          "duration": Duration {
             "value": 300,
           },
           "intensity": Object {
@@ -136,7 +136,7 @@ Interval: 5:00 50%
           Object {
             "cadence": undefined,
             "comments": Array [],
-            "duration": Seconds {
+            "duration": Duration {
               "value": 300,
             },
             "intensity": Object {
@@ -148,7 +148,7 @@ Interval: 5:00 50%
           Object {
             "cadence": undefined,
             "comments": Array [],
-            "duration": Seconds {
+            "duration": Duration {
               "value": 600,
             },
             "intensity": Object {
@@ -160,7 +160,7 @@ Interval: 5:00 50%
           Object {
             "cadence": undefined,
             "comments": Array [],
-            "duration": Seconds {
+            "duration": Duration {
               "value": 300,
             },
             "intensity": Object {
@@ -188,7 +188,7 @@ Cooldown: 5:30 70%..45%
         Object {
           "cadence": 100,
           "comments": Array [],
-          "duration": Seconds {
+          "duration": Duration {
             "value": 330,
           },
           "intensity": Object {
@@ -200,7 +200,7 @@ Cooldown: 5:30 70%..45%
         Object {
           "cadence": undefined,
           "comments": Array [],
-          "duration": Seconds {
+          "duration": Duration {
             "value": 330,
           },
           "intensity": Object {
@@ -232,7 +232,7 @@ Cooldown: 5:30 70%..45%
       Object {
         "cadence": undefined,
         "comments": Array [],
-        "duration": Seconds {
+        "duration": Duration {
           "value": 10,
         },
         "intensity": Object {
@@ -246,7 +246,7 @@ Cooldown: 5:30 70%..45%
       Object {
         "cadence": 100,
         "comments": Array [],
-        "duration": Seconds {
+        "duration": Duration {
           "value": 10,
         },
         "intensity": Object {
@@ -260,7 +260,7 @@ Cooldown: 5:30 70%..45%
       Object {
         "cadence": 100,
         "comments": Array [],
-        "duration": Seconds {
+        "duration": Duration {
           "value": 10,
         },
         "intensity": Object {
@@ -277,7 +277,7 @@ Cooldown: 5:30 70%..45%
       Object {
         "cadence": 100,
         "comments": Array [],
-        "duration": Seconds {
+        "duration": Duration {
           "value": 10,
         },
         "intensity": Object {
@@ -291,7 +291,7 @@ Cooldown: 5:30 70%..45%
       Object {
         "cadence": 100,
         "comments": Array [],
-        "duration": Seconds {
+        "duration": Duration {
           "value": 10,
         },
         "intensity": Object {
@@ -373,37 +373,37 @@ Rest: 5:00 50%
             "cadence": undefined,
             "comments": Array [
               Object {
-                "offset": Seconds {
+                "offset": Duration {
                   "value": 0,
                 },
                 "text": "Find your rythm.",
               },
               Object {
-                "offset": Seconds {
+                "offset": Duration {
                   "value": 60,
                 },
                 "text": "Try to settle in for the effort",
               },
               Object {
-                "offset": Seconds {
+                "offset": Duration {
                   "value": 300,
                 },
                 "text": "Half way through",
               },
               Object {
-                "offset": Seconds {
+                "offset": Duration {
                   "value": 540,
                 },
                 "text": "Almost there",
               },
               Object {
-                "offset": Seconds {
+                "offset": Duration {
                   "value": 570,
                 },
                 "text": "Final push. YOU GOT IT!",
               },
             ],
-            "duration": Seconds {
+            "duration": Duration {
               "value": 600,
             },
             "intensity": Object {
@@ -416,19 +416,19 @@ Rest: 5:00 50%
             "cadence": undefined,
             "comments": Array [
               Object {
-                "offset": Seconds {
+                "offset": Duration {
                   "value": 0,
                 },
                 "text": "Great effort!",
               },
               Object {
-                "offset": Seconds {
+                "offset": Duration {
                   "value": 30,
                 },
                 "text": "Cool down well after all of this.",
               },
             ],
-            "duration": Seconds {
+            "duration": Duration {
               "value": 300,
             },
             "intensity": Object {

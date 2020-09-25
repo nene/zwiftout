@@ -1,6 +1,6 @@
 import { eqProps, flatten, zip } from "ramda";
 import { Interval, Comment } from "./ast";
-import { Seconds } from "./Seconds";
+import { Duration } from "./Duration";
 
 export type RepeatedInterval = {
   type: "repeat";
@@ -32,7 +32,7 @@ const countRepetitions = (reference: Interval[], intervals: Interval[], startInd
   return repeats;
 };
 
-const offsetComments = (interval: Interval, baseOffset: Seconds): Comment[] => {
+const offsetComments = (interval: Interval, baseOffset: Duration): Comment[] => {
   return interval.comments.map(({ offset, ...rest }) => ({
     offset: baseOffset.add(offset),
     ...rest,
@@ -40,7 +40,7 @@ const offsetComments = (interval: Interval, baseOffset: Seconds): Comment[] => {
 };
 
 const collectComments = (intervals: Interval[]): Comment[] => {
-  let previousIntervalsDuration = new Seconds(0);
+  let previousIntervalsDuration = new Duration(0);
   return flatten(
     intervals.map((interval) => {
       const comments = offsetComments(interval, previousIntervalsDuration);
