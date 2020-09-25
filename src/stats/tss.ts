@@ -10,14 +10,14 @@ import { Duration } from "../Duration";
 // IF - intensity factor (power / FTP)
 
 const steadyTss = (duration: Duration, intensity: number): number => {
-  return ((duration.value * intensity * intensity) / 3600) * 100;
+  return ((duration.seconds * intensity * intensity) / 3600) * 100;
 };
 
 const rangeTss = (duration: Duration, from: number, to: number): number => {
   let score = 0;
   const step = new Duration(1);
-  for (let i = 0; i < duration.value; i += step.value) {
-    const intensity = from + (to - from) * (i / duration.value);
+  for (let i = 0; i < duration.seconds; i += step.seconds) {
+    const intensity = from + (to - from) * (i / duration.seconds);
     score += steadyTss(step, intensity);
   }
   return score;

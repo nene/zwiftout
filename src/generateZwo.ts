@@ -6,7 +6,7 @@ import { detectRepeats, RepeatedInterval } from "./detectRepeats";
 
 const generateTextEvents = (comments: Comment[]): xml.XmlObject[] => {
   return comments.map(({ offset, text }) => ({
-    textevent: [{ _attr: { timeoffset: offset.value, message: text } }],
+    textevent: [{ _attr: { timeoffset: offset.seconds, message: text } }],
   }));
 };
 
@@ -18,7 +18,7 @@ const generateRangeInterval = (
     [tagName]: [
       {
         _attr: {
-          Duration: duration.value,
+          Duration: duration.seconds,
           PowerLow: intensity.from,
           PowerHigh: intensity.to,
           ...(cadence ? { Cadence: cadence } : {}),
@@ -34,7 +34,7 @@ const generateSteadyStateInterval = ({ duration, intensity, cadence, comments }:
     SteadyState: [
       {
         _attr: {
-          Duration: duration.value,
+          Duration: duration.seconds,
           Power: intensity.from,
           ...(cadence ? { Cadence: cadence } : {}),
         },
@@ -52,11 +52,11 @@ const generateRepeatInterval = (repInterval: RepeatedInterval): xml.XmlObject =>
         _attr: {
           Repeat: repInterval.times,
 
-          OnDuration: on.duration.value,
+          OnDuration: on.duration.seconds,
           OnPower: on.intensity.from,
           ...(on.cadence ? { Cadence: on.cadence } : {}),
 
-          OffDuration: off.duration.value,
+          OffDuration: off.duration.seconds,
           OffPower: off.intensity.from,
           ...(off.cadence ? { CadenceResting: off.cadence } : {}),
         },

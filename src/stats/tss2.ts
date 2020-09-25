@@ -14,5 +14,5 @@ import { Duration } from "../Duration";
 // TSS = (s * IF * IF) / 3600 * 100
 
 export const tss2 = (duration: Duration, intensity: number): number => {
-  return ((duration.value * intensity * intensity) / 3600) * 100;
+  return ((duration.seconds * intensity * intensity) / 3600) * 100;
 };

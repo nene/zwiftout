@@ -5,9 +5,9 @@ import { Interval } from "../ast";
 const intervalToIntensities = ({ duration, intensity }: Interval): number[] => {
   const seconds = [];
   const { from, to } = intensity;
-  for (let i = 0; i < duration.value; i++) {
+  for (let i = 0; i < duration.seconds; i++) {
     // Intensity in a single second
-    seconds.push(from + (to - from) * (i / duration.value));
+    seconds.push(from + (to - from) * (i / duration.seconds));
   }
   return seconds;
 };

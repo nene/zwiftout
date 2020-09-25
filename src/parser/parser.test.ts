@@ -72,7 +72,7 @@ Rest: 5:00 45%
           "cadence": undefined,
           "comments": Array [],
           "duration": Duration {
-            "value": 300,
+            "seconds": 300,
           },
           "intensity": Object {
             "from": 0.5,
@@ -84,7 +84,7 @@ Rest: 5:00 45%
           "cadence": 90,
           "comments": Array [],
           "duration": Duration {
-            "value": 600,
+            "seconds": 600,
           },
           "intensity": Object {
             "from": 0.8,
@@ -96,7 +96,7 @@ Rest: 5:00 45%
           "cadence": undefined,
           "comments": Array [],
           "duration": Duration {
-            "value": 300,
+            "seconds": 300,
           },
           "intensity": Object {
             "from": 0.45,
@@ -137,7 +137,7 @@ Interval: 5:00 50%
             "cadence": undefined,
             "comments": Array [],
             "duration": Duration {
-              "value": 300,
+              "seconds": 300,
             },
             "intensity": Object {
               "from": 0.5,
@@ -149,7 +149,7 @@ Interval: 5:00 50%
             "cadence": undefined,
             "comments": Array [],
             "duration": Duration {
-              "value": 600,
+              "seconds": 600,
             },
             "intensity": Object {
               "from": 1,
@@ -161,7 +161,7 @@ Interval: 5:00 50%
             "cadence": undefined,
             "comments": Array [],
             "duration": Duration {
-              "value": 300,
+              "seconds": 300,
             },
             "intensity": Object {
               "from": 0.5,
@@ -189,7 +189,7 @@ Cooldown: 5:30 70%..45%
           "cadence": 100,
           "comments": Array [],
           "duration": Duration {
-            "value": 330,
+            "seconds": 330,
           },
           "intensity": Object {
             "from": 0.5,
@@ -201,7 +201,7 @@ Cooldown: 5:30 70%..45%
           "cadence": undefined,
           "comments": Array [],
           "duration": Duration {
-            "value": 330,
+            "seconds": 330,
           },
           "intensity": Object {
             "from": 0.7,
@@ -233,7 +233,7 @@ Cooldown: 5:30 70%..45%
         "cadence": undefined,
         "comments": Array [],
         "duration": Duration {
-          "value": 10,
+          "seconds": 10,
         },
         "intensity": Object {
           "from": 0.5,
@@ -247,7 +247,7 @@ Cooldown: 5:30 70%..45%
         "cadence": 100,
         "comments": Array [],
         "duration": Duration {
-          "value": 10,
+          "seconds": 10,
         },
         "intensity": Object {
           "from": 0.5,
@@ -261,7 +261,7 @@ Cooldown: 5:30 70%..45%
         "cadence": 100,
         "comments": Array [],
         "duration": Duration {
-          "value": 10,
+          "seconds": 10,
         },
         "intensity": Object {
           "from": 0.5,
@@ -278,7 +278,7 @@ Cooldown: 5:30 70%..45%
         "cadence": 100,
         "comments": Array [],
         "duration": Duration {
-          "value": 10,
+          "seconds": 10,
         },
         "intensity": Object {
           "from": 0.5,
@@ -292,7 +292,7 @@ Cooldown: 5:30 70%..45%
         "cadence": 100,
         "comments": Array [],
         "duration": Duration {
-          "value": 10,
+          "seconds": 10,
         },
         "intensity": Object {
           "from": 0.5,
@@ -304,14 +304,14 @@ Cooldown: 5:30 70%..45%
   });
 
   it("parses correct duration formats", () => {
-    expect(parseInterval("Interval: 0:10 50%").duration.value).toEqual(10);
-    expect(parseInterval("Interval: 00:10 50%").duration.value).toEqual(10);
-    expect(parseInterval("Interval: 0:00:10 50%").duration.value).toEqual(10);
-    expect(parseInterval("Interval: 0:02:05 50%").duration.value).toEqual(125);
-    expect(parseInterval("Interval: 1:00:00 50%").duration.value).toEqual(3600);
-    expect(parseInterval("Interval: 1:00:0 50%").duration.value).toEqual(3600);
-    expect(parseInterval("Interval: 1:0:0 50%").duration.value).toEqual(3600);
-    expect(parseInterval("Interval: 10:00:00 50%").duration.value).toEqual(36000);
+    expect(parseInterval("Interval: 0:10 50%").duration.seconds).toEqual(10);
+    expect(parseInterval("Interval: 00:10 50%").duration.seconds).toEqual(10);
+    expect(parseInterval("Interval: 0:00:10 50%").duration.seconds).toEqual(10);
+    expect(parseInterval("Interval: 0:02:05 50%").duration.seconds).toEqual(125);
+    expect(parseInterval("Interval: 1:00:00 50%").duration.seconds).toEqual(3600);
+    expect(parseInterval("Interval: 1:00:0 50%").duration.seconds).toEqual(3600);
+    expect(parseInterval("Interval: 1:0:0 50%").duration.seconds).toEqual(3600);
+    expect(parseInterval("Interval: 10:00:00 50%").duration.seconds).toEqual(36000);
   });
 
   it("throws error for incorrect duration formats", () => {
@@ -374,37 +374,37 @@ Rest: 5:00 50%
             "comments": Array [
               Object {
                 "offset": Duration {
-                  "value": 0,
+                  "seconds": 0,
                 },
                 "text": "Find your rythm.",
               },
               Object {
                 "offset": Duration {
-                  "value": 60,
+                  "seconds": 60,
                 },
                 "text": "Try to settle in for the effort",
               },
               Object {
                 "offset": Duration {
-                  "value": 300,
+                  "seconds": 300,
                 },
                 "text": "Half way through",
               },
               Object {
                 "offset": Duration {
-                  "value": 540,
+                  "seconds": 540,
                 },
                 "text": "Almost there",
               },
               Object {
                 "offset": Duration {
-                  "value": 570,
+                  "seconds": 570,
                 },
                 "text": "Final push. YOU GOT IT!",
               },
             ],
             "duration": Duration {
-              "value": 600,
+              "seconds": 600,
             },
             "intensity": Object {
               "from": 0.9,
@@ -417,19 +417,19 @@ Rest: 5:00 50%
             "comments": Array [
               Object {
                 "offset": Duration {
-                  "value": 0,
+                  "seconds": 0,
                 },
                 "text": "Great effort!",
               },
               Object {
                 "offset": Duration {
-                  "value": 30,
+                  "seconds": 30,
                 },
                 "text": "Cool down well after all of this.",
               },
             ],
             "duration": Duration {
-              "value": 300,
+              "seconds": 300,
             },
             "intensity": Object {
               "from": 0.5,
