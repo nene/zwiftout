@@ -11,6 +11,8 @@ module.exports = {
     "@typescript-eslint"
   ],
   "rules": {
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    // Better handled by TypeScript
+    "@typescript-eslint/no-unused-vars": "off",
   }
 };

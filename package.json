@@ -4,7 +4,7 @@
   "license": "GPL-3.0-or-later",
   "scripts": {
     "lint:ts": "tsc --noEmit",
-    "lint:js": "eslint src/**/* .eslintrc.js",
+    "lint:js": "eslint 'src/**/*'",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:1": "ts-node src/index.ts examples/threshold-pushing.txt",
