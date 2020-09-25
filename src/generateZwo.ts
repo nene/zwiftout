@@ -6,7 +6,7 @@ import { detectRepeats, RepeatedInterval } from "./detectRepeats";
 
 const generateTextEvents = (comments: Comment[]): xml.XmlObject[] => {
   return comments.map(({ offset, text }) => ({
-    textevent: [{ _attr: { timeoffset: offset, message: text } }],
+    textevent: [{ _attr: { timeoffset: offset.value, message: text } }],
   }));
 };
 
@@ -20,7 +20,7 @@ const generateRangeInterval = (
         _attr: {
           Duration: duration.value,
           PowerLow: intensity.from,
-          PowerHigh: intensity.from,
+          PowerHigh: intensity.to,
           ...(cadence ? { Cadence: cadence } : {}),
         },
       },
