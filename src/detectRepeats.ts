@@ -55,6 +55,21 @@ const stripComments = (intervals: Interval[]): Interval[] => {
   return intervals.map(({ comments, ...rest }) => ({ comments: [], ...rest }));
 };
 
+const extractRepeatedInterval = (intervals: Interval[], i: number): RepeatedInterval | undefined => {
+  const reference = intervals.slice(i, i + windowSize);
+  const repeats = countRepetitions(reference, intervals, i);
+  if (repeats === 1) {
+    return undefined;
+  }
+
+  return {
+    type: "repeat",
+    times: repeats,
+    intervals: stripComments(reference),
+    comments: collectComments(intervals.slice(i, i + windowSize * repeats)),
+  };
+};
+
 const isRangeInterval = (interval: Interval): boolean => interval.intensity instanceof IntensityRange;
 
 export const detectRepeats = (intervals: Interval[]): (Interval | RepeatedInterval)[] => {
@@ -72,16 +87,10 @@ export const detectRepeats = (intervals: Interval[]): (Interval | RepeatedInterv
       continue;
     }
 
-    const reference = intervals.slice(i, i + windowSize);
-    const repeats = countRepetitions(reference, intervals, i);
-    if (repeats > 1) {
-      processed.push({
-        type: "repeat",
-        times: repeats,
-        intervals: stripComments(reference),
-        comments: collectComments(intervals.slice(i, i + windowSize * repeats)),
-      });
-      i += repeats * windowSize;
+    const repeatedInterval = extractRepeatedInterval(intervals, i);
+    if (repeatedInterval) {
+      processed.push(repeatedInterval);
+      i += repeatedInterval.times * windowSize;
     } else {
       processed.push(intervals[i]);
       i++;
