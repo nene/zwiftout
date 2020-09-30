@@ -1,6 +1,6 @@
 import { IntervalType } from "./parser/tokenizer";
 import { Duration } from "./Duration";
-import { Intensity, IntensityRange } from "./Intensity";
+import { FreeIntensity, Intensity, IntensityRange } from "./Intensity";
 
 export type Workout = {
   name: string;
@@ -12,7 +12,7 @@ export type Workout = {
 export type Interval = {
   type: IntervalType;
   duration: Duration;
-  intensity: Intensity | IntensityRange;
+  intensity: Intensity | IntensityRange | FreeIntensity;
   cadence?: number;
   comments: Comment[];
 };

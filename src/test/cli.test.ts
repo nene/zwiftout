@@ -9,6 +9,7 @@ const createZwo = (filename: string) => generateZwo(parse(fs.readFileSync(filena
 const filenames = [
   "examples/comments.txt",
   "examples/darth-vader.txt",
+  "examples/ftp-test.txt",
   "examples/halvfems.txt",
   "examples/threshold-pushing.txt",
 ];

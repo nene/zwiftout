@@ -207,6 +207,28 @@ Cooldown: 5:30 70%..45%
     `);
   });
 
+  it("parses free-ride intervals", () => {
+    expect(
+      parse(`
+Name: My Workout
+
+FreeRide: 5:00
+`).intervals,
+    ).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "cadence": undefined,
+          "comments": Array [],
+          "duration": Duration {
+            "seconds": 300,
+          },
+          "intensity": FreeIntensity {},
+          "type": "FreeRide",
+        },
+      ]
+    `);
+  });
+
   const parseInterval = (interval: string) => parse(`Name: My Workout\n${interval}`).intervals[0];
 
   it("requires duration and power parameters to be specified", () => {

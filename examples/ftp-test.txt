@@ -1,0 +1,41 @@
+Author: Zwift
+Name: FTP Test (shorter)
+Description:
+  The short variation of the standard FTP test starts off with a short warmup,
+  a quick leg opening ramp, and a 5 minute hard effort to get the legs pumping.
+  After a brief rest it's time to give it your all and go as hard as you can for 20 solid minutes.
+  Pace yourself and try to go as hard as you can sustain for the entire 20 minutes -
+  you will be scored on the final 20 minute segment.  
+
+  Upon saving your ride, you will be notified if your FTP improved.
+
+Warmup: 5:00 30%..70%
+  @ 00:20 Welcome to the FTP test
+  @ 00:35 Time to get warmed up and get your cadence up to 90-100rpm
+
+Interval: 00:20 90%
+Interval: 00:20 110%
+Interval: 00:20 130%
+
+Interval: 03:00 60%
+Interval: 03:00 110%
+Interval: 02:00 120%
+
+Rest: 06:00 55%
+  @ 00:10 In 6 minutes the FTP test begins
+  @ 05:00 Prepare for your max 20 minute effort
+
+FreeRide: 20:00
+  @ 00:10 Bring your power up to what you think you can hold for 20 minutes
+  @ 05:00 How ya doin?
+  @ 10:00 Half way done! If it's feeling easy now might be time to add 10 watts.
+  @ 15:00 5 minutes left!
+  @ 16:00 4 minutes left. Increase your power if you're feeling strong.
+  @ 17:00 3 minutes left
+  @ 18:00 2 minutes left
+  @ 19:00 1 minute left. Go all in!
+  @ 19:30 30 sec. Go for it.
+  @ 19:50 10 seconds.
+
+Cooldown: 5:00 50%..30%
+

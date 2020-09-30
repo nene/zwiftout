@@ -78,6 +78,69 @@ exports[`Generate ZWO examples/darth-vader.txt 1`] = `
 </workout_file>"
 `;
 
+exports[`Generate ZWO examples/ftp-test.txt 1`] = `
+"<workout_file>
+  <name>FTP Test (shorter)</name>
+  <author>Zwift</author>
+  <description>The short variation of the standard FTP test starts off with a short warmup,
+a quick leg opening ramp, and a 5 minute hard effort to get the legs pumping.
+After a brief rest it&apos;s time to give it your all and go as hard as you can for 20 solid minutes.
+Pace yourself and try to go as hard as you can sustain for the entire 20 minutes -
+you will be scored on the final 20 minute segment.
+
+Upon saving your ride, you will be notified if your FTP improved.</description>
+  <sportType>bike</sportType>
+  <Warmup Duration=\\"300\\" PowerLow=\\"0.3\\" PowerHigh=\\"0.7\\">
+    <textevent timeoffset=\\"20\\" message=\\"Welcome to the FTP test\\">
+    </textevent>
+    <textevent timeoffset=\\"35\\" message=\\"Time to get warmed up and get your cadence up to 90-100rpm\\">
+    </textevent>
+  </Warmup>
+  <SteadyState Duration=\\"20\\" Power=\\"0.9\\">
+  </SteadyState>
+  <SteadyState Duration=\\"20\\" Power=\\"1.1\\">
+  </SteadyState>
+  <SteadyState Duration=\\"20\\" Power=\\"1.3\\">
+  </SteadyState>
+  <SteadyState Duration=\\"180\\" Power=\\"0.6\\">
+  </SteadyState>
+  <SteadyState Duration=\\"180\\" Power=\\"1.1\\">
+  </SteadyState>
+  <SteadyState Duration=\\"120\\" Power=\\"1.2\\">
+  </SteadyState>
+  <SteadyState Duration=\\"360\\" Power=\\"0.55\\">
+    <textevent timeoffset=\\"10\\" message=\\"In 6 minutes the FTP test begins\\">
+    </textevent>
+    <textevent timeoffset=\\"300\\" message=\\"Prepare for your max 20 minute effort\\">
+    </textevent>
+  </SteadyState>
+  <FreeRide Duration=\\"1200\\">
+    <textevent timeoffset=\\"10\\" message=\\"Bring your power up to what you think you can hold for 20 minutes\\">
+    </textevent>
+    <textevent timeoffset=\\"300\\" message=\\"How ya doin?\\">
+    </textevent>
+    <textevent timeoffset=\\"600\\" message=\\"Half way done! If it&apos;s feeling easy now might be time to add 10 watts.\\">
+    </textevent>
+    <textevent timeoffset=\\"900\\" message=\\"5 minutes left!\\">
+    </textevent>
+    <textevent timeoffset=\\"960\\" message=\\"4 minutes left. Increase your power if you&apos;re feeling strong.\\">
+    </textevent>
+    <textevent timeoffset=\\"1020\\" message=\\"3 minutes left\\">
+    </textevent>
+    <textevent timeoffset=\\"1080\\" message=\\"2 minutes left\\">
+    </textevent>
+    <textevent timeoffset=\\"1140\\" message=\\"1 minute left. Go all in!\\">
+    </textevent>
+    <textevent timeoffset=\\"1170\\" message=\\"30 sec. Go for it.\\">
+    </textevent>
+    <textevent timeoffset=\\"1190\\" message=\\"10 seconds.\\">
+    </textevent>
+  </FreeRide>
+  <Cooldown Duration=\\"300\\" PowerLow=\\"0.5\\" PowerHigh=\\"0.3\\">
+  </Cooldown>
+</workout_file>"
+`;
+
 exports[`Generate ZWO examples/halvfems.txt 1`] = `
 "<workout_file>
   <name>Halvfems</name>
@@ -202,6 +265,26 @@ Zone Distribution:
   0 min - Z4: Threshold
   0 min - Z5: VO2 Max
   3 min - Z6: Anaerobic
+"
+`;
+
+exports[`Generate stats examples/ftp-test.txt 1`] = `
+"
+Total duration: 45 minutes
+
+Average intensity: 36%
+Normalized intensity: 71%
+
+TSS #1: 21
+TSS #2: 37
+
+Zone Distribution:
+ 35 min - Z1: Recovery
+  4 min - Z2: Endurance
+  0 min - Z3: Tempo
+  0 min - Z4: Threshold
+  3 min - Z5: VO2 Max
+  2 min - Z6: Anaerobic
 "
 `;
 

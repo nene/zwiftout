@@ -1,8 +1,8 @@
 import { Interval, Workout, Comment } from "../ast";
 import { Duration } from "../Duration";
-import { Intensity, IntensityRange } from "../Intensity";
+import { FreeIntensity, Intensity, IntensityRange } from "../Intensity";
 import { ParseError } from "./ParseError";
-import { SourceLocation, Token } from "./tokenizer";
+import { IntervalType, SourceLocation, Token } from "./tokenizer";
 
 type Header = Partial<Omit<Workout, "intervals">>;
 
@@ -78,41 +78,44 @@ const parseIntervalComments = (tokens: Token[]): [Comment[], Token[]] => {
   return [comments, tokens];
 };
 
-type IntervalData = Omit<Interval, "type">;
-
-const parseIntervalParams = (tokens: Token[], loc: SourceLocation): [IntervalData, Token[]] => {
-  const data: Partial<IntervalData> = {};
+const parseIntervalParams = (type: IntervalType, tokens: Token[], loc: SourceLocation): [Interval, Token[]] => {
+  let duration;
+  let cadence;
+  let intensity;
 
   while (tokens[0]) {
     const token = tokens[0];
     if (token.type === "duration") {
-      data.duration = new Duration(token.value);
+      duration = new Duration(token.value);
       tokens.shift();
     } else if (token.type === "cadence") {
-      data.cadence = token.value;
+      cadence = token.value;
       tokens.shift();
     } else if (token.type === "intensity") {
-      data.intensity = new Intensity(token.value);
+      intensity = new Intensity(token.value);
       tokens.shift();
     } else if (token.type === "intensity-range") {
-      data.intensity = new IntensityRange(token.value[0], token.value[1]);
+      intensity = new IntensityRange(token.value[0], token.value[1]);
       tokens.shift();
     } else {
       break;
     }
   }
 
-  if (!("duration" in data)) {
+  if (!duration) {
     throw new ParseError("Duration not specified", loc);
   }
-  if (!("intensity" in data)) {
-    throw new ParseError("Power not specified", loc);
+  if (!intensity) {
+    if (type === "FreeRide") {
+      intensity = new FreeIntensity();
+    } else {
+      throw new ParseError("Power not specified", loc);
+    }
   }
 
   const [comments, rest] = parseIntervalComments(tokens);
-  data.comments = comments;
 
-  return [data as IntervalData, rest];
+  return [{ type, duration, intensity, cadence, comments }, rest];
 };
 
 const parseIntervals = (tokens: Token[]): Interval[] => {
@@ -121,14 +124,8 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
   while (tokens[0]) {
     const token = tokens.shift() as Token;
     if (token.type === "interval") {
-      const [{ duration, intensity, cadence, comments }, rest] = parseIntervalParams(tokens, token.loc);
-      intervals.push({
-        type: token.value,
-        duration,
-        intensity,
-        cadence,
-        comments,
-      });
+      const [interval, rest] = parseIntervalParams(token.value, tokens, token.loc);
+      intervals.push(interval);
       tokens = rest;
     } else {
       throw new ParseError(`Unexpected token ${tokenToString(token)}`, token.loc);

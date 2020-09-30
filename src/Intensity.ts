@@ -29,3 +29,17 @@ export class IntensityRange {
     return this._end;
   }
 }
+
+export class FreeIntensity {
+  get value() {
+    return 0;
+  }
+
+  get start() {
+    return 0;
+  }
+
+  get end() {
+    return 0;
+  }
+}
