@@ -1,0 +1,246 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generate ZWO examples/comments.txt 1`] = `
+"<workout_file>
+  <name>Workout with comments</name>
+  <author></author>
+  <description></description>
+  <sportType>bike</sportType>
+  <Warmup Duration=\\"600\\" PowerLow=\\"0.25\\" PowerHigh=\\"0.75\\">
+    <textevent timeoffset=\\"10\\" message=\\"Welcome to: #8\\">
+    </textevent>
+    <textevent timeoffset=\\"360\\" message=\\"Let&apos;s talk about today&apos;s workout\\">
+    </textevent>
+    <textevent timeoffset=\\"370\\" message=\\"We&apos;ll be doing 5 blocks of VO2max work\\">
+    </textevent>
+    <textevent timeoffset=\\"380\\" message=\\"Each block 2 minutes and 30 seconds\\">
+    </textevent>
+    <textevent timeoffset=\\"390\\" message=\\"30 seconds more than last time :)\\">
+    </textevent>
+    <textevent timeoffset=\\"400\\" message=\\"Finally we finish off with 10 minutes of threshold work\\">
+    </textevent>
+    <textevent timeoffset=\\"410\\" message=\\"Easy as that :)\\">
+    </textevent>
+  </Warmup>
+  <SteadyState Duration=\\"30\\" Power=\\"0.95\\" Cadence=\\"95\\">
+    <textevent timeoffset=\\"0\\" message=\\"Spin to 95 RPM if you&apos;re not already there\\">
+    </textevent>
+  </SteadyState>
+  <SteadyState Duration=\\"30\\" Power=\\"0.5\\" Cadence=\\"85\\">
+    <textevent timeoffset=\\"0\\" message=\\"Rest a bit\\">
+    </textevent>
+  </SteadyState>
+  <SteadyState Duration=\\"150\\" Power=\\"1.15\\" Cadence=\\"105\\">
+    <textevent timeoffset=\\"0\\" message=\\"Here we go!\\">
+    </textevent>
+    <textevent timeoffset=\\"60\\" message=\\"First minute done\\">
+    </textevent>
+    <textevent timeoffset=\\"120\\" message=\\"Just 30 seconds more\\">
+    </textevent>
+    <textevent timeoffset=\\"140\\" message=\\"Finish it!\\">
+    </textevent>
+  </SteadyState>
+  <SteadyState Duration=\\"180\\" Power=\\"0.5\\" Cadence=\\"85\\">
+    <textevent timeoffset=\\"0\\" message=\\"Good!\\">
+    </textevent>
+    <textevent timeoffset=\\"10\\" message=\\"Rest for 3 minutes\\">
+    </textevent>
+    <textevent timeoffset=\\"170\\" message=\\"Ready for next round?\\">
+    </textevent>
+  </SteadyState>
+  <Cooldown Duration=\\"450\\" PowerLow=\\"0.9\\" PowerHigh=\\"0.25\\">
+    <textevent timeoffset=\\"0\\" message=\\"We&apos;ll now gradually decrease the power\\">
+    </textevent>
+    <textevent timeoffset=\\"10\\" message=\\"It&apos;s all downhill from here :)\\">
+    </textevent>
+    <textevent timeoffset=\\"20\\" message=\\"until you&apos;re cooled down\\">
+    </textevent>
+    <textevent timeoffset=\\"430\\" message=\\"Thanks for participating\\">
+    </textevent>
+    <textevent timeoffset=\\"440\\" message=\\"Until next time!\\">
+    </textevent>
+  </Cooldown>
+</workout_file>"
+`;
+
+exports[`Generate ZWO examples/darth-vader.txt 1`] = `
+"<workout_file>
+  <name>Darth Vader</name>
+  <author>HumanPowerPerformance.com</author>
+  <description>Sign up for coaching with HumanPowerPerformance.com and get custom workouts and training plans</description>
+  <sportType>bike</sportType>
+  <SteadyState Duration=\\"300\\" Power=\\"0.55\\">
+  </SteadyState>
+  <IntervalsT Repeat=\\"10\\" OnDuration=\\"180\\" OnPower=\\"0.82\\" OffDuration=\\"20\\" OffPower=\\"1.3\\">
+  </IntervalsT>
+  <SteadyState Duration=\\"300\\" Power=\\"0.55\\">
+  </SteadyState>
+</workout_file>"
+`;
+
+exports[`Generate ZWO examples/halvfems.txt 1`] = `
+"<workout_file>
+  <name>Halvfems</name>
+  <author></author>
+  <description>Named after the number 90 in Danish, this workout is focused sweet spot training, centered around 90% of FTP.
+This pairs with Devedeset (90 in Croatian) and Novanta (90 in Italian) to make up the sweet spot trifecta in this plan.
+The workouts are alphabetically ordered from easiest to hardest, so enjoy the middle of these three challenging workouts today...</description>
+  <sportType>bike</sportType>
+  <Warmup Duration=\\"420\\" PowerLow=\\"0.25\\" PowerHigh=\\"0.75\\">
+  </Warmup>
+  <SteadyState Duration=\\"30\\" Power=\\"0.95\\" Cadence=\\"95\\">
+  </SteadyState>
+  <SteadyState Duration=\\"30\\" Power=\\"0.5\\" Cadence=\\"85\\">
+  </SteadyState>
+  <SteadyState Duration=\\"30\\" Power=\\"1.05\\" Cadence=\\"105\\">
+  </SteadyState>
+  <SteadyState Duration=\\"30\\" Power=\\"0.5\\" Cadence=\\"85\\">
+  </SteadyState>
+  <SteadyState Duration=\\"30\\" Power=\\"1.15\\" Cadence=\\"115\\">
+  </SteadyState>
+  <SteadyState Duration=\\"30\\" Power=\\"0.5\\" Cadence=\\"85\\">
+  </SteadyState>
+  <SteadyState Duration=\\"120\\" Power=\\"0.5\\" Cadence=\\"85\\">
+  </SteadyState>
+  <SteadyState Duration=\\"720\\" Power=\\"0.9\\" Cadence=\\"90\\">
+  </SteadyState>
+  <SteadyState Duration=\\"240\\" Power=\\"0.55\\" Cadence=\\"85\\">
+  </SteadyState>
+  <IntervalsT Repeat=\\"6\\" OnDuration=\\"60\\" OnPower=\\"0.9\\" Cadence=\\"60\\" OffDuration=\\"60\\" OffPower=\\"0.9\\" CadenceResting=\\"90\\">
+    <textevent timeoffset=\\"0\\" message=\\"Start off at slow cadence\\">
+    </textevent>
+    <textevent timeoffset=\\"60\\" message=\\"Now bump that cadence up\\">
+    </textevent>
+    <textevent timeoffset=\\"120\\" message=\\"Back to 60 RPM\\">
+    </textevent>
+    <textevent timeoffset=\\"180\\" message=\\"Back to normal cadence\\">
+    </textevent>
+    <textevent timeoffset=\\"240\\" message=\\"Grinding...\\">
+    </textevent>
+    <textevent timeoffset=\\"300\\" message=\\"Back to normal cadence\\">
+    </textevent>
+    <textevent timeoffset=\\"360\\" message=\\"And grind at 60 RPM again\\">
+    </textevent>
+    <textevent timeoffset=\\"420\\" message=\\"Back to 90 RPM\\">
+    </textevent>
+    <textevent timeoffset=\\"480\\" message=\\"Lower it again to 60 RPM\\">
+    </textevent>
+    <textevent timeoffset=\\"540\\" message=\\"Increase the cadence to 90 RPM\\">
+    </textevent>
+    <textevent timeoffset=\\"600\\" message=\\"Last grinding minute\\">
+    </textevent>
+    <textevent timeoffset=\\"660\\" message=\\"Last minute... be strong!\\">
+    </textevent>
+  </IntervalsT>
+  <SteadyState Duration=\\"240\\" Power=\\"0.55\\" Cadence=\\"85\\">
+  </SteadyState>
+  <IntervalsT Repeat=\\"4\\" OnDuration=\\"120\\" OnPower=\\"0.9\\" Cadence=\\"100\\" OffDuration=\\"60\\" OffPower=\\"0.9\\" CadenceResting=\\"65\\">
+  </IntervalsT>
+  <Cooldown Duration=\\"360\\" PowerLow=\\"0.55\\" PowerHigh=\\"0.25\\">
+  </Cooldown>
+</workout_file>"
+`;
+
+exports[`Generate ZWO examples/threshold-pushing.txt 1`] = `
+"<workout_file>
+  <name>Threshold pushing</name>
+  <author>R.Saarsoo</author>
+  <description>Start with a good warm up (10 minutes Zone 1, then 5 minutes Zone 2,
+5 minutes Zone 3 followed by 5 minutes easy spinning).
+Then straight in at Threshold Pushing powers for 12 mins.
+Have 10 mins easy soft pedalling and repeat - warm down 15 minutes.
+This session is designed to increase your FTP from below.
+Working predominately aerobic metabolism.
+In time your body will become more comfortable at these powers
+and your FTP will increase.</description>
+  <sportType>bike</sportType>
+  <Warmup Duration=\\"1200\\" PowerLow=\\"0.45\\" PowerHigh=\\"0.75\\">
+  </Warmup>
+  <SteadyState Duration=\\"300\\" Power=\\"0.52\\">
+  </SteadyState>
+  <IntervalsT Repeat=\\"2\\" OnDuration=\\"720\\" OnPower=\\"1\\" Cadence=\\"90\\" OffDuration=\\"600\\" OffPower=\\"0.52\\">
+  </IntervalsT>
+  <Cooldown Duration=\\"600\\" PowerLow=\\"0.65\\" PowerHigh=\\"0.45\\">
+  </Cooldown>
+</workout_file>"
+`;
+
+exports[`Generate stats examples/comments.txt 1`] = `
+"
+Total duration: 24 minutes
+
+Average intensity: 60%
+Normalized intensity: 74%
+
+TSS #1: 17
+TSS #2: 22
+
+Zone Distribution:
+ 15 min - Z1: Recovery
+  5 min - Z2: Endurance
+  2 min - Z3: Tempo
+  1 min - Z4: Threshold
+  3 min - Z5: VO2 Max
+  0 min - Z6: Anaerobic
+"
+`;
+
+exports[`Generate stats examples/darth-vader.txt 1`] = `
+"
+Total duration: 43 minutes
+
+Average intensity: 79%
+Normalized intensity: 84%
+
+TSS #1: 48
+TSS #2: 51
+
+Zone Distribution:
+ 10 min - Z1: Recovery
+  0 min - Z2: Endurance
+ 30 min - Z3: Tempo
+  0 min - Z4: Threshold
+  0 min - Z5: VO2 Max
+  3 min - Z6: Anaerobic
+"
+`;
+
+exports[`Generate stats examples/halvfems.txt 1`] = `
+"
+Total duration: 62 minutes
+
+Average intensity: 74%
+Normalized intensity: 81%
+
+TSS #1: 62
+TSS #2: 68
+
+Zone Distribution:
+ 22 min - Z1: Recovery
+  2 min - Z2: Endurance
+  0 min - Z3: Tempo
+ 37 min - Z4: Threshold
+  1 min - Z5: VO2 Max
+  0 min - Z6: Anaerobic
+"
+`;
+
+exports[`Generate stats examples/threshold-pushing.txt 1`] = `
+"
+Total duration: 79 minutes
+
+Average intensity: 69%
+Normalized intensity: 78%
+
+TSS #1: 69
+TSS #2: 81
+
+Zone Distribution:
+ 42 min - Z1: Recovery
+ 13 min - Z2: Endurance
+  0 min - Z3: Tempo
+ 24 min - Z4: Threshold
+  0 min - Z5: VO2 Max
+  0 min - Z6: Anaerobic
+"
+`;
