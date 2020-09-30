@@ -1,35 +1,35 @@
 Name: Workout with comments
 
 Warmup: 10:00 25%..75%
-  # 0:10 Welcome to: #8
-  # 6:00 Let's talk about today's workout
-  # 6:10 We'll be doing 5 blocks of VO2max work
-  # 6:20 Each block 2 minutes and 30 seconds
-  # 6:30 30 seconds more than last time :)
-  # 6:40 Finally we finish off with 10 minutes of threshold work
-  # 6:50 Easy as that :)
+  @ 0:10 Welcome to: #8
+  @ 6:00 Let's talk about today's workout
+  @ 6:10 We'll be doing 5 blocks of VO2max work
+  @ 6:20 Each block 2 minutes and 30 seconds
+  @ 6:30 30 seconds more than last time :)
+  @ 6:40 Finally we finish off with 10 minutes of threshold work
+  @ 6:50 Easy as that :)
 
 Interval: 0:30 95% 95rpm
-  # 0:00 Spin to 95 RPM if you're not already there
+  @ 0:00 Spin to 95 RPM if you're not already there
 
 Rest: 0:30 50% 85rpm
-  # 0:00 Rest a bit
+  @ 0:00 Rest a bit
 
 Interval: 2:30 115% 105rpm
-  # 0:00 Here we go!
-  # 1:00 First minute done
-  # 2:00 Just 30 seconds more
-  # 2:20 Finish it!
+  @ 0:00 Here we go!
+  @ 1:00 First minute done
+  @ 2:00 Just 30 seconds more
+  @ 2:20 Finish it!
 
 Rest: 3:00 50% 85rpm
-  # 0:00 Good!
-  # 0:10 Rest for 3 minutes
-  # 2:50 Ready for next round?
+  @ 0:00 Good!
+  @ 0:10 Rest for 3 minutes
+  @ 2:50 Ready for next round?
 
 Cooldown: 7:30 90%..25%
-  # 0:00 We'll now gradually decrease the power
-  # 0:10 It's all downhill from here :)
-  # 0:20 until you're cooled down
-  # 7:10 Thanks for participating
-  # 7:20 Until next time!
+  @ 0:00 We'll now gradually decrease the power
+  @ 0:10 It's all downhill from here :)
+  @ 0:20 until you're cooled down
+  @ 7:10 Thanks for participating
+  @ 7:20 Until next time!
 

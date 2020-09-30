@@ -341,17 +341,17 @@ Cooldown: 5:30 70%..45%
       parse(`
 Name: My Workout
 Interval: 10:00 90%
-  # 0:00 Find your rythm.
-  # 1:00 Try to settle in for the effort
+  @ 0:00 Find your rythm.
+  @ 1:00 Try to settle in for the effort
 
-  # 5:00 Half way through
+  @ 5:00 Half way through
 
-  # 9:00 Almost there
-  # 9:30 Final push. YOU GOT IT!
+  @ 9:00 Almost there
+  @ 9:30 Final push. YOU GOT IT!
 
 Rest: 5:00 50%
-  # 0:00 Great effort!
-  # 0:30 Cool down well after all of this.
+  @ 0:00 Great effort!
+  @ 0:30 Cool down well after all of this.
 `),
     ).toMatchInlineSnapshot(`
       Object {
