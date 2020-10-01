@@ -13,7 +13,11 @@
     "test:stats:1": "ts-node src/index.ts --stats examples/threshold-pushing.txt",
     "test:stats:2": "ts-node src/index.ts --stats examples/darth-vader.txt",
     "start": "ts-node src/index.ts",
-    "format:js": "prettier --write src/"
+    "format:js": "prettier --write src/",
+    "build": "tsc"
+  },
+  "bin": {
+    "make-workout": "./bin/make-workout.js"
   },
   "dependencies": {
     "argparse": "^2.0.1",
