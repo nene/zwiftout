@@ -7,11 +7,6 @@
     "lint:js": "eslint 'src/**/*'",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:1": "ts-node src/index.ts examples/threshold-pushing.txt",
-    "test:2": "ts-node src/index.ts examples/darth-vader.txt",
-    "test:comments": "ts-node src/index.ts examples/comments.txt",
-    "test:stats:1": "ts-node src/index.ts --stats examples/threshold-pushing.txt",
-    "test:stats:2": "ts-node src/index.ts --stats examples/darth-vader.txt",
     "start": "ts-node src/index.ts",
     "format:js": "prettier --write src/",
     "build": "tsc"
