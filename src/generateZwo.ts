@@ -105,7 +105,7 @@ export const generateZwo = ({ name, author, description, intervals }: Workout): 
         { author: author },
         { description: description },
         { sportType: "bike" },
-        ...detectRepeats(intervals).map(generateInterval),
+        { workout: detectRepeats(intervals).map(generateInterval) },
       ],
     },
     { indent: "  " },
