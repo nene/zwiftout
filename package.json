@@ -7,7 +7,7 @@
     "lint:js": "eslint 'src/**/*'",
     "test": "jest",
     "test:watch": "jest --watch",
-    "start": "ts-node src/index.ts",
+    "start": "node bin/make-workout.js",
     "format:js": "prettier --write src/",
     "build": "tsc"
   },
