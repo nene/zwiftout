@@ -1,0 +1,1 @@
+# To ensure that /dist dir (ignored by .gitignore) is included by npm
