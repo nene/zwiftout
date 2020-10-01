@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require("fs");
-const { generateZwo } = require("../dist/generateZwo");
-const { parse } = require("../dist/parser");
-const { stats } = require("../dist/stats");
-const { parseCliOptions } = require("../dist/parseCliOptions");
+const { generateZwo, parse, stats, parseCliOptions } = require("../dist/index");
 
 const opts = parseCliOptions();
 
