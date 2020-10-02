@@ -14,6 +14,6 @@ import { Intensity } from "../Intensity";
 // TSS = (s * (FTP * IF) * IF) / (FTP * 3600) * 100
 // TSS = (s * IF * IF) / 3600 * 100
 
-export const tss2 = (duration: Duration, intensity: Intensity): number => {
+export const tss = (duration: Duration, intensity: Intensity): number => {
   return ((duration.seconds * Math.pow(intensity.value, 2)) / 3600) * 100;
 };
