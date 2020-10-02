@@ -1,10 +1,11 @@
 import { Interval } from "../ast";
 import { Duration } from "../Duration";
+import { Intensity } from "../Intensity";
 import { intervalsToIntensityNumbers } from "./intervalsToIntensityNumbers";
 
 type NumericZoneDuration = { name: string; duration: number };
 type ZoneDuration = { name: string; duration: Duration };
-type ZoneIndex = 0 | 1 | 2 | 3 | 4 | 5;
+export type ZoneIndex = 0 | 1 | 2 | 3 | 4 | 5;
 
 const emptyZones = (): NumericZoneDuration[] => [
   { name: "Z1: Recovery", duration: 0 },
@@ -34,6 +35,9 @@ const zoneIndex = (intensity: number): ZoneIndex => {
   }
   return 0;
 };
+
+// For external use (consumes Intensity interface instead of plain number)
+export const intensityToZoneIndex = (intensity: Intensity): ZoneIndex => zoneIndex(intensity.value);
 
 export const zoneDistribution = (intervals: Interval[]): ZoneDuration[] => {
   const zones = emptyZones();
