@@ -6,7 +6,7 @@ export { parseCliOptions } from "./parseCliOptions";
 // types
 export { Workout, Interval, Comment } from "./ast";
 export { Duration } from "./Duration";
-export { Intensity, IntensityRange, FreeIntensity } from "./Intensity";
+export { Intensity, ConstantIntensity, RangeIntensity, FreeIntensity } from "./Intensity";
 
 // stats utils
 export { totalDuration } from "./stats/totalDuration";

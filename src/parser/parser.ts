@@ -1,6 +1,6 @@
 import { Interval, Workout, Comment } from "../ast";
 import { Duration } from "../Duration";
-import { FreeIntensity, Intensity, IntensityRange } from "../Intensity";
+import { ConstantIntensity, FreeIntensity, RangeIntensity } from "../Intensity";
 import { ParseError } from "./ParseError";
 import { IntervalType, SourceLocation, Token } from "./tokenizer";
 
@@ -92,10 +92,10 @@ const parseIntervalParams = (type: IntervalType, tokens: Token[], loc: SourceLoc
       cadence = token.value;
       tokens.shift();
     } else if (token.type === "intensity") {
-      intensity = new Intensity(token.value);
+      intensity = new ConstantIntensity(token.value);
       tokens.shift();
     } else if (token.type === "intensity-range") {
-      intensity = new IntensityRange(token.value[0], token.value[1]);
+      intensity = new RangeIntensity(token.value[0], token.value[1]);
       tokens.shift();
     } else {
       break;

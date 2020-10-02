@@ -36,7 +36,7 @@ export type NumberToken = {
   value: number;
   loc: SourceLocation;
 };
-export type IntensityRangeToken = {
+export type RangeIntensityToken = {
   type: "intensity-range";
   value: [number, number];
   loc: SourceLocation;
@@ -46,7 +46,7 @@ export type CommentStartToken = {
   value?: undefined;
   loc: SourceLocation;
 };
-export type Token = HeaderToken | IntervalToken | TextToken | NumberToken | IntensityRangeToken | CommentStartToken;
+export type Token = HeaderToken | IntervalToken | TextToken | NumberToken | RangeIntensityToken | CommentStartToken;
 
 const toInteger = (str: string): number => {
   return parseInt(str.replace(/[^0-9]/, ""), 10);

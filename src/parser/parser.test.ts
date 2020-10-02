@@ -74,7 +74,7 @@ Rest: 5:00 45%
           "duration": Duration {
             "seconds": 300,
           },
-          "intensity": Intensity {
+          "intensity": ConstantIntensity {
             "_value": 0.5,
           },
           "type": "Rest",
@@ -85,7 +85,7 @@ Rest: 5:00 45%
           "duration": Duration {
             "seconds": 600,
           },
-          "intensity": Intensity {
+          "intensity": ConstantIntensity {
             "_value": 0.8,
           },
           "type": "Interval",
@@ -96,7 +96,7 @@ Rest: 5:00 45%
           "duration": Duration {
             "seconds": 300,
           },
-          "intensity": Intensity {
+          "intensity": ConstantIntensity {
             "_value": 0.45,
           },
           "type": "Rest",
@@ -136,7 +136,7 @@ Interval: 5:00 50%
             "duration": Duration {
               "seconds": 300,
             },
-            "intensity": Intensity {
+            "intensity": ConstantIntensity {
               "_value": 0.5,
             },
             "type": "Interval",
@@ -147,7 +147,7 @@ Interval: 5:00 50%
             "duration": Duration {
               "seconds": 600,
             },
-            "intensity": Intensity {
+            "intensity": ConstantIntensity {
               "_value": 1,
             },
             "type": "Interval",
@@ -158,7 +158,7 @@ Interval: 5:00 50%
             "duration": Duration {
               "seconds": 300,
             },
-            "intensity": Intensity {
+            "intensity": ConstantIntensity {
               "_value": 0.5,
             },
             "type": "Interval",
@@ -185,7 +185,7 @@ Cooldown: 5:30 70%..45%
           "duration": Duration {
             "seconds": 330,
           },
-          "intensity": IntensityRange {
+          "intensity": RangeIntensity {
             "_end": 0.8,
             "_start": 0.5,
           },
@@ -197,7 +197,7 @@ Cooldown: 5:30 70%..45%
           "duration": Duration {
             "seconds": 330,
           },
-          "intensity": IntensityRange {
+          "intensity": RangeIntensity {
             "_end": 0.45,
             "_start": 0.7,
           },
@@ -251,7 +251,7 @@ FreeRide: 5:00
         "duration": Duration {
           "seconds": 10,
         },
-        "intensity": Intensity {
+        "intensity": ConstantIntensity {
           "_value": 0.5,
         },
         "type": "Interval",
@@ -264,7 +264,7 @@ FreeRide: 5:00
         "duration": Duration {
           "seconds": 10,
         },
-        "intensity": Intensity {
+        "intensity": ConstantIntensity {
           "_value": 0.5,
         },
         "type": "Interval",
@@ -277,7 +277,7 @@ FreeRide: 5:00
         "duration": Duration {
           "seconds": 10,
         },
-        "intensity": Intensity {
+        "intensity": ConstantIntensity {
           "_value": 0.5,
         },
         "type": "Interval",
@@ -293,7 +293,7 @@ FreeRide: 5:00
         "duration": Duration {
           "seconds": 10,
         },
-        "intensity": Intensity {
+        "intensity": ConstantIntensity {
           "_value": 0.5,
         },
         "type": "Interval",
@@ -306,7 +306,7 @@ FreeRide: 5:00
         "duration": Duration {
           "seconds": 10,
         },
-        "intensity": Intensity {
+        "intensity": ConstantIntensity {
           "_value": 0.5,
         },
         "type": "Interval",
@@ -417,7 +417,7 @@ Rest: 5:00 50%
             "duration": Duration {
               "seconds": 600,
             },
-            "intensity": Intensity {
+            "intensity": ConstantIntensity {
               "_value": 0.9,
             },
             "type": "Interval",
@@ -441,7 +441,7 @@ Rest: 5:00 50%
             "duration": Duration {
               "seconds": 300,
             },
-            "intensity": Intensity {
+            "intensity": ConstantIntensity {
               "_value": 0.5,
             },
             "type": "Rest",
