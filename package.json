@@ -5,8 +5,8 @@
   "scripts": {
     "lint:ts": "tsc --noEmit",
     "lint:js": "eslint 'src/**/*'",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest src/ test/",
+    "test:watch": "jest src/ test/ --watch",
     "start": "node bin/make-workout.js",
     "format:js": "prettier --write src/",
     "build": "tsc",
