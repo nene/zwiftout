@@ -1,7 +1,7 @@
 import * as fs from "fs";
-import { generateZwo } from "../generateZwo";
-import { parse } from "../parser";
-import { stats } from "../stats";
+import { generateZwo } from "../src/generateZwo";
+import { parse } from "../src/parser";
+import { stats } from "../src/stats";
 
 const createStats = (filename: string) => stats(parse(fs.readFileSync(filename, "utf8")));
 const createZwo = (filename: string) => generateZwo(parse(fs.readFileSync(filename, "utf8")));
