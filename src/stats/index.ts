@@ -2,7 +2,6 @@ import { Workout } from "../ast";
 import { averageIntensity } from "./averageIntensity";
 import { normalizedIntensity } from "./normalizedIntensity";
 import { totalDuration } from "./totalDuration";
-import { tss } from "./tss";
 import { tss2 } from "./tss2";
 import { zoneDistribution } from "./zoneDistribution";
 
@@ -19,8 +18,7 @@ Total duration: ${(duration.seconds / 60).toFixed()} minutes
 Average intensity: ${(avgIntensity.value * 100).toFixed()}%
 Normalized intensity: ${(normIntensity.value * 100).toFixed()}%
 
-TSS #1: ${tss(intervals).toFixed()}
-TSS #2: ${tss2(duration, normIntensity).toFixed()}
+TSS: ${tss2(duration, normIntensity).toFixed()}
 
 Zone Distribution:
 ${zones.map(({ name, duration }) => `${(duration.seconds / 60).toFixed().padStart(3)} min - ${name}`).join("\n")}
