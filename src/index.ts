@@ -11,3 +11,4 @@ export { Intensity, ConstantIntensity, RangeIntensity, FreeIntensity } from "./I
 // stats utils
 export { totalDuration } from "./stats/totalDuration";
 export { intensityToZoneIndex, ZoneIndex } from "./stats/zoneDistribution";
+export { maximumIntensity } from "./stats/maximumIntensity";
