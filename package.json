@@ -9,7 +9,7 @@
     "test:watch": "jest src/ test/ --watch",
     "start": "node bin/make-workout.js",
     "format:js": "prettier --write src/",
-    "build": "tsc",
+    "build": "tsc --project tsconfig.release.json",
     "prepublish": "yarn build"
   },
   "main": "dist/index.js",
