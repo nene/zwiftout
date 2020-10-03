@@ -1,6 +1,6 @@
 export { generateZwo } from "./generateZwo";
 export { parse } from "./parser";
-export { stats } from "./stats";
+export { stats, formatStats } from "./stats";
 export { parseCliOptions } from "./parseCliOptions";
 
 // types

@@ -5,7 +5,7 @@ import { intensityValueToZoneType, ZoneType } from "../ZoneType";
 import { intervalsToIntensityNumbers } from "./intervalsToIntensityNumbers";
 
 type NumericZoneDuration = { name: string; duration: number };
-type ZoneDuration = { name: string; duration: Duration };
+export type ZoneDuration = { name: string; duration: Duration };
 
 const emptyZones = (): Record<ZoneType, NumericZoneDuration> => ({
   Z1: { name: "Z1: Recovery", duration: 0 },
