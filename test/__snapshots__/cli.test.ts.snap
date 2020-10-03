@@ -254,6 +254,7 @@ Zone Distribution:
   1 min - Z4: Threshold
   3 min - Z5: VO2 Max
   0 min - Z6: Anaerobic
+  0 min - Freeride
 "
 `;
 
@@ -273,6 +274,7 @@ Zone Distribution:
   0 min - Z4: Threshold
   0 min - Z5: VO2 Max
   3 min - Z6: Anaerobic
+  0 min - Freeride
 "
 `;
 
@@ -292,6 +294,7 @@ Zone Distribution:
   0 min - Z4: Threshold
   3 min - Z5: VO2 Max
   2 min - Z6: Anaerobic
+  0 min - Freeride
 "
 `;
 
@@ -311,6 +314,7 @@ Zone Distribution:
  37 min - Z4: Threshold
   1 min - Z5: VO2 Max
   0 min - Z6: Anaerobic
+  0 min - Freeride
 "
 `;
 
@@ -330,5 +334,6 @@ Zone Distribution:
  24 min - Z4: Threshold
   0 min - Z5: VO2 Max
   0 min - Z6: Anaerobic
+  0 min - Freeride
 "
 `;
