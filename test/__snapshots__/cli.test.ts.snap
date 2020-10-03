@@ -288,13 +288,13 @@ Normalized intensity: 71%
 TSS: 37
 
 Zone Distribution:
- 35 min - Z1: Recovery
+ 15 min - Z1: Recovery
   4 min - Z2: Endurance
   0 min - Z3: Tempo
   0 min - Z4: Threshold
   3 min - Z5: VO2 Max
   2 min - Z6: Anaerobic
-  0 min - Freeride
+ 20 min - Freeride
 "
 `;
 

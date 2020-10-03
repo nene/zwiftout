@@ -1,5 +1,6 @@
 import { Interval } from "../ast";
 import { Duration } from "../Duration";
+import { RangeIntensity } from "../Intensity";
 import { intensityValueToZoneType, ZoneType } from "../ZoneType";
 import { intervalsToIntensityNumbers } from "./intervalsToIntensityNumbers";
 
@@ -19,8 +20,14 @@ const emptyZones = (): Record<ZoneType, NumericZoneDuration> => ({
 export const zoneDistribution = (intervals: Interval[]): ZoneDuration[] => {
   const zones = emptyZones();
 
-  intervalsToIntensityNumbers(intervals).forEach((intensity) => {
-    zones[intensityValueToZoneType(intensity)].duration++;
+  intervals.forEach((interval) => {
+    if (interval.intensity instanceof RangeIntensity) {
+      intervalsToIntensityNumbers([interval]).forEach((intensityValue) => {
+        zones[intensityValueToZoneType(intensityValue)].duration++;
+      });
+    } else {
+      zones[interval.intensity.zone].duration += interval.duration.seconds;
+    }
   });
 
   return Object.values(zones).map(({ duration, ...rest }) => ({ duration: new Duration(duration), ...rest }));

@@ -1,6 +1,6 @@
 import { Interval } from "../ast";
 import { Duration } from "../Duration";
-import { ConstantIntensity, RangeIntensity } from "../Intensity";
+import { ConstantIntensity, FreeIntensity, RangeIntensity } from "../Intensity";
 import { zoneDistribution } from "./zoneDistribution";
 
 const testZoneDistribution = (intervals: Interval[]) =>
@@ -100,6 +100,26 @@ describe("zoneDistribution()", () => {
       ["Z5: VO2 Max", 0],
       ["Z6: Anaerobic", 0],
       ["Freeride", 0],
+    ]);
+  });
+
+  it("places free-intensity duration to special free-zone", () => {
+    const intervals: Interval[] = [
+      {
+        type: "Interval",
+        duration: new Duration(60),
+        intensity: new FreeIntensity(),
+        comments: [],
+      },
+    ];
+    expect(testZoneDistribution(intervals)).toEqual([
+      ["Z1: Recovery", 0],
+      ["Z2: Endurance", 0],
+      ["Z3: Tempo", 0],
+      ["Z4: Threshold", 0],
+      ["Z5: VO2 Max", 0],
+      ["Z6: Anaerobic", 0],
+      ["Freeride", 60],
     ]);
   });
 });
