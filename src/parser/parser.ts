@@ -138,12 +138,8 @@ const parseIntervals = (tokens: Token[]): Interval[] => {
 export const parseTokens = (tokens: Token[]): Workout => {
   const [header, intervalTokens] = parseHeader(tokens);
 
-  if (header.name === undefined) {
-    throw new ParseError("Workout is missing a name. Use `Name:` to declare one.", { row: 0, col: 0 });
-  }
-
   return {
-    name: header.name,
+    name: header.name || "Untitled",
     author: header.author || "",
     description: header.description || "",
     intervals: parseIntervals(intervalTokens),
