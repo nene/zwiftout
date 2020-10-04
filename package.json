@@ -1,13 +1,15 @@
 {
-  "name": "make-workout",
-  "version": "0.0.0",
+  "name": "zwiftout",
+  "version": "0.1.0",
   "license": "GPL-3.0-or-later",
+  "description": "Zwift workout generator command line tool and library",
+  "author": "Rene Saarsoo <github@triin.net>",
   "scripts": {
     "lint:ts": "tsc --noEmit",
     "lint:js": "eslint 'src/**/*'",
     "test": "jest src/ test/",
     "test:watch": "jest src/ test/ --watch",
-    "start": "node bin/make-workout.js",
+    "start": "node bin/zwiftout.js",
     "format:js": "prettier --write src/",
     "build": "tsc --project tsconfig.release.json",
     "prepublish": "yarn build"
@@ -15,7 +17,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "make-workout": "./bin/make-workout.js"
+    "zwiftout": "./bin/zwiftout.js"
   },
   "dependencies": {
     "argparse": "^2.0.1",
