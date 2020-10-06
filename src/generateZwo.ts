@@ -1,7 +1,6 @@
 import * as xml from "xml";
 import { Interval, Workout, Comment } from "./ast";
 import { detectRepeats, RepeatedInterval } from "./detectRepeats";
-import { FreeIntensity } from "./Intensity";
 
 // Zwift Workout XML generator
 
@@ -90,7 +89,7 @@ const generateInterval = (interval: Interval | RepeatedInterval): xml.XmlObject 
     return generateRangeInterval("Warmup", interval);
   } else if (intensity.start > intensity.end) {
     return generateRangeInterval("Cooldown", interval);
-  } else if (intensity instanceof FreeIntensity) {
+  } else if (intensity.zone === "free") {
     return generateFreeRideInterval(interval);
   } else {
     return generateSteadyStateInterval(interval);
