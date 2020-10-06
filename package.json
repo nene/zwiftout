@@ -1,12 +1,12 @@
 {
   "name": "zwiftout",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "GPL-3.0-or-later",
   "description": "Zwift workout generator command line tool and library",
   "author": "Rene Saarsoo <github@triin.net>",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/nene/zwiftout.git"
+    "type": "git",
+    "url": "https://github.com/nene/zwiftout.git"
   },
   "scripts": {
     "lint:ts": "tsc --noEmit",
