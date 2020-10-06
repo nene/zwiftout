@@ -113,6 +113,7 @@ console.log(stats(workout));
 - Unsupported params: message duration & y-position
 - More restricted syntax for text (with quotes)
 - Support for tags
+- Allow skipping power target of any interval, switching it to FreeIntensity.
 
 [zwift]: https://zwift.com/
 [zwofactory]: https://zwofactory.com/
