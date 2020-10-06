@@ -1,6 +1,5 @@
 import { Interval } from "../ast";
 import { Duration } from "../Duration";
-import { RangeIntensity } from "../Intensity";
 import { intensityValueToZoneType, ZoneType } from "../ZoneType";
 import { intervalsToIntensityNumbers } from "./intervalsToIntensityNumbers";
 
@@ -21,12 +20,12 @@ export const zoneDistribution = (intervals: Interval[]): ZoneDuration[] => {
   const zones = emptyZones();
 
   intervals.forEach((interval) => {
-    if (interval.intensity instanceof RangeIntensity) {
+    if (interval.intensity.start === interval.intensity.end) {
+      zones[interval.intensity.zone].duration += interval.duration.seconds;
+    } else {
       intervalsToIntensityNumbers([interval]).forEach((intensityValue) => {
         zones[intensityValueToZoneType(intensityValue)].duration++;
       });
-    } else {
-      zones[interval.intensity.zone].duration += interval.duration.seconds;
     }
   });
 

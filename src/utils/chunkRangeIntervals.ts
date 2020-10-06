@@ -1,7 +1,7 @@
 import { chain, curry } from "ramda";
 import { Interval } from "../ast";
 import { Duration } from "../Duration";
-import { ConstantIntensity, Intensity, RangeIntensity } from "../Intensity";
+import { ConstantIntensity, Intensity } from "../Intensity";
 
 const chunkDuration = (seconds: number, chunkSize: Duration, intervalDuration: Duration): Duration => {
   return seconds + chunkSize.seconds > intervalDuration.seconds
@@ -26,7 +26,7 @@ const chunkIntensity = (
 };
 
 const chunkInterval = curry((chunkSize: Duration, interval: Interval): Interval[] => {
-  if (!(interval.intensity instanceof RangeIntensity)) {
+  if (interval.intensity.start === interval.intensity.end) {
     return [interval];
   }
 
