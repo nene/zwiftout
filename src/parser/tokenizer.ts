@@ -1,10 +1,10 @@
 import { ParseError } from "./ParseError";
 
-export type HeaderType = "Name" | "Author" | "Description";
+export type HeaderType = "Name" | "Author" | "Description" | "Tags";
 export type IntervalType = "Warmup" | "Rest" | "Interval" | "Cooldown" | "FreeRide";
 
 const isHeaderType = (value: string): value is HeaderType => {
-  return ["Name", "Author", "Description"].includes(value);
+  return ["Name", "Author", "Description", "Tags"].includes(value);
 };
 const isIntervalType = (value: string): value is IntervalType => {
   return ["Warmup", "Rest", "Interval", "Cooldown", "FreeRide"].includes(value);

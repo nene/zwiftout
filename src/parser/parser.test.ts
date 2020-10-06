@@ -35,7 +35,7 @@ describe("Parser", () => {
     `);
   });
 
-  it("parses workout header with all fields", () => {
+  it("parses workout header with name, author, description", () => {
     expect(
       parse(`
 Name: My Workout
@@ -56,6 +56,46 @@ Description:
         "intervals": Array [],
         "name": "My Workout",
         "tags": Array [],
+      }
+    `);
+  });
+
+  it("parses workout header with comma-separated tags", () => {
+    expect(
+      parse(`
+Name: My Workout
+Tags: Recovery, Intervals , FTP
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "",
+        "description": "",
+        "intervals": Array [],
+        "name": "My Workout",
+        "tags": Array [
+          "Recovery",
+          "Intervals",
+          "FTP",
+        ],
+      }
+    `);
+  });
+
+  it("treats with space-separated tags as single tag", () => {
+    expect(
+      parse(`
+Name: My Workout
+Tags: Recovery Intervals FTP
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "",
+        "description": "",
+        "intervals": Array [],
+        "name": "My Workout",
+        "tags": Array [
+          "Recovery Intervals FTP",
+        ],
       }
     `);
   });

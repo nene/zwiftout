@@ -43,6 +43,11 @@ const parseHeader = (tokens: Token[]): [Header, Token[]] => {
       const [description, rest] = extractText(tokens);
       header.description = description;
       tokens = rest;
+    } else if (token.type === "header" && token.value === "Tags") {
+      tokens.shift();
+      const [tags, rest] = extractText(tokens);
+      header.tags = tags.split(/\s*,\s*/);
+      tokens = rest;
     } else {
       // End of header
       break;
@@ -138,7 +143,7 @@ export const parseTokens = (tokens: Token[]): Workout => {
     name: header.name || "Untitled",
     author: header.author || "",
     description: header.description || "",
-    tags: [],
+    tags: header.tags || [],
     intervals: parseIntervals(intervalTokens),
   };
 };
