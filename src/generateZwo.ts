@@ -96,13 +96,20 @@ const generateInterval = (interval: Interval | RepeatedInterval): xml.XmlObject 
   }
 };
 
-export const generateZwo = ({ name, author, description, intervals }: Workout): string => {
+const generateTag = (name: string): xml.XmlObject => {
+  return {
+    tag: [{ _attr: { name } }],
+  };
+};
+
+export const generateZwo = ({ name, author, description, tags, intervals }: Workout): string => {
   return xml(
     {
       workout_file: [
         { name: name },
         { author: author },
         { description: description },
+        { tags: tags.map(generateTag) },
         { sportType: "bike" },
         { workout: detectRepeats(intervals).map(generateInterval) },
       ],

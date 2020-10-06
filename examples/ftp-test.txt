@@ -8,6 +8,7 @@ Description:
   you will be scored on the final 20 minute segment.  
 
   Upon saving your ride, you will be notified if your FTP improved.
+Tags: FTP, Test
 
 Warmup: 5:00 30%..70%
   @ 00:20 Welcome to the FTP test

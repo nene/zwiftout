@@ -5,6 +5,8 @@ exports[`Generate ZWO examples/comments.txt 1`] = `
   <name>Workout with comments</name>
   <author></author>
   <description></description>
+  <tags>
+  </tags>
   <sportType>bike</sportType>
   <workout>
     <Warmup Duration=\\"600\\" PowerLow=\\"0.25\\" PowerHigh=\\"0.75\\">
@@ -70,6 +72,8 @@ exports[`Generate ZWO examples/darth-vader.txt 1`] = `
   <name>Darth Vader</name>
   <author>HumanPowerPerformance.com</author>
   <description>Sign up for coaching with HumanPowerPerformance.com and get custom workouts and training plans</description>
+  <tags>
+  </tags>
   <sportType>bike</sportType>
   <workout>
     <SteadyState Duration=\\"300\\" Power=\\"0.55\\">
@@ -93,6 +97,12 @@ Pace yourself and try to go as hard as you can sustain for the entire 20 minutes
 you will be scored on the final 20 minute segment.
 
 Upon saving your ride, you will be notified if your FTP improved.</description>
+  <tags>
+    <tag name=\\"FTP\\">
+    </tag>
+    <tag name=\\"Test\\">
+    </tag>
+  </tags>
   <sportType>bike</sportType>
   <workout>
     <Warmup Duration=\\"300\\" PowerLow=\\"0.3\\" PowerHigh=\\"0.7\\">
@@ -154,6 +164,10 @@ exports[`Generate ZWO examples/halvfems.txt 1`] = `
   <description>Named after the number 90 in Danish, this workout is focused sweet spot training, centered around 90% of FTP.
 This pairs with Devedeset (90 in Croatian) and Novanta (90 in Italian) to make up the sweet spot trifecta in this plan.
 The workouts are alphabetically ordered from easiest to hardest, so enjoy the middle of these three challenging workouts today...</description>
+  <tags>
+    <tag name=\\"Intervals\\">
+    </tag>
+  </tags>
   <sportType>bike</sportType>
   <workout>
     <Warmup Duration=\\"420\\" PowerLow=\\"0.25\\" PowerHigh=\\"0.75\\">
@@ -224,6 +238,8 @@ This session is designed to increase your FTP from below.
 Working predominately aerobic metabolism.
 In time your body will become more comfortable at these powers
 and your FTP will increase.</description>
+  <tags>
+  </tags>
   <sportType>bike</sportType>
   <workout>
     <Warmup Duration=\\"1200\\" PowerLow=\\"0.45\\" PowerHigh=\\"0.75\\">

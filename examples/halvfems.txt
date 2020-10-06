@@ -3,6 +3,7 @@ Description:
   Named after the number 90 in Danish, this workout is focused sweet spot training, centered around 90% of FTP.
   This pairs with Devedeset (90 in Croatian) and Novanta (90 in Italian) to make up the sweet spot trifecta in this plan.
   The workouts are alphabetically ordered from easiest to hardest, so enjoy the middle of these three challenging workouts today...
+Tags: Intervals
 
 Warmup: 7:00 25%..75%
 Interval: 00:30 95rpm 95%
