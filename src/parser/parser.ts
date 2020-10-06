@@ -138,6 +138,7 @@ export const parseTokens = (tokens: Token[]): Workout => {
     name: header.name || "Untitled",
     author: header.author || "",
     description: header.description || "",
+    tags: [],
     intervals: parseIntervals(intervalTokens),
   };
 };

@@ -8,6 +8,7 @@ describe("Parser", () => {
         "description": "",
         "intervals": Array [],
         "name": "Untitled",
+        "tags": Array [],
       }
     `);
 
@@ -17,6 +18,7 @@ describe("Parser", () => {
         "description": "",
         "intervals": Array [],
         "name": "Untitled",
+        "tags": Array [],
       }
     `);
   });
@@ -28,6 +30,7 @@ describe("Parser", () => {
         "description": "",
         "intervals": Array [],
         "name": "My Workout",
+        "tags": Array [],
       }
     `);
   });
@@ -52,6 +55,7 @@ Description:
       it'll cause lots of pain.",
         "intervals": Array [],
         "name": "My Workout",
+        "tags": Array [],
       }
     `);
   });
@@ -175,6 +179,7 @@ Interval: 5:00 50%
           },
         ],
         "name": "My Workout",
+        "tags": Array [],
       }
     `);
   });
@@ -477,6 +482,7 @@ Rest: 5:00 50%
           },
         ],
         "name": "My Workout",
+        "tags": Array [],
       }
     `);
   });

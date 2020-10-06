@@ -6,6 +6,7 @@ export type Workout = {
   name: string;
   author: string;
   description: string;
+  tags: string[];
   intervals: Interval[];
 };
 

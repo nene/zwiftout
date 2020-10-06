@@ -49,6 +49,7 @@ Write a workout description like:
 ```
 Name: Sample workout
 Author: John Doe
+Tags: Recovery, Intervals, FTP
 Description: Try changing it, and see what happens below.
 
 Warmup: 10:00 30%..75%
@@ -114,7 +115,6 @@ console.log(stats(workout));
 - Repeats (and nested repeats)
 - Unsupported params: message duration & y-position
 - More restricted syntax for text (with quotes)
-- Support for tags
 
 [zwift]: https://zwift.com/
 [zwofactory]: https://zwofactory.com/
