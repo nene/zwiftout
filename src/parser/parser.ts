@@ -106,11 +106,7 @@ const parseIntervalParams = (type: IntervalType, tokens: Token[], loc: SourceLoc
     throw new ParseError("Duration not specified", loc);
   }
   if (!intensity) {
-    if (type === "FreeRide") {
-      intensity = new FreeIntensity();
-    } else {
-      throw new ParseError("Power not specified", loc);
-    }
+    intensity = new FreeIntensity();
   }
 
   const [comments, rest] = parseIntervalComments(tokens);

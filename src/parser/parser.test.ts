@@ -239,14 +239,33 @@ FreeRide: 5:00
     `);
   });
 
+  it("Treats any interval without intensity as a free-ride interval", () => {
+    expect(
+      parse(`
+Name: My Workout
+
+Interval: 5:00
+`).intervals,
+    ).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "cadence": undefined,
+          "comments": Array [],
+          "duration": Duration {
+            "seconds": 300,
+          },
+          "intensity": FreeIntensity {},
+          "type": "Interval",
+        },
+      ]
+    `);
+  });
+
   const parseInterval = (interval: string) => parse(`Name: My Workout\n${interval}`).intervals[0];
 
-  it("requires duration and power parameters to be specified", () => {
+  it("requires duration parameter to be specified", () => {
     expect(() => parseInterval("Interval: 50%")).toThrowErrorMatchingInlineSnapshot(
       `"Duration not specified at line 2 char 1"`,
-    );
-    expect(() => parseInterval("Interval: 30:00")).toThrowErrorMatchingInlineSnapshot(
-      `"Power not specified at line 2 char 1"`,
     );
     expect(() => parseInterval("Interval: 10rpm")).toThrowErrorMatchingInlineSnapshot(
       `"Duration not specified at line 2 char 1"`,
