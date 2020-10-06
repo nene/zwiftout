@@ -2,6 +2,8 @@
 
 [Zwift][] workout generator command line tool and library.
 
+Used as engine for the online [workout-editor][].
+
 ## Motivation
 
 Creating custom workouts is a pain.
@@ -117,3 +119,4 @@ console.log(stats(workout));
 [zwift]: https://zwift.com/
 [zwofactory]: https://zwofactory.com/
 [simple zwo creator]: https://zwifthacks.com/app/simple-zwo-creator/
+[workout-editor]: https://nene.github.io/workout-editor/
