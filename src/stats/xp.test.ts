@@ -2,6 +2,7 @@ import { xp } from "./xp";
 import { Interval } from "../ast";
 import { Duration } from "../Duration";
 import { ConstantIntensity, RangeIntensity } from "../Intensity";
+import { RepeatedInterval } from "../detectRepeats";
 
 describe("xp()", () => {
   describe("ConstantIntensity interval", () => {
@@ -65,16 +66,35 @@ describe("xp()", () => {
     });
   });
 
-  // Intervals
-  //
-  // 4 x 15s = 1min --> 11 XP
-  // 4 x 30s = 2min --> 23 XP
-  // 4 x 60s = 4min --> 47 XP
+  describe("Repeated interval", () => {
+    const createTestInterval = (seconds: number): RepeatedInterval => ({
+      type: "repeat",
+      times: 2,
+      intervals: [
+        {
+          type: "Interval",
+          duration: new Duration(seconds / 4),
+          intensity: new ConstantIntensity(80),
+          comments: [],
+        },
+        {
+          type: "Interval",
+          duration: new Duration(seconds / 4),
+          intensity: new ConstantIntensity(70),
+          comments: [],
+        },
+      ],
+      comments: [],
+    });
 
-  // Other XP
-  //
-  // 20 XP per km
-
-  // 221 km
-  // 6:42 of intervals
+    [
+      [4 * 15, 11], // 1 minute
+      [4 * 30, 23], // 2 minutes
+      [4 * 60, 47], // 4 minutes
+    ].forEach(([seconds, expectedXp]) => {
+      it(`${seconds}s produces ${expectedXp} XP`, () => {
+        expect(xp([createTestInterval(seconds)])).toEqual(expectedXp);
+      });
+    });
+  });
 });
