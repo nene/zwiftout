@@ -10,12 +10,12 @@ const intervalXp = (interval: Interval | RepeatedInterval): number => {
     const duration = totalDuration(interval.intervals).seconds * interval.times;
     return Math.floor(duration / 5.05); // Suitable numbers are: 5.01 .. 5.09
   } else {
-    if (interval.intensity instanceof RangeIntensity) {
-      // 6 XP per minute (1XP for every 10 seconds)
-      return Math.floor(interval.duration.seconds / 10);
-    } else if (interval.intensity instanceof ConstantIntensity) {
+    if (interval.intensity instanceof ConstantIntensity) {
       // 10.8 XP per minute (1XP for every 5.56 seconds)
       return Math.floor(interval.duration.seconds / 5.56);
+    } else if (interval.intensity instanceof RangeIntensity) {
+      // 6 XP per minute (1XP for every 10 seconds)
+      return Math.floor(interval.duration.seconds / 10);
     } else if (interval.intensity instanceof FreeIntensity) {
       // 5.9 XP per minute (1XP for every 10.1 seconds)
       return Math.floor(interval.duration.seconds / 10.1);
