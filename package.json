@@ -1,6 +1,6 @@
 {
   "name": "zwiftout",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "license": "GPL-3.0-or-later",
   "description": "Zwift workout generator command line tool and library",
   "author": "Rene Saarsoo <github@triin.net>",
