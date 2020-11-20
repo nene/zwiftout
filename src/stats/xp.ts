@@ -6,9 +6,9 @@ import { totalDuration } from "./totalDuration";
 
 const intervalXp = (interval: Interval | RepeatedInterval): number => {
   if (interval.type === "repeat") {
-    // 11 XP per minute (1 XP for every 5.1 seconds)
+    // 11 XP per minute (1 XP for every 5.05 seconds)
     const duration = totalDuration(interval.intervals).seconds * interval.times;
-    return Math.floor(duration / 5.1);
+    return Math.floor(duration / 5.05); // Suitable numbers are: 5.01 .. 5.09
   } else {
     if (interval.intensity instanceof RangeIntensity) {
       // 6 XP per minute (1XP for every 10 seconds)

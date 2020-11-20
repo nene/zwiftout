@@ -67,19 +67,19 @@ describe("xp()", () => {
   });
 
   describe("Repeated interval", () => {
-    const createTestInterval = (seconds: number): RepeatedInterval => ({
+    const createTestInterval = (times: number, [onSeconds, offSeconds]: number[]): RepeatedInterval => ({
       type: "repeat",
-      times: 2,
+      times,
       intervals: [
         {
           type: "Interval",
-          duration: new Duration(seconds / 4),
+          duration: new Duration(onSeconds),
           intensity: new ConstantIntensity(80),
           comments: [],
         },
         {
           type: "Interval",
-          duration: new Duration(seconds / 4),
+          duration: new Duration(offSeconds),
           intensity: new ConstantIntensity(70),
           comments: [],
         },
@@ -88,12 +88,20 @@ describe("xp()", () => {
     });
 
     [
-      [4 * 15, 11], // 1 minute
-      [4 * 30, 23], // 2 minutes
-      [4 * 60, 47], // 4 minutes
-    ].forEach(([seconds, expectedXp]) => {
-      it(`${seconds}s produces ${expectedXp} XP`, () => {
-        expect(xp([createTestInterval(seconds)])).toEqual(expectedXp);
+      { times: 2, intervals: [1, 1], expectedXp: 0 }, // 0:04
+      { times: 3, intervals: [1, 1], expectedXp: 1 }, // 0:06
+      { times: 2, intervals: [14, 14], expectedXp: 11 }, // 0:56
+      { times: 2, intervals: [14, 15], expectedXp: 11 }, // 0:58
+      { times: 2, intervals: [15, 15], expectedXp: 11 }, // 1:00
+      { times: 2, intervals: [15, 16], expectedXp: 12 }, // 1:02
+      { times: 2, intervals: [16, 16], expectedXp: 12 }, // 1:04
+      { times: 3, intervals: [14, 15], expectedXp: 17 }, // 1:27
+      { times: 3, intervals: [15, 16], expectedXp: 18 }, // 1:33
+      { times: 2, intervals: [30, 30], expectedXp: 23 }, // 2:00
+      { times: 2, intervals: [60, 60], expectedXp: 47 }, // 4:00
+    ].forEach(({ times, intervals, expectedXp }) => {
+      it(`${times} x (${intervals[0]}s on & ${intervals[1]}s off) produces ${expectedXp} XP`, () => {
+        expect(xp([createTestInterval(times, intervals)])).toEqual(expectedXp);
       });
     });
   });
