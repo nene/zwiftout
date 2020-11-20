@@ -1,7 +1,7 @@
 import { xp } from "./xp";
 import { Interval } from "../ast";
 import { Duration } from "../Duration";
-import { ConstantIntensity, RangeIntensity } from "../Intensity";
+import { ConstantIntensity, FreeIntensity, RangeIntensity } from "../Intensity";
 import { RepeatedInterval } from "../detectRepeats";
 
 describe("xp()", () => {
@@ -61,6 +61,33 @@ describe("xp()", () => {
       [60, 6],
       [61, 6],
       [5 * 60, 30],
+    ].forEach(([seconds, expectedXp]) => {
+      it(`${seconds}s produces ${expectedXp} XP`, () => {
+        expect(xp([createTestInterval(seconds)])).toEqual(expectedXp);
+      });
+    });
+  });
+
+  describe("FreeRide interval", () => {
+    const createTestInterval = (seconds: number): Interval => ({
+      type: "FreeRide",
+      duration: new Duration(seconds),
+      intensity: new FreeIntensity(),
+      comments: [],
+    });
+
+    [
+      [54, 5],
+      [55, 5],
+      [56, 5],
+      [57, 5],
+      [58, 5],
+      [59, 5],
+      [61, 6],
+      [62, 6],
+      [63, 6],
+      [64, 6],
+      [3 * 60, 17],
     ].forEach(([seconds, expectedXp]) => {
       it(`${seconds}s produces ${expectedXp} XP`, () => {
         expect(xp([createTestInterval(seconds)])).toEqual(expectedXp);
