@@ -563,8 +563,6 @@ Interval: 2:00 90%
   @ 0:00 Find your rythm.
   @ 3:10 Try to settle in for the effort
 `),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Comment \\"@ 190 Try to settle in for the effort\\" has offset outside of interval"`,
-    );
+    ).toThrowErrorMatchingInlineSnapshot(`"Comment offset is larger than interval length at line 5 char 5"`);
   });
 });

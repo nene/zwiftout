@@ -8,7 +8,7 @@ const isCommentWithinInterval = (comment: Comment, interval: Interval): boolean 
 const validateCommentOffsets = (interval: Interval) => {
   for (const comment of interval.comments) {
     if (!isCommentWithinInterval(comment, interval)) {
-      throw new ValidationError(`Comment "@ ${comment.offset.seconds} ${comment.text}" has offset outside of interval`);
+      throw new ValidationError(`Comment offset is larger than interval length`, comment.loc);
     }
   }
 };
