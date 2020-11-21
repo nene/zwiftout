@@ -57,7 +57,7 @@ const parseHeader = (tokens: Token[]): [Header, Token[]] => {
   return [header, tokens];
 };
 
-const parseIntervalComments = (tokens: Token[]): [Comment[], Token[]] => {
+const parseIntervalComments = (tokens: Token[], intervalDuration: Duration): [Comment[], Token[]] => {
   const comments: Comment[] = [];
   while (tokens[0]) {
     const [start, offset, text, ...rest] = tokens;
@@ -72,7 +72,8 @@ const parseIntervalComments = (tokens: Token[]): [Comment[], Token[]] => {
         throw new ParseError(`Expected [comment text] instead got ${tokenToString(text)}`, text?.loc || offset.loc);
       }
       comments.push({
-        offset: new Duration(offset.value),
+        // when offset is negative, recalculate it based on interval length
+        offset: new Duration(offset.value >= 0 ? offset.value : intervalDuration.seconds + offset.value),
         text: text.value,
         loc: offset.loc,
       });
@@ -115,7 +116,7 @@ const parseIntervalParams = (type: IntervalType, tokens: Token[], loc: SourceLoc
     intensity = new FreeIntensity();
   }
 
-  const [comments, rest] = parseIntervalComments(tokens);
+  const [comments, rest] = parseIntervalComments(tokens, duration);
 
   return [{ type, duration, intensity, cadence, comments }, rest];
 };

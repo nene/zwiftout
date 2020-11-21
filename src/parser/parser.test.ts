@@ -555,6 +555,94 @@ Rest: 5:00 50%
     `);
   });
 
+  it("parses intervals with negative comment offsets", () => {
+    expect(
+      parse(`
+Name: My Workout
+Interval: 10:00 90%
+  @ 0:10 Find your rythm.
+  @ -0:10 Final push. YOU GOT IT!
+
+Rest: 5:00 50%
+  @ -4:30 Great effort!
+  @ -2:00 Cool down well after all of this.
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "",
+        "description": "",
+        "intervals": Array [
+          Object {
+            "cadence": undefined,
+            "comments": Array [
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 3,
+                },
+                "offset": Duration {
+                  "seconds": 10,
+                },
+                "text": "Find your rythm.",
+              },
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 4,
+                },
+                "offset": Duration {
+                  "seconds": 590,
+                },
+                "text": "Final push. YOU GOT IT!",
+              },
+            ],
+            "duration": Duration {
+              "seconds": 600,
+            },
+            "intensity": ConstantIntensity {
+              "_value": 0.9,
+            },
+            "type": "Interval",
+          },
+          Object {
+            "cadence": undefined,
+            "comments": Array [
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 7,
+                },
+                "offset": Duration {
+                  "seconds": 30,
+                },
+                "text": "Great effort!",
+              },
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 8,
+                },
+                "offset": Duration {
+                  "seconds": 180,
+                },
+                "text": "Cool down well after all of this.",
+              },
+            ],
+            "duration": Duration {
+              "seconds": 300,
+            },
+            "intensity": ConstantIntensity {
+              "_value": 0.5,
+            },
+            "type": "Rest",
+          },
+        ],
+        "name": "My Workout",
+        "tags": Array [],
+      }
+    `);
+  });
+
   it("throws error when comment offset is outside of interval length", () => {
     expect(() =>
       parse(`

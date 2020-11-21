@@ -89,16 +89,17 @@ const tokenizeParams = (text: string, loc: SourceLocation): Token[] => {
 };
 
 const tokenizeComment = (line: string, row: number): Token[] | undefined => {
-  const [, commentHead, offset, commentText] = line.match(/^(\s*@\s*)([0-9:]+)(.*?)$/) || [];
+  const [, commentHead, minus, offset, commentText] = line.match(/^(\s*@\s*)(-?)([0-9:]+)(.*?)$/) || [];
   if (!commentHead) {
     return undefined;
   }
+  const sign = minus ? -1 : 1;
   if (!DURATION_REGEX.test(offset)) {
     throw new ParseError("Invalid comment offset", { row, col: commentHead.length });
   }
   return [
     { type: "comment-start", loc: { row, col: line.indexOf("@") } },
-    { type: "duration", value: toSeconds(offset), loc: { row, col: commentHead.length } },
+    { type: "duration", value: sign * toSeconds(offset), loc: { row, col: commentHead.length } },
     { type: "text", value: commentText.trim(), loc: { row, col: commentHead.length + offset.length } },
   ];
 };
