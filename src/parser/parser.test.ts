@@ -653,4 +653,15 @@ Interval: 2:00 90%
 `),
     ).toThrowErrorMatchingInlineSnapshot(`"Comment offset is larger than interval length at line 5 char 5"`);
   });
+
+  it("throws error when negative comment offset is outside of interval", () => {
+    expect(() =>
+      parse(`
+Name: My Workout
+Interval: 2:00 90%
+  @ 0:00 Find your rythm.
+  @ -3:10 Try to settle in for the effort
+`),
+    ).toThrowErrorMatchingInlineSnapshot(`"Negative comment offset is larger than interval length at line 5 char 5"`);
+  });
 });
