@@ -83,10 +83,12 @@ describe("xp()", () => {
       [57, 5],
       [58, 5],
       [59, 5],
+      // [60, 6], Doesn't work. Incorrect code or test data?
       [61, 6],
       [62, 6],
       [63, 6],
       [64, 6],
+      [2 * 60, 11],
       [3 * 60, 17],
     ].forEach(([seconds, expectedXp]) => {
       it(`${seconds}s produces ${expectedXp} XP`, () => {
