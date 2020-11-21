@@ -458,30 +458,50 @@ Rest: 5:00 50%
             "cadence": undefined,
             "comments": Array [
               Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 3,
+                },
                 "offset": Duration {
                   "seconds": 0,
                 },
                 "text": "Find your rythm.",
               },
               Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 4,
+                },
                 "offset": Duration {
                   "seconds": 60,
                 },
                 "text": "Try to settle in for the effort",
               },
               Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 6,
+                },
                 "offset": Duration {
                   "seconds": 300,
                 },
                 "text": "Half way through",
               },
               Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 8,
+                },
                 "offset": Duration {
                   "seconds": 540,
                 },
                 "text": "Almost there",
               },
               Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 9,
+                },
                 "offset": Duration {
                   "seconds": 570,
                 },
@@ -500,12 +520,20 @@ Rest: 5:00 50%
             "cadence": undefined,
             "comments": Array [
               Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 12,
+                },
                 "offset": Duration {
                   "seconds": 0,
                 },
                 "text": "Great effort!",
               },
               Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 13,
+                },
                 "offset": Duration {
                   "seconds": 30,
                 },

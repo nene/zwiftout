@@ -74,6 +74,7 @@ const parseIntervalComments = (tokens: Token[]): [Comment[], Token[]] => {
       comments.push({
         offset: new Duration(offset.value),
         text: text.value,
+        loc: offset.loc,
       });
       tokens = rest;
     } else {

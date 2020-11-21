@@ -1,4 +1,4 @@
-import { IntervalType } from "./parser/tokenizer";
+import { IntervalType, SourceLocation } from "./parser/tokenizer";
 import { Duration } from "./Duration";
 import { Intensity } from "./Intensity";
 
@@ -21,4 +21,5 @@ export type Interval = {
 export type Comment = {
   offset: Duration;
   text: string;
+  loc: SourceLocation;
 };
