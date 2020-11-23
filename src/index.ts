@@ -12,4 +12,3 @@ export { ZoneType, intensityValueToZoneType } from "./ZoneType";
 // utils
 export { totalDuration } from "./stats/totalDuration";
 export { maximumIntensity } from "./stats/maximumIntensity";
-export { chunkRangeIntervals } from "./utils/chunkRangeIntervals";
