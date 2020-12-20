@@ -115,6 +115,11 @@ console.log(stats(workout));
 - Repeats (and nested repeats)
 - Unsupported params: message duration & y-position
 - More restricted syntax for text (with quotes)
+- Concatenate similar intervals
+- Sync TSS prediction of free-ride with Zwift (64 TSS for 1h freeride)
+- Distinguish between terrain-sensitive and insensitive free-ride.
+- Syntax for comments placed relative to previous ones, e.g. `@ +00:10`
+- Detect overlaps of comments.
 
 [zwift]: https://zwift.com/
 [zwofactory]: https://zwofactory.com/
