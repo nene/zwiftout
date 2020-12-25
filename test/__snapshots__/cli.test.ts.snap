@@ -300,10 +300,10 @@ exports[`Generate stats examples/ftp-test.txt 1`] = `
 "
 Total duration: 45 minutes
 
-Average intensity: 36%
-Normalized intensity: 71%
+Average intensity: 72%
+Normalized intensity: 81%
 
-TSS: 37
+TSS: 49
 XP: 336
 
 Zone Distribution:
