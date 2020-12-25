@@ -8,6 +8,7 @@ export { Workout, Interval, Comment } from "./ast";
 export { Duration } from "./Duration";
 export { Intensity, ConstantIntensity, RangeIntensity, FreeIntensity } from "./Intensity";
 export { ZoneType, intensityValueToZoneType } from "./ZoneType";
+export { ParseError } from "./parser/ParseError";
 
 // utils
 export { totalDuration } from "./stats/totalDuration";
