@@ -176,9 +176,9 @@ describe("detectRepeats()", () => {
         duration: new Duration(100),
         intensity: new ConstantIntensity(1),
         comments: [
-          { offset: new Duration(0), text: "Let's start" },
-          { offset: new Duration(20), text: "Stay strong!" },
-          { offset: new Duration(90), text: "Finish it!" },
+          { offset: new Duration(0), text: "Let's start", loc: { row: 1, col: 1 } },
+          { offset: new Duration(20), text: "Stay strong!", loc: { row: 2, col: 1 } },
+          { offset: new Duration(90), text: "Finish it!", loc: { row: 3, col: 1 } },
         ],
       },
       {
@@ -186,8 +186,8 @@ describe("detectRepeats()", () => {
         duration: new Duration(100),
         intensity: new ConstantIntensity(0.5),
         comments: [
-          { offset: new Duration(0), text: "Huh... have a rest" },
-          { offset: new Duration(80), text: "Ready for next?" },
+          { offset: new Duration(0), text: "Huh... have a rest", loc: { row: 4, col: 1 } },
+          { offset: new Duration(80), text: "Ready for next?", loc: { row: 5, col: 1 } },
         ],
       },
       {
@@ -195,9 +195,9 @@ describe("detectRepeats()", () => {
         duration: new Duration(100),
         intensity: new ConstantIntensity(1),
         comments: [
-          { offset: new Duration(0), text: "Bring it on again!" },
-          { offset: new Duration(50), text: "Half way" },
-          { offset: new Duration(90), text: "Almost there!" },
+          { offset: new Duration(0), text: "Bring it on again!", loc: { row: 6, col: 1 } },
+          { offset: new Duration(50), text: "Half way", loc: { row: 7, col: 1 } },
+          { offset: new Duration(90), text: "Almost there!", loc: { row: 8, col: 1 } },
         ],
       },
       {
@@ -205,9 +205,9 @@ describe("detectRepeats()", () => {
         duration: new Duration(100),
         intensity: new ConstantIntensity(0.5),
         comments: [
-          { offset: new Duration(30), text: "Wow... you did it!" },
-          { offset: new Duration(40), text: "Nice job." },
-          { offset: new Duration(50), text: "Until next time..." },
+          { offset: new Duration(30), text: "Wow... you did it!", loc: { row: 9, col: 1 } },
+          { offset: new Duration(40), text: "Nice job.", loc: { row: 10, col: 1 } },
+          { offset: new Duration(50), text: "Until next time...", loc: { row: 11, col: 1 } },
         ],
       },
     ];
@@ -220,20 +220,20 @@ describe("detectRepeats()", () => {
           { type: "Rest", duration: new Duration(100), intensity: new ConstantIntensity(0.5), comments: [] },
         ],
         comments: [
-          { offset: new Duration(0), text: "Let's start" },
-          { offset: new Duration(20), text: "Stay strong!" },
-          { offset: new Duration(90), text: "Finish it!" },
+          { offset: new Duration(0), text: "Let's start", loc: { row: 1, col: 1 } },
+          { offset: new Duration(20), text: "Stay strong!", loc: { row: 2, col: 1 } },
+          { offset: new Duration(90), text: "Finish it!", loc: { row: 3, col: 1 } },
 
-          { offset: new Duration(100), text: "Huh... have a rest" },
-          { offset: new Duration(180), text: "Ready for next?" },
+          { offset: new Duration(100), text: "Huh... have a rest", loc: { row: 4, col: 1 } },
+          { offset: new Duration(180), text: "Ready for next?", loc: { row: 5, col: 1 } },
 
-          { offset: new Duration(200), text: "Bring it on again!" },
-          { offset: new Duration(250), text: "Half way" },
-          { offset: new Duration(290), text: "Almost there!" },
+          { offset: new Duration(200), text: "Bring it on again!", loc: { row: 6, col: 1 } },
+          { offset: new Duration(250), text: "Half way", loc: { row: 7, col: 1 } },
+          { offset: new Duration(290), text: "Almost there!", loc: { row: 8, col: 1 } },
 
-          { offset: new Duration(330), text: "Wow... you did it!" },
-          { offset: new Duration(340), text: "Nice job." },
-          { offset: new Duration(350), text: "Until next time..." },
+          { offset: new Duration(330), text: "Wow... you did it!", loc: { row: 9, col: 1 } },
+          { offset: new Duration(340), text: "Nice job.", loc: { row: 10, col: 1 } },
+          { offset: new Duration(350), text: "Until next time...", loc: { row: 11, col: 1 } },
         ],
       },
     ]);
