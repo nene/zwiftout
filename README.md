@@ -119,6 +119,7 @@ console.log(stats(workout));
 - Distinguish between terrain-sensitive and insensitive free-ride.
 - Syntax for comments placed relative to previous ones, e.g. `@ +00:10`
 - Detect overlaps of comments.
+- Use `<Ramp>` in addition to `<Warmup>` and `<Cooldown>`
 
 [zwift]: https://zwift.com/
 [zwofactory]: https://zwofactory.com/
