@@ -1,7 +1,9 @@
 import { SourceLocation } from "./tokenizer";
 
 export class ParseError extends Error {
-  constructor(msg: string, { row, col }: SourceLocation) {
-    super(`${msg} at line ${row + 1} char ${col + 1}`);
+  public loc: SourceLocation;
+  constructor(msg: string, loc: SourceLocation) {
+    super(`${msg} at line ${loc.row + 1} char ${loc.col + 1}`);
+    this.loc = loc;
   }
 }
