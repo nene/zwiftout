@@ -664,4 +664,30 @@ Interval: 2:00 90%
 `),
     ).toThrowErrorMatchingInlineSnapshot(`"Negative comment offset is larger than interval length at line 5 char 5"`);
   });
+
+  it("throws error when comment offset is the same as another comment offset", () => {
+    expect(() =>
+      parse(`
+Name: My Workout
+Interval: 2:00 90%
+  @ 0:00 First comment
+  @ 1:00 Comment
+  @ 1:00 Overlapping comment
+  @ 1:50 Last comment
+`),
+    ).toThrowErrorMatchingInlineSnapshot(`"Comment overlaps previous comment at line 6 char 5"`);
+  });
+
+  it("throws error when comment offset is greater than next comment offset", () => {
+    expect(() =>
+      parse(`
+Name: My Workout
+Interval: 2:00 90%
+  @ 0:00 First comment
+  @ 1:20 Comment
+  @ 1:00 Misplaced comment
+  @ 1:50 Last comment
+`),
+    ).toThrowErrorMatchingInlineSnapshot(`"Comment overlaps previous comment at line 6 char 5"`);
+  });
 });

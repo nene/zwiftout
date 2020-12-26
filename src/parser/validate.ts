@@ -1,13 +1,17 @@
 import { Workout, Interval } from "../ast";
 import { ValidationError } from "./ValidationError";
 
-const validateCommentOffsets = (interval: Interval) => {
-  for (const comment of interval.comments) {
-    if (comment.offset.seconds >= interval.duration.seconds) {
+const validateCommentOffsets = ({ comments, duration }: Interval) => {
+  for (let i = 0; i < comments.length; i++) {
+    const comment = comments[i];
+    if (comment.offset.seconds >= duration.seconds) {
       throw new ValidationError(`Comment offset is larger than interval length`, comment.loc);
     }
     if (comment.offset.seconds < 0) {
       throw new ValidationError(`Negative comment offset is larger than interval length`, comment.loc);
+    }
+    if (i > 0 && comment.offset.seconds <= comments[i - 1].offset.seconds) {
+      throw new ValidationError(`Comment overlaps previous comment`, comment.loc);
     }
   }
 };
