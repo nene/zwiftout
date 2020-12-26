@@ -16,6 +16,9 @@ const validateCommentOffsets = ({ comments, duration }: Interval) => {
     if (i > 0 && comment.offset.seconds < comments[i - 1].offset.seconds + 10) {
       throw new ValidationError(`Less than 10 seconds between comments`, comment.loc);
     }
+    if (comment.offset.seconds + 10 > duration.seconds) {
+      throw new ValidationError(`Less than 10 seconds between comment start and interval end`, comment.loc);
+    }
   }
 };
 

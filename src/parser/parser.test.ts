@@ -762,4 +762,70 @@ Interval: 2:00 90%
       }
     `);
   });
+
+  it("throws error when comment does not finish before end of interval", () => {
+    expect(() =>
+      parse(`
+Name: My Workout
+Interval: 1:00 80%
+  @ 0:51 First comment
+Interval: 1:00 90%
+`),
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Less than 10 seconds between comment start and interval end at line 4 char 5"`,
+    );
+  });
+
+  it("triggers no error when comment finishes right at interval end", () => {
+    expect(
+      parse(`
+Name: My Workout
+Interval: 1:00 80%
+  @ 0:50 First comment
+Interval: 1:00 90%
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "",
+        "description": "",
+        "intervals": Array [
+          Object {
+            "cadence": undefined,
+            "comments": Array [
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 3,
+                },
+                "offset": Duration {
+                  "seconds": 50,
+                },
+                "text": "First comment",
+              },
+            ],
+            "duration": Duration {
+              "seconds": 60,
+            },
+            "intensity": ConstantIntensity {
+              "_value": 0.8,
+            },
+            "type": "Interval",
+          },
+          Object {
+            "cadence": undefined,
+            "comments": Array [],
+            "duration": Duration {
+              "seconds": 60,
+            },
+            "intensity": ConstantIntensity {
+              "_value": 0.9,
+            },
+            "type": "Interval",
+          },
+        ],
+        "name": "My Workout",
+        "tags": Array [],
+      }
+    `);
+  });
 });
