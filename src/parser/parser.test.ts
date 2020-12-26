@@ -690,4 +690,76 @@ Interval: 2:00 90%
 `),
     ).toThrowErrorMatchingInlineSnapshot(`"Comment overlaps previous comment at line 6 char 5"`);
   });
+
+  it("throws error when comments too close together", () => {
+    expect(() =>
+      parse(`
+Name: My Workout
+Interval: 2:00 90%
+  @ 0:00 First comment
+  @ 0:01 Second Comment
+`),
+    ).toThrowErrorMatchingInlineSnapshot(`"Less than 10 seconds between comments at line 5 char 5"`);
+
+    expect(() =>
+      parse(`
+Name: My Workout
+Interval: 2:00 90%
+  @ 0:00 First comment
+  @ 0:09 Second Comment
+`),
+    ).toThrowErrorMatchingInlineSnapshot(`"Less than 10 seconds between comments at line 5 char 5"`);
+  });
+
+  it("triggers no error when comments at least 10 seconds apart", () => {
+    expect(
+      parse(`
+Name: My Workout
+Interval: 2:00 90%
+  @ 0:00 First comment
+  @ 0:10 Second Comment
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "",
+        "description": "",
+        "intervals": Array [
+          Object {
+            "cadence": undefined,
+            "comments": Array [
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 3,
+                },
+                "offset": Duration {
+                  "seconds": 0,
+                },
+                "text": "First comment",
+              },
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 4,
+                },
+                "offset": Duration {
+                  "seconds": 10,
+                },
+                "text": "Second Comment",
+              },
+            ],
+            "duration": Duration {
+              "seconds": 120,
+            },
+            "intensity": ConstantIntensity {
+              "_value": 0.9,
+            },
+            "type": "Interval",
+          },
+        ],
+        "name": "My Workout",
+        "tags": Array [],
+      }
+    `);
+  });
 });

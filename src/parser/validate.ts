@@ -13,6 +13,9 @@ const validateCommentOffsets = ({ comments, duration }: Interval) => {
     if (i > 0 && comment.offset.seconds <= comments[i - 1].offset.seconds) {
       throw new ValidationError(`Comment overlaps previous comment`, comment.loc);
     }
+    if (i > 0 && comment.offset.seconds < comments[i - 1].offset.seconds + 10) {
+      throw new ValidationError(`Less than 10 seconds between comments`, comment.loc);
+    }
   }
 };
 
