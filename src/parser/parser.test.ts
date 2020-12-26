@@ -712,55 +712,14 @@ Interval: 2:00 90%
   });
 
   it("triggers no error when comments at least 10 seconds apart", () => {
-    expect(
+    expect(() =>
       parse(`
 Name: My Workout
 Interval: 2:00 90%
   @ 0:00 First comment
   @ 0:10 Second Comment
 `),
-    ).toMatchInlineSnapshot(`
-      Object {
-        "author": "",
-        "description": "",
-        "intervals": Array [
-          Object {
-            "cadence": undefined,
-            "comments": Array [
-              Object {
-                "loc": Object {
-                  "col": 4,
-                  "row": 3,
-                },
-                "offset": Duration {
-                  "seconds": 0,
-                },
-                "text": "First comment",
-              },
-              Object {
-                "loc": Object {
-                  "col": 4,
-                  "row": 4,
-                },
-                "offset": Duration {
-                  "seconds": 10,
-                },
-                "text": "Second Comment",
-              },
-            ],
-            "duration": Duration {
-              "seconds": 120,
-            },
-            "intensity": ConstantIntensity {
-              "_value": 0.9,
-            },
-            "type": "Interval",
-          },
-        ],
-        "name": "My Workout",
-        "tags": Array [],
-      }
-    `);
+    ).not.toThrowError();
   });
 
   it("throws error when comment does not finish before end of interval", () => {
@@ -777,55 +736,13 @@ Interval: 1:00 90%
   });
 
   it("triggers no error when comment finishes right at interval end", () => {
-    expect(
+    expect(() =>
       parse(`
 Name: My Workout
 Interval: 1:00 80%
   @ 0:50 First comment
 Interval: 1:00 90%
 `),
-    ).toMatchInlineSnapshot(`
-      Object {
-        "author": "",
-        "description": "",
-        "intervals": Array [
-          Object {
-            "cadence": undefined,
-            "comments": Array [
-              Object {
-                "loc": Object {
-                  "col": 4,
-                  "row": 3,
-                },
-                "offset": Duration {
-                  "seconds": 50,
-                },
-                "text": "First comment",
-              },
-            ],
-            "duration": Duration {
-              "seconds": 60,
-            },
-            "intensity": ConstantIntensity {
-              "_value": 0.8,
-            },
-            "type": "Interval",
-          },
-          Object {
-            "cadence": undefined,
-            "comments": Array [],
-            "duration": Duration {
-              "seconds": 60,
-            },
-            "intensity": ConstantIntensity {
-              "_value": 0.9,
-            },
-            "type": "Interval",
-          },
-        ],
-        "name": "My Workout",
-        "tags": Array [],
-      }
-    `);
+    ).not.toThrowError();
   });
 });
