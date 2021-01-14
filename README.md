@@ -18,7 +18,7 @@ Editing .zwo files by hand is also inconvenient:
 
 - you'll have to constantly convert minutes to seconds,
 - you can easily make errors in XML syntax, rendering the file invalid,
-- The syntax is quite inconsistent, making it hard to memoize.
+- [it's really a bad format.][zwo-sucks]
 
 There are a few alternative editors online:
 
@@ -124,3 +124,4 @@ console.log(stats(workout));
 [zwofactory]: https://zwofactory.com/
 [simple zwo creator]: https://zwifthacks.com/app/simple-zwo-creator/
 [workout-editor]: https://nene.github.io/workout-editor/
+[zwo-sucks]: http://nene.github.io/2021/01/14/zwo-sucks
