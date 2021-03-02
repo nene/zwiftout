@@ -58,8 +58,14 @@ const parseHeader = (tokens: Token[]): [Header, Token[]] => {
   return [header, tokens];
 };
 
+type PartialComment = {
+  offsetToken: OffsetToken;
+  text: string;
+  loc: SourceLocation;
+};
+
 const parseIntervalComments = (tokens: Token[], intervalDuration: Duration): [Comment[], Token[]] => {
-  const comments: Comment[] = [];
+  const comments: PartialComment[] = [];
   while (tokens[0]) {
     const [start, offset, text, ...rest] = tokens;
     if (start.type === "comment-start") {
@@ -73,7 +79,7 @@ const parseIntervalComments = (tokens: Token[], intervalDuration: Duration): [Co
         throw new ParseError(`Expected [comment text] instead got ${tokenToString(text)}`, text?.loc || offset.loc);
       }
       comments.push({
-        offset: absoluteOffset(offset, intervalDuration, last(comments)),
+        offsetToken: offset,
         text: text.value,
         loc: offset.loc,
       });
@@ -82,16 +88,54 @@ const parseIntervalComments = (tokens: Token[], intervalDuration: Duration): [Co
       break;
     }
   }
-  return [comments, tokens];
+
+  return [computeAbsoluteOffsets(comments, intervalDuration), tokens];
 };
 
-const absoluteOffset = (offset: OffsetToken, intervalDuration: Duration, previousComment?: Comment): Duration => {
-  if (offset.kind === "relative-minus") {
-    return new Duration(intervalDuration.seconds - offset.value);
-  } else if (offset.kind === "relative-plus" && previousComment) {
-    return new Duration(previousComment.offset.seconds + offset.value);
-  } else {
-    return new Duration(offset.value);
+const computeAbsoluteOffsets = (partialComments: PartialComment[], intervalDuration: Duration): Comment[] => {
+  const comments: Comment[] = [];
+  for (let i = 0; i < partialComments.length; i++) {
+    const pComment = partialComments[i];
+    const offsetToken = pComment.offsetToken;
+
+    // Assume absolute offset by default
+    let offset: Duration = new Duration(offsetToken.value);
+
+    if (offsetToken.kind === "relative-plus") {
+      // Position relative to previous already-computed comment offset
+      const previousComment = last(comments);
+      if (previousComment) {
+        offset = new Duration(previousComment.offset.seconds + offset.seconds);
+      }
+    } else if (offsetToken.kind === "relative-minus") {
+      // Position relative to next comment or interval end
+      offset = new Duration(nextCommentOffset(partialComments, i, intervalDuration).seconds - offset.seconds);
+    }
+
+    comments.push({
+      offset,
+      loc: pComment.loc,
+      text: pComment.text,
+    });
+  }
+  return comments;
+};
+
+const nextCommentOffset = (partialComments: PartialComment[], i: number, intervalDuration: Duration): Duration => {
+  const nextComment = partialComments[i + 1];
+  if (!nextComment) {
+    return intervalDuration;
+  }
+  switch (nextComment.offsetToken.kind) {
+    case "relative-minus":
+      return new Duration(
+        nextCommentOffset(partialComments, i + 1, intervalDuration).seconds - nextComment.offsetToken.value,
+      );
+    case "relative-plus":
+      throw new ParseError("Negative offset followed by positive offset", nextComment.offsetToken.loc);
+    case "absolute":
+    default:
+      return new Duration(nextComment.offsetToken.value);
   }
 };
 

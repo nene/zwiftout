@@ -555,17 +555,13 @@ Rest: 5:00 50%
     `);
   });
 
-  it("parses intervals with negative comment offsets", () => {
+  it("parses last comment with negative offset", () => {
     expect(
       parse(`
 Name: My Workout
 Interval: 10:00 90%
   @ 0:10 Find your rythm.
   @ -0:10 Final push. YOU GOT IT!
-
-Rest: 5:00 50%
-  @ -4:30 Great effort!
-  @ -2:00 Cool down well after all of this.
 `),
     ).toMatchInlineSnapshot(`
       Object {
@@ -604,37 +600,120 @@ Rest: 5:00 50%
             },
             "type": "Interval",
           },
+        ],
+        "name": "My Workout",
+        "tags": Array [],
+      }
+    `);
+  });
+
+  it("parses comment with negative offset before absolutely offset comment", () => {
+    expect(
+      parse(`
+Name: My Workout
+Interval: 1:00 90%
+  @ -0:10 Before last
+  @ 0:50 Last!
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "",
+        "description": "",
+        "intervals": Array [
           Object {
             "cadence": undefined,
             "comments": Array [
               Object {
                 "loc": Object {
                   "col": 4,
-                  "row": 7,
+                  "row": 3,
                 },
                 "offset": Duration {
-                  "seconds": 30,
+                  "seconds": 40,
                 },
-                "text": "Great effort!",
+                "text": "Before last",
               },
               Object {
                 "loc": Object {
                   "col": 4,
-                  "row": 8,
+                  "row": 4,
                 },
                 "offset": Duration {
-                  "seconds": 180,
+                  "seconds": 50,
                 },
-                "text": "Cool down well after all of this.",
+                "text": "Last!",
               },
             ],
             "duration": Duration {
-              "seconds": 300,
+              "seconds": 60,
             },
             "intensity": ConstantIntensity {
-              "_value": 0.5,
+              "_value": 0.9,
             },
-            "type": "Rest",
+            "type": "Interval",
+          },
+        ],
+        "name": "My Workout",
+        "tags": Array [],
+      }
+    `);
+  });
+
+  it("parses multiple comments with negative offsets in row", () => {
+    expect(
+      parse(`
+Name: My Workout
+Interval: 1:00 90%
+  @ -0:10 One more before last
+  @ -0:10 Before last
+  @ -0:10 Last!
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "",
+        "description": "",
+        "intervals": Array [
+          Object {
+            "cadence": undefined,
+            "comments": Array [
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 3,
+                },
+                "offset": Duration {
+                  "seconds": 30,
+                },
+                "text": "One more before last",
+              },
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 4,
+                },
+                "offset": Duration {
+                  "seconds": 40,
+                },
+                "text": "Before last",
+              },
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 5,
+                },
+                "offset": Duration {
+                  "seconds": 50,
+                },
+                "text": "Last!",
+              },
+            ],
+            "duration": Duration {
+              "seconds": 60,
+            },
+            "intensity": ConstantIntensity {
+              "_value": 0.9,
+            },
+            "type": "Interval",
           },
         ],
         "name": "My Workout",
@@ -767,6 +846,70 @@ Interval: 10:00 90%
             ],
             "duration": Duration {
               "seconds": 600,
+            },
+            "intensity": ConstantIntensity {
+              "_value": 0.9,
+            },
+            "type": "Interval",
+          },
+        ],
+        "name": "My Workout",
+        "tags": Array [],
+      }
+    `);
+  });
+
+  it("throws error when negative offset is followed by positive offset", () => {
+    expect(() =>
+      parse(`
+Name: My Workout
+Interval: 2:00 90%
+  @ -0:10 Comment 1
+  @ +0:30 Comment 2
+  @ 1:30 Comment 3
+`),
+    ).toThrowErrorMatchingInlineSnapshot(`"Negative offset followed by positive offset at line 5 char 5"`);
+  });
+
+  it("works fine when positive offset is followed by negative offset", () => {
+    expect(
+      parse(`
+Name: My Workout
+Interval: 1:00 90%
+  @ +0:10 Comment 1
+  @ -0:10 Comment 2
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "",
+        "description": "",
+        "intervals": Array [
+          Object {
+            "cadence": undefined,
+            "comments": Array [
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 3,
+                },
+                "offset": Duration {
+                  "seconds": 10,
+                },
+                "text": "Comment 1",
+              },
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 4,
+                },
+                "offset": Duration {
+                  "seconds": 50,
+                },
+                "text": "Comment 2",
+              },
+            ],
+            "duration": Duration {
+              "seconds": 60,
             },
             "intensity": ConstantIntensity {
               "_value": 0.9,
