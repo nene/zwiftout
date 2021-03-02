@@ -117,7 +117,6 @@ console.log(stats(workout));
 - More restricted syntax for text (with quotes)
 - Concatenate similar intervals
 - Distinguish between terrain-sensitive and insensitive free-ride.
-- Syntax for comments placed relative to previous ones, e.g. `@ +00:10`
 - Use `<Ramp>` in addition to `<Warmup>` and `<Cooldown>`
 
 [zwift]: https://zwift.com/
