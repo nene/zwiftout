@@ -102,7 +102,7 @@ const tokenizeParams = (text: string, loc: SourceLocation): Token[] => {
 };
 
 const tokenizeComment = (line: string, row: number): Token[] | undefined => {
-  const [, commentHead, minus, offset, commentText] = line.match(/^(\s*@\s*)(-?)([0-9:]+)(.*?)$/) || [];
+  const [, commentHead, sign, offset, commentText] = line.match(/^(\s*@\s*)([-+]?)([0-9:]+)(.*?)$/) || [];
   if (!commentHead) {
     return undefined;
   }
@@ -113,12 +113,23 @@ const tokenizeComment = (line: string, row: number): Token[] | undefined => {
     { type: "comment-start", loc: { row, col: line.indexOf("@") } },
     {
       type: "offset",
-      kind: minus ? "relative-minus" : "absolute",
+      kind: signToKind(sign),
       value: toSeconds(offset),
       loc: { row, col: commentHead.length },
     },
     { type: "text", value: commentText.trim(), loc: { row, col: commentHead.length + offset.length } },
   ];
+};
+
+const signToKind = (sign: string) => {
+  switch (sign) {
+    case "-":
+      return "relative-minus";
+    case "+":
+      return "relative-plus";
+    default:
+      return "absolute";
+  }
 };
 
 const tokenizeHeader = (label: HeaderType, separator: string, paramString: string, row: number): Token[] => {

@@ -1,8 +1,9 @@
+import { last } from "ramda";
 import { Interval, Workout, Comment } from "../ast";
 import { Duration } from "../Duration";
 import { ConstantIntensity, FreeIntensity, RangeIntensity } from "../Intensity";
 import { ParseError } from "./ParseError";
-import { IntervalType, SourceLocation, Token } from "./tokenizer";
+import { IntervalType, OffsetToken, SourceLocation, Token } from "./tokenizer";
 
 type Header = Partial<Omit<Workout, "intervals">>;
 
@@ -72,8 +73,7 @@ const parseIntervalComments = (tokens: Token[], intervalDuration: Duration): [Co
         throw new ParseError(`Expected [comment text] instead got ${tokenToString(text)}`, text?.loc || offset.loc);
       }
       comments.push({
-        // when offset is negative, recalculate it based on interval length
-        offset: new Duration(offset.kind === "absolute" ? offset.value : intervalDuration.seconds - offset.value),
+        offset: absoluteOffset(offset, intervalDuration, last(comments)),
         text: text.value,
         loc: offset.loc,
       });
@@ -83,6 +83,16 @@ const parseIntervalComments = (tokens: Token[], intervalDuration: Duration): [Co
     }
   }
   return [comments, tokens];
+};
+
+const absoluteOffset = (offset: OffsetToken, intervalDuration: Duration, previousComment?: Comment): Duration => {
+  if (offset.kind === "relative-minus") {
+    return new Duration(intervalDuration.seconds - offset.value);
+  } else if (offset.kind === "relative-plus" && previousComment) {
+    return new Duration(previousComment.offset.seconds + offset.value);
+  } else {
+    return new Duration(offset.value);
+  }
 };
 
 const parseIntervalParams = (type: IntervalType, tokens: Token[], loc: SourceLocation): [Interval, Token[]] => {

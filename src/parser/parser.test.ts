@@ -643,6 +643,143 @@ Rest: 5:00 50%
     `);
   });
 
+  it("parses intervals with positive comment offsets", () => {
+    expect(
+      parse(`
+Name: My Workout
+Interval: 10:00 90%
+  @ 0:50 First comment
+  @ +0:10 Comment #2 10 seconds later
+  @ +0:10 Comment #3 another 10 seconds later
+  @ 5:00 Half way!
+  @ +0:10 Comment #5 10 seconds later
+  @ +0:10 Comment #6 another 10 seconds later
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "",
+        "description": "",
+        "intervals": Array [
+          Object {
+            "cadence": undefined,
+            "comments": Array [
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 3,
+                },
+                "offset": Duration {
+                  "seconds": 50,
+                },
+                "text": "First comment",
+              },
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 4,
+                },
+                "offset": Duration {
+                  "seconds": 60,
+                },
+                "text": "Comment #2 10 seconds later",
+              },
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 5,
+                },
+                "offset": Duration {
+                  "seconds": 70,
+                },
+                "text": "Comment #3 another 10 seconds later",
+              },
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 6,
+                },
+                "offset": Duration {
+                  "seconds": 300,
+                },
+                "text": "Half way!",
+              },
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 7,
+                },
+                "offset": Duration {
+                  "seconds": 310,
+                },
+                "text": "Comment #5 10 seconds later",
+              },
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 8,
+                },
+                "offset": Duration {
+                  "seconds": 320,
+                },
+                "text": "Comment #6 another 10 seconds later",
+              },
+            ],
+            "duration": Duration {
+              "seconds": 600,
+            },
+            "intensity": ConstantIntensity {
+              "_value": 0.9,
+            },
+            "type": "Interval",
+          },
+        ],
+        "name": "My Workout",
+        "tags": Array [],
+      }
+    `);
+  });
+
+  it("treats positive comment offset as relative to interval start when there's no previous comment", () => {
+    expect(
+      parse(`
+Name: My Workout
+Interval: 10:00 90%
+  @ +1:00 First comment
+`),
+    ).toMatchInlineSnapshot(`
+      Object {
+        "author": "",
+        "description": "",
+        "intervals": Array [
+          Object {
+            "cadence": undefined,
+            "comments": Array [
+              Object {
+                "loc": Object {
+                  "col": 4,
+                  "row": 3,
+                },
+                "offset": Duration {
+                  "seconds": 60,
+                },
+                "text": "First comment",
+              },
+            ],
+            "duration": Duration {
+              "seconds": 600,
+            },
+            "intensity": ConstantIntensity {
+              "_value": 0.9,
+            },
+            "type": "Interval",
+          },
+        ],
+        "name": "My Workout",
+        "tags": Array [],
+      }
+    `);
+  });
+
   it("throws error when comment offset is outside of interval length", () => {
     expect(() =>
       parse(`
