@@ -62,7 +62,7 @@ const parseIntervalComments = (tokens: Token[], intervalDuration: Duration): [Co
   while (tokens[0]) {
     const [start, offset, text, ...rest] = tokens;
     if (start.type === "comment-start") {
-      if (!offset || offset.type !== "duration") {
+      if (!offset || offset.type !== "offset") {
         throw new ParseError(
           `Expected [comment offset] instead got ${tokenToString(offset)}`,
           offset?.loc || start.loc,
@@ -73,7 +73,7 @@ const parseIntervalComments = (tokens: Token[], intervalDuration: Duration): [Co
       }
       comments.push({
         // when offset is negative, recalculate it based on interval length
-        offset: new Duration(offset.value >= 0 ? offset.value : intervalDuration.seconds + offset.value),
+        offset: new Duration(offset.kind === "absolute" ? offset.value : intervalDuration.seconds - offset.value),
         text: text.value,
         loc: offset.loc,
       });

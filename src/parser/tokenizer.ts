@@ -36,6 +36,12 @@ export type NumberToken = {
   value: number;
   loc: SourceLocation;
 };
+export type OffsetToken = {
+  type: "offset";
+  kind: "absolute" | "relative-plus" | "relative-minus";
+  value: number;
+  loc: SourceLocation;
+};
 export type RangeIntensityToken = {
   type: "intensity-range";
   value: [number, number];
@@ -46,7 +52,14 @@ export type CommentStartToken = {
   value?: undefined;
   loc: SourceLocation;
 };
-export type Token = HeaderToken | IntervalToken | TextToken | NumberToken | RangeIntensityToken | CommentStartToken;
+export type Token =
+  | HeaderToken
+  | IntervalToken
+  | TextToken
+  | NumberToken
+  | OffsetToken
+  | RangeIntensityToken
+  | CommentStartToken;
 
 const toInteger = (str: string): number => {
   return parseInt(str.replace(/[^0-9]/, ""), 10);
@@ -93,13 +106,17 @@ const tokenizeComment = (line: string, row: number): Token[] | undefined => {
   if (!commentHead) {
     return undefined;
   }
-  const sign = minus ? -1 : 1;
   if (!DURATION_REGEX.test(offset)) {
     throw new ParseError("Invalid comment offset", { row, col: commentHead.length });
   }
   return [
     { type: "comment-start", loc: { row, col: line.indexOf("@") } },
-    { type: "duration", value: sign * toSeconds(offset), loc: { row, col: commentHead.length } },
+    {
+      type: "offset",
+      kind: minus ? "relative-minus" : "absolute",
+      value: toSeconds(offset),
+      loc: { row, col: commentHead.length },
+    },
     { type: "text", value: commentText.trim(), loc: { row, col: commentHead.length + offset.length } },
   ];
 };
