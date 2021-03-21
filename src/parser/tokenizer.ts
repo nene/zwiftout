@@ -1,13 +1,13 @@
 import { ParseError } from "./ParseError";
 
 export type HeaderType = "Name" | "Author" | "Description" | "Tags";
-export type IntervalType = "Warmup" | "Rest" | "Interval" | "Cooldown" | "FreeRide";
+export type IntervalType = "Warmup" | "Rest" | "Interval" | "Cooldown" | "FreeRide" | "Ramp";
 
 const isHeaderType = (value: string): value is HeaderType => {
   return ["Name", "Author", "Description", "Tags"].includes(value);
 };
 const isIntervalType = (value: string): value is IntervalType => {
-  return ["Warmup", "Rest", "Interval", "Cooldown", "FreeRide"].includes(value);
+  return ["Warmup", "Rest", "Interval", "Cooldown", "FreeRide", "Ramp"].includes(value);
 };
 
 // 0-based row and column indexes. First line is 0th.

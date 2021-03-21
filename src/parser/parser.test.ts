@@ -231,6 +231,7 @@ Name: My Workout
 
 Warmup: 5:30 50%..80% 100rpm
 Cooldown: 5:30 70%..45%
+Ramp: 5:30 90%..100%
 `).intervals,
     ).toMatchInlineSnapshot(`
       Array [
@@ -257,6 +258,18 @@ Cooldown: 5:30 70%..45%
             "_start": 0.7,
           },
           "type": "Cooldown",
+        },
+        Object {
+          "cadence": undefined,
+          "comments": Array [],
+          "duration": Duration {
+            "seconds": 330,
+          },
+          "intensity": RangeIntensity {
+            "_end": 1,
+            "_start": 0.9,
+          },
+          "type": "Ramp",
         },
       ]
     `);
