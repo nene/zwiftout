@@ -12,6 +12,7 @@ const filenames = [
   "examples/ftp-test.txt",
   "examples/halvfems.txt",
   "examples/threshold-pushing.txt",
+  "examples/ramps.txt",
 ];
 
 describe("Generate ZWO", () => {

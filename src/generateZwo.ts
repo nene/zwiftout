@@ -11,7 +11,7 @@ const generateTextEvents = (comments: Comment[]): xml.XmlObject[] => {
 };
 
 const generateRangeInterval = (
-  tagName: "Warmup" | "Cooldown",
+  tagName: "Warmup" | "Cooldown" | "Ramp",
   { duration, intensity, cadence, comments }: Interval,
 ): xml.XmlObject => {
   return {
@@ -79,16 +79,22 @@ const generateRepeatInterval = (repInterval: RepeatedInterval): xml.XmlObject =>
   };
 };
 
-const generateInterval = (interval: Interval | RepeatedInterval): xml.XmlObject => {
+const generateInterval = (
+  interval: Interval | RepeatedInterval,
+  index: number,
+  allIntervals: (Interval | RepeatedInterval)[],
+): xml.XmlObject => {
   if (interval.type === "repeat") {
     return generateRepeatInterval(interval);
   }
 
   const { intensity } = interval;
-  if (intensity.start < intensity.end) {
+  if (index === 0 && intensity.start < intensity.end) {
     return generateRangeInterval("Warmup", interval);
-  } else if (intensity.start > intensity.end) {
+  } else if (index === allIntervals.length - 1 && intensity.start > intensity.end) {
     return generateRangeInterval("Cooldown", interval);
+  } else if (intensity.start !== intensity.end) {
+    return generateRangeInterval("Ramp", interval);
   } else if (intensity.zone === "free") {
     return generateFreeRideInterval(interval);
   } else {

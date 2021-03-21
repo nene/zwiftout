@@ -226,6 +226,31 @@ The workouts are alphabetically ordered from easiest to hardest, so enjoy the mi
 </workout_file>"
 `;
 
+exports[`Generate ZWO examples/ramps.txt 1`] = `
+"<workout_file>
+  <name>Ramps</name>
+  <author>R.Saarsoo</author>
+  <description>Various kinds of ramp intervals.</description>
+  <tags>
+  </tags>
+  <sportType>bike</sportType>
+  <workout>
+    <Warmup Duration=\\"300\\" PowerLow=\\"0.4\\" PowerHigh=\\"0.75\\">
+    </Warmup>
+    <Ramp Duration=\\"600\\" PowerLow=\\"0.8\\" PowerHigh=\\"0.9\\">
+    </Ramp>
+    <Ramp Duration=\\"600\\" PowerLow=\\"0.9\\" PowerHigh=\\"0.8\\">
+    </Ramp>
+    <Ramp Duration=\\"600\\" PowerLow=\\"0.8\\" PowerHigh=\\"0.9\\">
+    </Ramp>
+    <Ramp Duration=\\"600\\" PowerLow=\\"0.9\\" PowerHigh=\\"0.8\\">
+    </Ramp>
+    <Cooldown Duration=\\"300\\" PowerLow=\\"0.75\\" PowerHigh=\\"0.4\\">
+    </Cooldown>
+  </workout>
+</workout_file>"
+`;
+
 exports[`Generate ZWO examples/threshold-pushing.txt 1`] = `
 "<workout_file>
   <name>Threshold pushing</name>
@@ -333,6 +358,27 @@ Zone Distribution:
   0 min - Z3: Tempo
  37 min - Z4: Threshold
   1 min - Z5: VO2 Max
+  0 min - Z6: Anaerobic
+  0 min - Freeride
+"
+`;
+
+exports[`Generate stats examples/ramps.txt 1`] = `
+"
+Total duration: 50 minutes
+
+Average intensity: 80%
+Normalized intensity: 82%
+
+TSS: 56
+XP: 300
+
+Zone Distribution:
+  6 min - Z1: Recovery
+  4 min - Z2: Endurance
+ 40 min - Z3: Tempo
+  0 min - Z4: Threshold
+  0 min - Z5: VO2 Max
   0 min - Z6: Anaerobic
   0 min - Freeride
 "

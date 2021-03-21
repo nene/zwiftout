@@ -1,0 +1,14 @@
+Name: Ramps
+Author: R.Saarsoo
+Description:
+  Various kinds of ramp intervals.
+
+Ramp: 5:00 40%..75%
+
+Ramp: 10:00 80%..90%
+Ramp: 10:00 90%..80%
+
+Warmup: 10:00 80%..90%
+Cooldown: 10:00 90%..80%
+
+Ramp: 5:00 75%..40%
