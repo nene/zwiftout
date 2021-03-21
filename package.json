@@ -1,6 +1,6 @@
 {
   "name": "zwiftout",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "GPL-3.0-or-later",
   "description": "Zwift workout generator command line tool and library",
   "author": "Rene Saarsoo <github@triin.net>",
@@ -21,7 +21,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "zwiftout": "./bin/zwiftout.js"
+    "zwiftout": "bin/zwiftout.js"
   },
   "dependencies": {
     "argparse": "^2.0.1",
