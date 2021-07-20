@@ -1,7 +1,7 @@
 import { last } from "ramda";
 import { Interval, Workout, Comment } from "../ast";
 import { Duration } from "../Duration";
-import { ConstantIntensity, FreeIntensity, RangeIntensity } from "../Intensity";
+import { ConstantIntensity, FreeIntensity, RangeIntensity, RangeIntensityEnd } from "../Intensity";
 import { ParseError } from "./ParseError";
 import { IntervalType, OffsetToken, SourceLocation, Token } from "./tokenizer";
 
@@ -157,6 +157,9 @@ const parseIntervalParams = (type: IntervalType, tokens: Token[], loc: SourceLoc
       tokens.shift();
     } else if (token.type === "intensity-range") {
       intensity = new RangeIntensity(token.value[0], token.value[1]);
+      tokens.shift();
+    } else if (token.type === "intensity-range-end") {
+      intensity = new RangeIntensityEnd(token.value);
       tokens.shift();
     } else {
       break;

@@ -47,6 +47,26 @@ export class RangeIntensity implements Intensity {
   }
 }
 
+export class RangeIntensityEnd implements Intensity {
+  constructor(private _end: number) {}
+
+  get value() {
+    return this._end;
+  }
+
+  get start(): number {
+    throw new Error("RangeIntensityEnd has no start");
+  }
+
+  get end() {
+    return this._end;
+  }
+
+  get zone() {
+    return intensityValueToZoneType(this.value);
+  }
+}
+
 export class FreeIntensity implements Intensity {
   get value() {
     // To match Zwift, which gives 64 TSS for 1h of freeride.

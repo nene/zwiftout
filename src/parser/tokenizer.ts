@@ -47,6 +47,11 @@ export type RangeIntensityToken = {
   value: [number, number];
   loc: SourceLocation;
 };
+export type RangeIntensityEndToken = {
+  type: "intensity-range-end";
+  value: number;
+  loc: SourceLocation;
+};
 export type CommentStartToken = {
   type: "comment-start";
   value?: undefined;
@@ -59,6 +64,7 @@ export type Token =
   | NumberToken
   | OffsetToken
   | RangeIntensityToken
+  | RangeIntensityEndToken
   | CommentStartToken;
 
 const toInteger = (str: string): number => {
@@ -81,9 +87,13 @@ const tokenizeValueParam = (text: string, loc: SourceLocation): Token => {
   if (/^[0-9]+rpm$/.test(text)) {
     return { type: "cadence", value: toInteger(text), loc };
   }
-  if (/^[0-9]+%..[0-9]+%$/.test(text)) {
+  if (/^[0-9]+%\.\.[0-9]+%$/.test(text)) {
     const [from, to] = text.split("..").map(toInteger).map(toFraction);
     return { type: "intensity-range", value: [from, to], loc };
+  }
+  if (/^\.\.[0-9]+%$/.test(text)) {
+    const [, /* _ */ to] = text.split("..").map(toInteger).map(toFraction);
+    return { type: "intensity-range-end", value: to, loc };
   }
   if (/^[0-9]+%$/.test(text)) {
     return { type: "intensity", value: toFraction(toInteger(text)), loc };

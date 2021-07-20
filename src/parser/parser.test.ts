@@ -275,6 +275,131 @@ Ramp: 5:30 90%..100%
     `);
   });
 
+  it("parses end-of-range intervals after power-range interval", () => {
+    expect(
+      parse(`
+Name: My Workout
+
+Ramp: 5:00 50%..75%
+Ramp: 5:00 ..100%
+Ramp: 5:00 ..50%
+`).intervals,
+    ).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "cadence": undefined,
+          "comments": Array [],
+          "duration": Duration {
+            "seconds": 300,
+          },
+          "intensity": RangeIntensity {
+            "_end": 0.75,
+            "_start": 0.5,
+          },
+          "type": "Ramp",
+        },
+        Object {
+          "cadence": undefined,
+          "comments": Array [],
+          "duration": Duration {
+            "seconds": 300,
+          },
+          "intensity": RangeIntensity {
+            "_end": 1,
+            "_start": 0.75,
+          },
+          "type": "Ramp",
+        },
+        Object {
+          "cadence": undefined,
+          "comments": Array [],
+          "duration": Duration {
+            "seconds": 300,
+          },
+          "intensity": RangeIntensity {
+            "_end": 0.5,
+            "_start": 1,
+          },
+          "type": "Ramp",
+        },
+      ]
+    `);
+  });
+
+  it("parses end-of-range intervals after normal interval", () => {
+    expect(
+      parse(`
+Name: My Workout
+
+Interval: 5:00 75%
+Ramp: 5:00 ..100%
+Ramp: 5:00 ..50%
+`).intervals,
+    ).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "cadence": undefined,
+          "comments": Array [],
+          "duration": Duration {
+            "seconds": 300,
+          },
+          "intensity": ConstantIntensity {
+            "_value": 0.75,
+          },
+          "type": "Interval",
+        },
+        Object {
+          "cadence": undefined,
+          "comments": Array [],
+          "duration": Duration {
+            "seconds": 300,
+          },
+          "intensity": RangeIntensity {
+            "_end": 1,
+            "_start": 0.75,
+          },
+          "type": "Ramp",
+        },
+        Object {
+          "cadence": undefined,
+          "comments": Array [],
+          "duration": Duration {
+            "seconds": 300,
+          },
+          "intensity": RangeIntensity {
+            "_end": 0.5,
+            "_start": 1,
+          },
+          "type": "Ramp",
+        },
+      ]
+    `);
+  });
+
+  it("throws error when end-of-range intervals after free-ride interval", () => {
+    expect(
+      () =>
+        parse(`
+Name: My Workout
+
+FreeRide: 5:00
+Ramp: 5:00 ..100%
+Ramp: 5:00 ..50%
+`).intervals,
+    ).toThrowErrorMatchingInlineSnapshot(`"range-intensity-end interval can't be after free-intensity interval"`);
+  });
+
+  it("throws error when end-of-range intervals is the first interval", () => {
+    expect(
+      () =>
+        parse(`
+Name: My Workout
+
+Ramp: 5:00 ..50%
+`).intervals,
+    ).toThrowErrorMatchingInlineSnapshot(`"range-intensity-end interval can't be the first interval"`);
+  });
+
   it("parses free-ride intervals", () => {
     expect(
       parse(`
