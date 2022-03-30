@@ -17,13 +17,10 @@ export const parseCliOptions = (): CliOptions => {
     default: false,
   });
 
-  argParser.add_argument("file", { nargs: 1 });
+  argParser.add_argument("file", {
+    nargs: "?",
+    default: 0, // Default to reading STDIN
+  });
 
-  // As we only allow one file as input,
-  // convert filenames array to just a single string.
-  const { file, ...rest } = argParser.parse_args();
-  return {
-    file: file[0],
-    ...rest,
-  };
+  return argParser.parse_args();
 };
